@@ -1,14 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        'white': '#FFFFFF',
-        'netural': {
+        white: '#FFFFFF',
+        neutral: {
           10: '#FDFDFD',
           20: '#F8F8F8',
           30: '#E6E6E6',
@@ -20,7 +17,7 @@ export default {
           90: '#222222',
           100: '#000000',
         },
-        'success': {
+        success: {
           10: '#E8FCF1',
           20: '#A5E1BF',
           40: '#419E6A',
@@ -28,7 +25,7 @@ export default {
           80: '#00401C',
           100: '#002611',
         },
-        'info': {
+        info: {
           10: '#D3E1FE',
           20: '#7EA5F8',
           40: '#4D82F3',
@@ -36,7 +33,7 @@ export default {
           80: '#0037B3',
           100: '#002987',
         },
-        'warning': {
+        warning: {
           10: '#FFF5D5',
           20: '#FFDE81',
           40: '#EFB008',
@@ -44,7 +41,7 @@ export default {
           80: '#724B00',
           100: '#4D2900',
         },
-        'error': {
+        error: {
           10: '#FFEBEB',
           20: '#FC9595',
           40: '#D83232',
@@ -56,5 +53,7 @@ export default {
     },
   },
   plugins: [],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 }
-

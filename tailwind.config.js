@@ -17,6 +17,9 @@ export default {
           90: '#222222',
           100: '#000000',
         },
+        brand: {
+          yellow: '#FFFC62',
+        },
         success: {
           10: '#E8FCF1',
           20: '#A5E1BF',

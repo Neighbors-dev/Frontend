@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { PencilIcon } from '@/assets'
+import { KakaoIcon, PencilIcon } from '@/assets'
 import SolidButton from '@/components/SolidButton'
 import TextButton from '@/components/TextButton'
 
@@ -15,7 +15,6 @@ export default function Login() {
         {/* TODO: 로고 이미지 넣기 */}
         <h1 className="headline-medium text-white">로고</h1>
         <section className="flex w-[335px] flex-col gap-5">
-          {/* TODO: 카카오 로그인 버튼 디자인 수정 */}
           <SolidButton
             variant="primary"
             size="large"
@@ -23,6 +22,7 @@ export default function Login() {
             className="bg-[#FEE500]"
             onClick={() => navigate(kakaoLoginUrl)}
           >
+            <KakaoIcon />
             카카오로 시작하기
           </SolidButton>
           <TextButton

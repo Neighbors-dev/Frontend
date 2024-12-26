@@ -29,7 +29,15 @@ export default function SolidButton({
   }[size]
 
   return (
-    <button className={twMerge(variantClass, sizeClass, className)} {...props}>
+    <button
+      className={twMerge(
+        'flex items-center justify-center gap-1.5',
+        variantClass,
+        sizeClass,
+        className
+      )}
+      {...props}
+    >
       {children}
     </button>
   )

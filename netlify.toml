@@ -1,0 +1,4 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+  environment = { NODE_VERSION = "22.12.0" }

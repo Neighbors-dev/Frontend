@@ -53,6 +53,9 @@ export default {
           100: '#660000',
         },
       },
+      backgroundImage: {
+        'message-gradient': 'linear-gradient(to bottom, #FDFDFD 46.75%, #FFFED9 100%)',
+      },
     },
   },
   plugins: [],

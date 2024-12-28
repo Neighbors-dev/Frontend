@@ -6,6 +6,7 @@
 @layer base {
   :root {
     --body-bg-color: var(--color-white);
+    --vh: 1vh;
   }
 
   *:focus {
@@ -18,12 +19,20 @@
     background-color: var(--body-bg-color);
   }
 
+  #root {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    min-height: calc(var(--vh, 1vh) * 100);
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
   .headline-medium {
     font-size: 1.75rem;
     font-weight: 600;
     line-height: 2.5rem;
     letter-spacing: -1%;
-    color: red;
   }
 
   .headline-small {
@@ -110,22 +119,5 @@
     font-size: 0.75rem;
     font-weight: 500;
     line-height: 1.125rem;
-  }
-}
-
-@layer utilities {
-  :root {
-    --vh: 1vh;
-  }
-
-  .full-height {
-    height: calc(var(--vh, 1vh) * 100);
-  }
-
-  .max-w-600 {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    overflow-x: hidden;
   }
 }

@@ -1,11 +1,15 @@
+import { postNickname } from '@/apis/user'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
+import { setSessionNickname } from '@/utils/nicknameUtils'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // 닉네임 페이지로 이동 시, 재등록 가능?
 
 export default function Nickname() {
   const [nickname, setNickname] = useState('')
+  const navigate = useNavigate()
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>, maxlength: number) => {
     let currentValue = e.target.value
@@ -13,9 +17,17 @@ export default function Nickname() {
     setNickname(currentValue)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     // TODO: 닉네임 서버로 전송
     // 성공 시, 스토리지에 닉네임 저장 & /nickname-complete로 이동
+    const result = await postNickname(nickname.slice(0, 5))
+    if (result) {
+      setSessionNickname(nickname.slice(0, 5))
+      navigate('/nickname-complete')
+    } else {
+      window.alert('닉네임 등록에 실패했습니다. 다시 시도해주세요.')
+    }
   }
 
   return (

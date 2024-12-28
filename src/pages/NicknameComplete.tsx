@@ -1,15 +1,16 @@
 import { ArrowLeftIcon } from '@/assets'
 import SolidButton from '@/components/SolidButton'
+import { getSessionNickname, removeSessionNickname } from '@/utils/nicknameUtils'
 import { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function NicknameComplete() {
   // TODO: key값 변경 필요
-  const nickname = sessionStorage.getItem('nickname')
+  const nickname = getSessionNickname()
   const navigate = useNavigate()
 
   useEffect(() => {
-    return () => sessionStorage.removeItem('nickname')
+    return () => removeSessionNickname()
   }, [])
 
   if (!nickname) return <Navigate to="/nickname" replace />
@@ -27,7 +28,7 @@ export default function NicknameComplete() {
             <h1 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h1>
             <h2 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h2>
           </section>
-          <div className="bg-brand-yellow flex items-center justify-center p-10">
+          <div className="flex items-center justify-center bg-brand-yellow p-10">
             일러스트 들어갈 자리
           </div>
           <SolidButton

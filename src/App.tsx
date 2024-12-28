@@ -1,25 +1,13 @@
-import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Login from '@/pages/Login'
 import AuthCallback from '@/pages/AuthCallback'
 import Main from '@/pages/Main'
 import Nickname from '@/pages/Nickname'
 import NicknameComplete from '@/pages/NicknameComplete'
+import useViewportHeight from '@/hooks/useViewportHeight'
 
 export default function App() {
-  useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
-    }
-
-    setVh()
-    window.addEventListener('resize', setVh)
-
-    return () => {
-      window.removeEventListener('resize', setVh)
-    }
-  }, [])
+  useViewportHeight()
 
   return (
     <Routes>

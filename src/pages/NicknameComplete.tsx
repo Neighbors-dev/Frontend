@@ -37,6 +37,7 @@ export default function NicknameComplete() {
           className=""
           onClick={() => {
             // TODO: 메시지 작성 페이지로 이동
+            navigate('/')
           }}
         >
           메시지 작성하러 가기

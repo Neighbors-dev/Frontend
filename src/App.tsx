@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import Login from '@/pages/Login'
 import AuthCallback from '@/pages/AuthCallback'
-import Nickname from './pages/Nickname'
-import NicknameComplete from './pages/NicknameComplete'
-import Main from './pages/Main'
-import useViewportHeight from './hooks/useViewportHeight'
+import Main from '@/pages/Main'
+import Nickname from '@/pages/Nickname'
+import NicknameComplete from '@/pages/NicknameComplete'
+import useViewportHeight from '@/hooks/useViewportHeight'
 
 export default function App() {
   useViewportHeight()

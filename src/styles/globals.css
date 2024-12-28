@@ -4,6 +4,10 @@
 @import url('https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/subsets/Pretendard-dynamic-subset.css');
 
 @layer base {
+  :root {
+    --body-bg-color: var(--color-white);
+  }
+
   *:focus {
     outline: none;
   }
@@ -11,6 +15,7 @@
   body {
     font-family: 'Pretendard', sans-serif;
     font-synthesis: none;
+    background-color: var(--body-bg-color);
   }
 
   .headline-medium {
@@ -121,5 +126,6 @@
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
+    overflow-x: hidden;
   }
 }

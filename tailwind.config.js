@@ -55,7 +55,26 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }) {
+      const colors = theme('colors')
+      const cssVariables = Object.keys(colors).reduce((acc, key) => {
+        const value = colors[key]
+        if (typeof value === 'string') {
+          acc[`--color-${key}`] = value
+        } else {
+          Object.keys(value).forEach((subKey) => {
+            acc[`--color-${key}-${subKey}`] = value[subKey]
+          })
+        }
+        return acc
+      }, {})
+
+      addBase({
+        ':root': cssVariables,
+      })
+    },
+  ],
   future: {
     hoverOnlyWhenSupported: true,
   },

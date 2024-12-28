@@ -1,6 +1,7 @@
 import { postNickname } from '@/apis/user'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
+import { setSessionNickname } from '@/utils/nicknameUtils'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,7 +23,7 @@ export default function Nickname() {
     // 성공 시, 스토리지에 닉네임 저장 & /nickname-complete로 이동
     const result = await postNickname(nickname.slice(0, 5))
     if (result) {
-      sessionStorage.setItem('neighbor-NN', nickname.slice(0, 5))
+      setSessionNickname(nickname.slice(0, 5))
       navigate('/nickname-complete')
     } else {
       window.alert('닉네임 등록에 실패했습니다. 다시 시도해주세요.')

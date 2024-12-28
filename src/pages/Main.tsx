@@ -1,16 +1,28 @@
+import { getMessages, Message } from '@/apis/message'
+import { getNotices } from '@/apis/notice'
 import { HamburgerIcon, PencilIcon } from '@/assets'
-import Message from '@/components/Message'
+import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-const NOTICES = ['공지글입니다~!!', '두 번째 공지글입니다~!!', '세 번째 공지글입니다~!!']
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
   const [slideIndex, setSlideIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(true)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [notices, setNotices] = useState<string[]>([])
   const noticeRef = useRef<HTMLDivElement>(null)
+
+  const fetchNotices = async () => {
+    const result = await getNotices()
+    if (result) setNotices([...result.notices, result.notices[0]])
+  }
+
+  const fetchMessages = async () => {
+    const result = await getMessages()
+    if (result) setMessages(result.messages)
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,6 +35,8 @@ export default function Main() {
     }
 
     window.addEventListener('scroll', handleScroll)
+    fetchNotices()
+    fetchMessages()
 
     return () => {
       clearInterval(interval)
@@ -45,7 +59,7 @@ export default function Main() {
       }, 500)
     }
 
-    if (slideIndex === NOTICES.length) {
+    if (slideIndex === notices.length) {
       handleMoveToFirstSlide()
     }
   }, [slideIndex])
@@ -70,7 +84,7 @@ export default function Main() {
                   transform: `translateY(-${slideIndex * 22}px)`,
                 }}
               >
-                {NOTICES.concat(NOTICES[0]).map((notice, index) => (
+                {notices.map((notice, index) => (
                   <p
                     key={index}
                     className="body-medium line-clamp-1 h-[22px] break-all text-white/60"
@@ -82,7 +96,7 @@ export default function Main() {
             </div>
           </section>
           <h2 className="headline-small mx-5 mt-6 text-white">
-            지금까지 {38}개의
+            지금까지 {messages.length}개의
             <br />
             메시지가 모였어요 💌
           </h2>
@@ -99,46 +113,14 @@ export default function Main() {
             )}
           />
           <section className="mx-5 my-7 flex flex-col gap-5">
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
-            <Message
-              to="용산경찰서 김대헌 경관님"
-              from="죠죠다"
-              content="OO파출소 경찰관님! 만취해서 전봇대에서 잠든 저를 구해주셔서 감사합니다! 항상 응원합니다!"
-            />
+            {messages.map((message) => (
+              <MessageCard
+                key={message.id}
+                to={message.to}
+                from={message.from}
+                content={message.content}
+              />
+            ))}
           </section>
           <div className="max-w-600 fixed bottom-0 left-1/2 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
         </main>

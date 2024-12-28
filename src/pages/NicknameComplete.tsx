@@ -1,17 +1,15 @@
 import { ArrowLeftIcon } from '@/assets'
 import SolidButton from '@/components/SolidButton'
-import { getSessionNickname, removeSessionNickname } from '@/utils/nicknameUtils'
-import { useEffect } from 'react'
+import { getSessionNickname } from '@/utils/nicknameUtils'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function NicknameComplete() {
-  // TODO: key값 변경 필요
   const nickname = getSessionNickname()
   const navigate = useNavigate()
 
-  useEffect(() => {
+  /* useEffect(() => {
     return () => removeSessionNickname()
-  }, [])
+  }, []) */
 
   if (!nickname) return <Navigate to="/nickname" replace />
 

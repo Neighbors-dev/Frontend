@@ -37,7 +37,7 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
     <div
       className={twMerge(
         'full-height max-w-600 fixed left-1/2 top-0 -translate-x-1/2',
-        show ? 'z-30' : 'z-0'
+        show ? 'z-50' : 'z-0'
       )}
     >
       <aside

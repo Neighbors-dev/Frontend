@@ -1,4 +1,4 @@
-import { client } from './client'
+import { mockingClient } from './client'
 
 interface Notice {
   notices: string[]
@@ -6,7 +6,7 @@ interface Notice {
 
 export const getNotices = async () => {
   try {
-    const { data } = await client.get<Notice>('/mocks/notice.json')
+    const { data } = await mockingClient.get<Notice>('/mocks/notice.json')
     return data
   } catch (error) {
     if (error instanceof Error) {

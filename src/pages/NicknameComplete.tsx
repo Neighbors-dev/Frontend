@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@/assets'
+import PrevButton from '@/components/PrevButton'
 import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { getSessionNickname } from '@/utils/nicknameUtils'
@@ -18,9 +18,7 @@ export default function NicknameComplete() {
   return (
     <main className="flex w-full flex-col">
       <header className="max-w-600 px-5 py-3">
-        <button type="button" onClick={() => navigate('/nickname')}>
-          <ArrowLeftIcon className="h-6 w-6 text-white" />
-        </button>
+        <PrevButton onClick={() => navigate('/nickname')} />
       </header>
       <div className="flex grow flex-col justify-between px-5 pb-[5%] pt-[7%]">
         <section className="w-full text-center">

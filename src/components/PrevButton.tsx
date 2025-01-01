@@ -1,7 +1,7 @@
 import { ArrowLeftIcon } from '@/assets'
 
 interface PrevButtonProps {
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function PrevButton({ onClick }: PrevButtonProps) {

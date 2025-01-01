@@ -1,0 +1,12 @@
+@layer utilities {
+  .full-height {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .max-w-600 {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+}

@@ -3,6 +3,7 @@ import { getNotices } from '@/apis/notice'
 import { HamburgerIcon, PencilIcon } from '@/assets'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
+import TopButton from '@/components/TopButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import Sidebar from '@/layouts/Sidebar'
 import { useEffect, useRef, useState } from 'react'
@@ -70,6 +71,7 @@ export default function Main() {
 
   return (
     <>
+      <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <main className="mt-12 w-full">
         <header className="max-w-600 fixed left-1/2 top-0 z-40 mb-1 flex -translate-x-1/2 items-center justify-between bg-[#14192F] px-5 py-3">

@@ -60,6 +60,7 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
                     setTimeout(() => setShow(false), 300)
                   }}
                 >
+                  <item.icon className="h-6 w-6" />
                   {item.menu}
                 </Link>
               </li>

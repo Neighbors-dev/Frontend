@@ -1,6 +1,7 @@
 import { getMessages, Message } from '@/apis/message'
 import { getNotices } from '@/apis/notice'
 import { HamburgerIcon, PencilIcon } from '@/assets'
+import Header from '@/components/Header'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import TopButton from '@/components/TopButton'
@@ -73,13 +74,13 @@ export default function Main() {
     <>
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
-      <main className="mt-12 w-full">
-        <header className="max-w-600 fixed left-1/2 top-0 z-40 mb-1 flex -translate-x-1/2 items-center justify-between bg-[#14192F] px-5 py-3">
+      <main className="w-full">
+        <Header>
           <h1 className="text-white">로고</h1>
           <button type="button" onClick={() => setShowSidebar(true)}>
             <HamburgerIcon className="h-6 w-6 text-white" />
           </button>
-        </header>
+        </Header>
         <section className="mx-5 mt-1 flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3">
           <h2 className="title-small shrink-0 text-white">공지</h2>
           <div className="h-[22px] w-full overflow-hidden">

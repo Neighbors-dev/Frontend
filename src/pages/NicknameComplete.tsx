@@ -1,3 +1,4 @@
+import Header from '@/components/Header'
 import PrevButton from '@/components/PrevButton'
 import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
@@ -17,9 +18,9 @@ export default function NicknameComplete() {
 
   return (
     <main className="flex w-full flex-col">
-      <header className="max-w-600 px-5 py-3">
+      <Header>
         <PrevButton onClick={() => navigate('/nickname')} />
-      </header>
+      </Header>
       <div className="flex grow flex-col justify-between px-5 pb-[5%] pt-[7%]">
         <section className="w-full text-center">
           <h1 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h1>

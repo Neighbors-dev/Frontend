@@ -6,6 +6,7 @@ import HamburgerIcon from '@/assets/hamburger.svg?react'
 import SettingIcon from '@/assets/setting.svg?react'
 import ShareIcon from '@/assets/share.svg?react'
 import QuestionIcon from '@/assets/question.svg?react'
+import CheckIcon from '@/assets/check.svg?react'
 
 export {
   PencilIcon,
@@ -16,4 +17,5 @@ export {
   SettingIcon,
   ShareIcon,
   QuestionIcon,
+  CheckIcon,
 }

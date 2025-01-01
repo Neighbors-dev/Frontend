@@ -40,6 +40,10 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
         show ? 'z-50' : 'z-0'
       )}
     >
+      <div
+        className="pointer-events-none absolute h-[1px] opacity-0 will-change-transform"
+        aria-hidden="true"
+      />
       <aside
         className={twMerge(
           'sidebar ml-auto h-full w-[280px] bg-neutral-90 px-[33px] pb-[30px] pt-[60px] transition-transform duration-300',

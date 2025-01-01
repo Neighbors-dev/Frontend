@@ -33,7 +33,7 @@ export default function Nickname() {
   }
 
   return (
-    <main className="w-full px-5 pb-[5%] pt-[7%]">
+    <main className="content-padding w-full">
       <form className="flex h-full w-full flex-col justify-between" onSubmit={handleSubmit}>
         <section>
           <h1 className="headline-small mb-12 text-white">
@@ -48,13 +48,7 @@ export default function Nickname() {
             onChange={(e) => handleNicknameChange(e, 5)}
           />
         </section>
-        <SolidButton
-          variant="primary"
-          size="large"
-          type="submit"
-          disabled={nickname.trim() === ''}
-          className="disabled:text-neutral-90"
-        >
+        <SolidButton variant="primary" size="large" type="submit" disabled={nickname.trim() === ''}>
           다음
         </SolidButton>
       </form>

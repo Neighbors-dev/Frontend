@@ -21,7 +21,7 @@ export default function NicknameComplete() {
       <Header>
         <PrevButton onClick={() => navigate('/nickname')} />
       </Header>
-      <div className="flex grow flex-col justify-between px-5 pb-[5%] pt-[7%]">
+      <div className="content-padding flex grow flex-col justify-between">
         <section className="w-full text-center">
           <h1 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h1>
           <h2 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h2>

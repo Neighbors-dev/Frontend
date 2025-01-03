@@ -10,6 +10,7 @@ interface FunnelProps {
 }
 
 export default function useFunnel(defaultStep: string) {
+  const [stepHistory, setStepHistory] = useState<string[]>([])
   const [currentStep, setCurrentStep] = useState(defaultStep)
 
   const Funnel = ({ children }: FunnelProps) => {
@@ -21,5 +22,15 @@ export default function useFunnel(defaultStep: string) {
     return <>{children}</>
   }
 
-  return { Funnel, Step, setStep: setCurrentStep, currentStep } as const
+  const setNextStep = (nextStep: string) => {
+    setStepHistory((prev) => [...prev, currentStep])
+    setCurrentStep(nextStep)
+  }
+
+  const setPrevStep = () => {
+    setCurrentStep(stepHistory[stepHistory.length - 1] || defaultStep)
+    setStepHistory((prev) => prev.slice(0, prev.length - 1))
+  }
+
+  return { Funnel, Step, setPrevStep, setNextStep, currentStep } as const
 }

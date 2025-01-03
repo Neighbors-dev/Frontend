@@ -1,7 +1,7 @@
 import { client } from './client'
 
 interface Notice {
-  notices: string[]
+  notices: NoticeType[]
 }
 
 export const getNotices = async () => {

@@ -14,7 +14,7 @@ export default function Main() {
   const [slideIndex, setSlideIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(true)
   const [messages, setMessages] = useState<Message[]>([])
-  const [notices, setNotices] = useState<string[]>([])
+  const [notices, setNotices] = useState<NoticeType[]>([])
   const [showSidebar, setShowSidebar] = useState(false)
   const noticeRef = useRef<HTMLDivElement>(null)
   useBodyBackgroundColor('#14192F')
@@ -95,7 +95,7 @@ export default function Main() {
                   key={index}
                   className="body-medium line-clamp-1 h-[22px] break-all text-white/60"
                 >
-                  {notice}
+                  {notice.title}
                 </p>
               ))}
             </div>

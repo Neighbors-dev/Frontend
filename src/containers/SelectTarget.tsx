@@ -3,11 +3,12 @@ import SolidButton from '@/components/SolidButton'
 import { useState } from 'react'
 
 interface SelectTargetProps {
-  nextButtonOnClick: (selected: 'specific' | 'general') => void
+  buttonList: { text: string; value: string }[]
+  nextButtonOnClick: (selected: string) => void
 }
 
-export default function SelectTarget({ nextButtonOnClick }: SelectTargetProps) {
-  const [selectedTarget, setSelectedTarget] = useState<'specific' | 'general'>()
+export default function SelectTarget({ buttonList, nextButtonOnClick }: SelectTargetProps) {
+  const [selectedTarget, setSelectedTarget] = useState<string>()
 
   return (
     <div className="content-padding-small flex grow flex-col justify-between">
@@ -23,24 +24,18 @@ export default function SelectTarget({ nextButtonOnClick }: SelectTargetProps) {
           특정한 대상이 있나요?
         </h2>
         <div className="mt-20 flex flex-col gap-4">
-          <OutlinedButton
-            size="large"
-            selected={selectedTarget === 'specific'}
-            className="w-full"
-            icon="check"
-            onClick={() => setSelectedTarget('specific')}
-          >
-            특정 경찰/소방관 분께 남길게요
-          </OutlinedButton>
-          <OutlinedButton
-            size="large"
-            selected={selectedTarget === 'general'}
-            className="w-full"
-            icon="check"
-            onClick={() => setSelectedTarget('general')}
-          >
-            특정 대상이 없어요
-          </OutlinedButton>
+          {buttonList.map((button) => (
+            <OutlinedButton
+              key={button.value}
+              size="large"
+              selected={selectedTarget === button.value}
+              className="w-full"
+              icon="check"
+              onClick={() => setSelectedTarget(button.value)}
+            >
+              {button.text}
+            </OutlinedButton>
+          ))}
         </div>
       </section>
       <SolidButton

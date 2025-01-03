@@ -28,6 +28,8 @@ export default function useFunnel(defaultStep: string) {
   }
 
   const setPrevStep = () => {
+    if (stepHistory.length === 0) return
+
     setCurrentStep(stepHistory[stepHistory.length - 1] || defaultStep)
     setStepHistory((prev) => prev.slice(0, prev.length - 1))
   }

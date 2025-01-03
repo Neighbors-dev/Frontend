@@ -13,6 +13,8 @@ export default function useFunnel(defaultStep: string) {
   const [stepHistory, setStepHistory] = useState<string[]>([])
   const [currentStep, setCurrentStep] = useState(defaultStep)
 
+  // TODO: 세션 스토리지에 저장하고 불러오기
+
   const Funnel = ({ children }: FunnelProps) => {
     const targetStep = children.find((childStep) => childStep.props.name === currentStep)
     return <>{targetStep}</>

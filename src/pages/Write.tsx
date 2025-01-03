@@ -1,11 +1,32 @@
 import Header from '@/components/Header'
 import PrevButton from '@/components/PrevButton'
-import SelectTarget from '@/containers/SelectTarget'
+import SelectTarget from '@/containers/Write/SelectTarget'
+import WriteMessage from '@/containers/Write/WriteMessage'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
 import { useState } from 'react'
 
-const WRITE_STEPS = ['select-target', 'second', 'third', 'fourth']
+const WRITE_STEPS = ['SL-T', 'SL-H-T', 'W-I', 'SE-W', 'W-M']
+const SELECT_TARGET_BUTTONS = [
+  {
+    text: '특정 경찰/소방관 분께 남길게요',
+    value: 'specific',
+  },
+  {
+    text: '특정 대상이 없어요',
+    value: 'general',
+  },
+]
+const SELECT_HERO_TYPE_BUTTONS = [
+  {
+    text: '경찰관님 👮‍♂️',
+    value: 'police-officer',
+  },
+  {
+    text: '소방관님 🧑',
+    value: 'firefighter',
+  },
+]
 
 interface MessageInfo {
   target: string | null
@@ -27,21 +48,12 @@ export default function Write() {
       <Funnel>
         <Step name={WRITE_STEPS[0]}>
           <SelectTarget
-            buttonList={[
-              {
-                text: '특정 경찰/소방관 분께 남길게요',
-                value: 'specific',
-              },
-              {
-                text: '특정 대상이 없어요',
-                value: 'general',
-              },
-            ]}
+            buttonList={SELECT_TARGET_BUTTONS}
             nextButtonOnClick={(selected) => {
               if (selected === 'specific') {
                 setNextStep(WRITE_STEPS[1])
               } else {
-                setNextStep(WRITE_STEPS[3])
+                setNextStep(WRITE_STEPS[4])
                 setMessageInfo((prev) => ({ ...prev, target: null }))
               }
             }}
@@ -49,16 +61,7 @@ export default function Write() {
         </Step>
         <Step name={WRITE_STEPS[1]}>
           <SelectTarget
-            buttonList={[
-              {
-                text: '경찰관님 👮‍♂️',
-                value: 'police-officer',
-              },
-              {
-                text: '소방관님 🧑',
-                value: 'firefighter',
-              },
-            ]}
+            buttonList={SELECT_HERO_TYPE_BUTTONS}
             nextButtonOnClick={(selected) => {
               setNextStep(WRITE_STEPS[2])
               if (selected === 'police-officer') {
@@ -70,17 +73,13 @@ export default function Write() {
           />
         </Step>
         <Step name={WRITE_STEPS[2]}>
-          <div className="bg-green-300">
-            <h1>2단계</h1>
-            <button onClick={() => setNextStep('second')}>이전</button>
-            <button onClick={() => setNextStep('fourth')}>다음</button>
-          </div>
+          <h1>{WRITE_STEPS[2]}</h1>
         </Step>
         <Step name={WRITE_STEPS[3]}>
-          <div className="bg-blue-300">
-            <h1>3단계</h1>
-            <button onClick={() => setNextStep('third')}>이전</button>
-          </div>
+          <h1>{WRITE_STEPS[3]}</h1>
+        </Step>
+        <Step name={WRITE_STEPS[4]}>
+          <WriteMessage />
         </Step>
       </Funnel>
     </main>

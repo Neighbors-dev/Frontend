@@ -3,6 +3,7 @@ import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { getSessionNickname } from '@/utils/nicknameUtils'
 import { Navigate, useNavigate } from 'react-router-dom'
+import LampImage from '@/assets/images/lamp.png'
 
 export default function NicknameComplete() {
   const nickname = getSessionNickname()
@@ -22,19 +23,17 @@ export default function NicknameComplete() {
           <ArrowLeftIcon className="h-6 w-6 text-white" />
         </button>
       </header>
-      <div className="flex grow flex-col justify-between px-5 pb-[5%] pt-[7%]">
+      <div className="flex grow flex-col items-center justify-between px-5 pb-[5%] pt-[7%]">
         <section className="w-full text-center">
           <h1 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h1>
           <h2 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h2>
         </section>
-        <div className="flex h-[280px] items-center justify-center bg-brand-yellow px-10">
-          일러스트 들어갈 자리
-        </div>
+        <img src={LampImage} alt="램프 이미지" className="h-auto w-[177px]" />
         <SolidButton
           variant="primary"
           size="large"
           type="button"
-          className=""
+          className="w-full"
           onClick={() => {
             // TODO: 메시지 작성 페이지로 이동
             navigate('/')

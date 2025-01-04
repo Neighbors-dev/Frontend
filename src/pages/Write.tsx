@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import SolidButton from '@/components/SolidButton'
 import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
@@ -28,12 +29,14 @@ const SELECT_HERO_TYPE_BUTTONS = [
 ]
 
 interface MessageInfo {
-  target: string | null
+  target: string | null | undefined
   message: string
 }
 
 export default function Write() {
-  const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: '', message: '' })
+  const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
+  const [specificTarget, setSpecificTarget] = useState<string>()
+  const [selectedHeroType, setSelectedHeroType] = useState<string>()
   const { Funnel, Step, setPrevStep, setNextStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
 
@@ -46,7 +49,10 @@ export default function Write() {
         <Step name={WRITE_STEPS[0]}>
           <SelectTarget
             buttonList={SELECT_TARGET_BUTTONS}
+            defaultSelected={specificTarget}
             nextButtonOnClick={(selected) => {
+              setSpecificTarget(selected)
+              setSelectedHeroType(undefined)
               if (selected === 'specific') {
                 setNextStep(WRITE_STEPS[1])
               } else {
@@ -59,8 +65,10 @@ export default function Write() {
         <Step name={WRITE_STEPS[1]}>
           <SelectTarget
             buttonList={SELECT_HERO_TYPE_BUTTONS}
+            defaultSelected={selectedHeroType}
             nextButtonOnClick={(selected) => {
               setNextStep(WRITE_STEPS[2])
+              setSelectedHeroType(selected)
               if (selected === 'police-officer') {
                 setMessageInfo((prev) => ({ ...prev, target: '경찰관님' }))
               } else {
@@ -70,13 +78,24 @@ export default function Write() {
           />
         </Step>
         <Step name={WRITE_STEPS[2]}>
-          <h1>{WRITE_STEPS[2]}</h1>
+          <div className="content-padding-small flex grow flex-col justify-between">
+            <h1>{WRITE_STEPS[2]}</h1>
+            <p className="text-center text-white">경찰 or 소방관 정보 입력 페이지 넣을 예정</p>
+            <SolidButton
+              variant="primary"
+              size="large"
+              className="w-full"
+              onClick={() => setNextStep(WRITE_STEPS[4])}
+            >
+              다음
+            </SolidButton>
+          </div>
         </Step>
         <Step name={WRITE_STEPS[3]}>
           <h1>{WRITE_STEPS[3]}</h1>
         </Step>
         <Step name={WRITE_STEPS[4]}>
-          <WriteMessage />
+          <WriteMessage isTarget={!!messageInfo.target} />
         </Step>
       </Funnel>
     </main>

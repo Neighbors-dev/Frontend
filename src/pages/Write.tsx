@@ -1,5 +1,4 @@
 import Header from '@/components/Header'
-import PrevButton from '@/components/PrevButton'
 import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
@@ -42,9 +41,7 @@ export default function Write() {
 
   return (
     <main className="flex w-full flex-col">
-      <Header>
-        <PrevButton onClick={setPrevStep} />
-      </Header>
+      <Header onClick={setPrevStep} />
       <Funnel>
         <Step name={WRITE_STEPS[0]}>
           <SelectTarget

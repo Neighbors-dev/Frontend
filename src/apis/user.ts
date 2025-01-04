@@ -1,8 +1,8 @@
-import { client } from './client'
+import { mockingClient } from './client'
 
 export const postNickname = async (nickname: string) => {
   try {
-    const { data } = await client.post('/mocks/nickname.json', {
+    const { data } = await mockingClient.post('/mocks/nickname.json', {
       nickname,
     })
     return data

@@ -1,11 +1,13 @@
 import { twMerge } from 'tailwind-merge'
+import { ArrowLeftIcon } from '@/assets'
 
 interface HeaderProps {
-  children: React.ReactNode
   className?: string
+  title?: string
+  onClick?: () => void
 }
 
-export default function Header({ children, className }: HeaderProps) {
+export default function Header({ className, title = '', onClick }: HeaderProps) {
   return (
     <header
       className={twMerge(
@@ -13,7 +15,11 @@ export default function Header({ children, className }: HeaderProps) {
         className
       )}
     >
-      {children}
+      <button type="button" onClick={onClick}>
+        <ArrowLeftIcon className="h-6 w-6 text-white" />
+      </button>
+      <h1>{title}</h1>
+      <div className="h-6 w-6" />
     </header>
   )
 }

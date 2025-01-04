@@ -17,9 +17,9 @@ export default function NicknameComplete() {
   if (!nickname) return <Navigate to="/nickname" replace />
 
   return (
-    <main className="flex w-full flex-col">
+    <>
       <Header onClick={() => navigate(-1)} />
-      <div className="content-padding flex grow flex-col items-center justify-between">
+      <main className="content-padding flex w-full grow flex-col items-center justify-between">
         <section className="w-full text-center">
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
           <h3 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h3>
@@ -37,7 +37,7 @@ export default function NicknameComplete() {
         >
           메시지 작성하러 가기
         </SolidButton>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }

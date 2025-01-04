@@ -74,8 +74,8 @@ export default function Main() {
     <>
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
-      <main className="w-full">
-        <header className="sticky inset-0 z-40 flex h-12 items-center justify-between bg-transparent px-5">
+      <main className="mt-12 w-full">
+        <header className="max-w-600 fixed left-1/2 top-0 z-40 mb-1 flex -translate-x-1/2 items-center justify-between bg-[#14192F] px-5 py-3">
           <h1 className="text-white">로고</h1>
           <button type="button" onClick={() => setShowSidebar(true)}>
             <HamburgerIcon className="h-6 w-6 text-white" />

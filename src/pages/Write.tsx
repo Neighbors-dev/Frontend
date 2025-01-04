@@ -44,7 +44,7 @@ export default function Write() {
   console.log(messageInfo)
 
   return (
-    <main className="flex w-full flex-col">
+    <>
       <Header
         onClick={setPrevStep}
         icons={
@@ -60,59 +60,61 @@ export default function Write() {
           )
         }
       />
-      <Funnel>
-        <Step name={WRITE_STEPS[0]}>
-          <SelectTarget
-            buttonList={SELECT_TARGET_BUTTONS}
-            defaultSelected={specificTarget}
-            nextButtonOnClick={(selected) => {
-              setSpecificTarget(selected)
-              setSelectedHeroType(undefined)
-              if (selected === 'specific') {
-                setNextStep(WRITE_STEPS[1])
-              } else {
-                setNextStep(WRITE_STEPS[4])
-                setMessageInfo((prev) => ({ ...prev, target: null }))
-              }
-            }}
-          />
-        </Step>
-        <Step name={WRITE_STEPS[1]}>
-          <SelectTarget
-            buttonList={SELECT_HERO_TYPE_BUTTONS}
-            defaultSelected={selectedHeroType}
-            nextButtonOnClick={(selected) => {
-              setNextStep(WRITE_STEPS[2])
-              setSelectedHeroType(selected)
-              if (selected === 'police-officer') {
-                setMessageInfo((prev) => ({ ...prev, target: '경찰관님' }))
-              } else {
-                setMessageInfo((prev) => ({ ...prev, target: '소방관님' }))
-              }
-            }}
-          />
-        </Step>
-        <Step name={WRITE_STEPS[2]}>
-          <div className="content-padding-small flex grow flex-col justify-between">
-            <h1>{WRITE_STEPS[2]}</h1>
-            <p className="text-center text-white">경찰 or 소방관 정보 입력 페이지 넣을 예정</p>
-            <SolidButton
-              variant="primary"
-              size="large"
-              className="w-full"
-              onClick={() => setNextStep(WRITE_STEPS[4])}
-            >
-              다음
-            </SolidButton>
-          </div>
-        </Step>
-        <Step name={WRITE_STEPS[3]}>
-          <h1>{WRITE_STEPS[3]}</h1>
-        </Step>
-        <Step name={WRITE_STEPS[4]}>
-          <WriteMessage isTarget={!!messageInfo.target} />
-        </Step>
-      </Funnel>
-    </main>
+      <main className="content-padding-small flex w-full grow flex-col">
+        <Funnel>
+          <Step name={WRITE_STEPS[0]}>
+            <SelectTarget
+              buttonList={SELECT_TARGET_BUTTONS}
+              defaultSelected={specificTarget}
+              nextButtonOnClick={(selected) => {
+                setSpecificTarget(selected)
+                setSelectedHeroType(undefined)
+                if (selected === 'specific') {
+                  setNextStep(WRITE_STEPS[1])
+                } else {
+                  setNextStep(WRITE_STEPS[4])
+                  setMessageInfo((prev) => ({ ...prev, target: null }))
+                }
+              }}
+            />
+          </Step>
+          <Step name={WRITE_STEPS[1]}>
+            <SelectTarget
+              buttonList={SELECT_HERO_TYPE_BUTTONS}
+              defaultSelected={selectedHeroType}
+              nextButtonOnClick={(selected) => {
+                setNextStep(WRITE_STEPS[2])
+                setSelectedHeroType(selected)
+                if (selected === 'police-officer') {
+                  setMessageInfo((prev) => ({ ...prev, target: '경찰관님' }))
+                } else {
+                  setMessageInfo((prev) => ({ ...prev, target: '소방관님' }))
+                }
+              }}
+            />
+          </Step>
+          <Step name={WRITE_STEPS[2]}>
+            <div className="flex grow flex-col justify-between">
+              <h1>{WRITE_STEPS[2]}</h1>
+              <p className="text-center text-white">경찰 or 소방관 정보 입력 페이지 넣을 예정</p>
+              <SolidButton
+                variant="primary"
+                size="large"
+                className="w-full"
+                onClick={() => setNextStep(WRITE_STEPS[4])}
+              >
+                다음
+              </SolidButton>
+            </div>
+          </Step>
+          <Step name={WRITE_STEPS[3]}>
+            <h1>{WRITE_STEPS[3]}</h1>
+          </Step>
+          <Step name={WRITE_STEPS[4]}>
+            <WriteMessage isTarget={!!messageInfo.target} />
+          </Step>
+        </Funnel>
+      </main>
+    </>
   )
 }

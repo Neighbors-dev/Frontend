@@ -11,7 +11,7 @@ export default function WriteMessage({ isTarget }: MessageMessageProps) {
   const [message, setMessage] = useState('')
 
   return (
-    <div className="content-padding-small flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between">
       <section>
         <h2 className="headline-small mb-2 text-white">
           감사의 메시지를

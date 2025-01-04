@@ -16,7 +16,7 @@ export default function SelectTarget({
   const [selectedTarget, setSelectedTarget] = useState<string | undefined>(defaultSelected)
 
   return (
-    <div className="content-padding-small flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between">
       <section>
         <h2 className="headline-small mb-4 text-white">
           경찰관, 소방관 분들에게

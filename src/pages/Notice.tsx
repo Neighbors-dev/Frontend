@@ -1,5 +1,5 @@
 import { getNotices } from '@/apis/notice'
-import { ArrowLeftIcon } from '@/assets'
+import Header from '@/components/Header'
 import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useEffect, useState } from 'react'
@@ -20,24 +20,13 @@ export default function Notice() {
   }, [])
 
   return (
-    <main className="flex w-full flex-col">
-      <header className="max-w-600 fixed flex items-center justify-between bg-neutral-90 px-5 py-3">
-        <button
-          type="button"
-          onClick={() => {
-            navigate(-1)
-          }}
-        >
-          <ArrowLeftIcon className="h-6 w-6 text-white" />
-        </button>
-        <p className="title-medium text-white">공지사항</p>
-        <div className="h-6 w-6" />
-      </header>
-      <div className="mx-5 mb-5 mt-12 flex grow flex-col gap-3">
+    <>
+      <Header className="bg-neutral-90" onClick={() => navigate(-1)} title="공지사항" />
+      <main className="full-height flex flex-col gap-3 px-5 pb-5">
         {notices.map((notice) => (
           <NoticeItem key={notice.id} notice={notice} />
         ))}
-      </div>
-    </main>
+      </main>
+    </>
   )
 }

@@ -2,18 +2,28 @@ import SolidButton from '@/components/SolidButton'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function WriteMessage() {
+interface MessageMessageProps {
+  isTarget: boolean
+}
+
+export default function WriteMessage({ isTarget }: MessageMessageProps) {
   const navigate = useNavigate()
   const [message, setMessage] = useState('')
 
   return (
     <div className="content-padding-small flex grow flex-col justify-between">
       <section>
-        <h1 className="headline-small mb-14 text-white">
+        <h2 className="headline-small mb-2 text-white">
           감사의 메시지를
           <br />
           작성해 주세요
-        </h1>
+        </h2>
+        <button
+          type="button"
+          className="label-medium mb-7 text-neutral-40 underline underline-offset-2"
+        >
+          어떻게 작성해야 하나요?
+        </button>
         <section className="flex flex-col gap-4 rounded-[20px] bg-message-gradient p-6">
           <h2 className="relative z-0 w-fit">
             <div className="absolute bottom-[1px] z-[-10] h-[11px] w-full bg-brand-yellow/60" />
@@ -39,7 +49,7 @@ export default function WriteMessage() {
           navigate('/')
         }}
       >
-        작성 완료
+        {isTarget ? '다음' : '작성 완료'}
       </SolidButton>
     </div>
   )

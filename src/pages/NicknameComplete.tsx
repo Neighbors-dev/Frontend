@@ -21,8 +21,8 @@ export default function NicknameComplete() {
       <Header onClick={() => navigate(-1)} />
       <div className="content-padding flex grow flex-col items-center justify-between">
         <section className="w-full text-center">
-          <h1 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h1>
-          <h2 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h2>
+          <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
+          <h3 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h3>
         </section>
         <img src={LampImage} alt="램프 이미지" className="h-auto w-[177px]" />
         <SolidButton

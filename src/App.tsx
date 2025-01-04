@@ -5,15 +5,18 @@ import Main from '@/pages/Main'
 import Nickname from '@/pages/Nickname'
 import NicknameComplete from '@/pages/NicknameComplete'
 import useViewportHeight from '@/hooks/useViewportHeight'
+import NonLoggedInRoute from './layouts/NonLoggedInRoute'
 
 export default function App() {
   useViewportHeight()
 
   return (
     <Routes>
+      <Route element={<NonLoggedInRoute />}>
+        <Route path="login" element={<Login />} />
+        <Route path="callback/kakaotalk" element={<AuthCallback />} />
+      </Route>
       <Route index element={<Main />} />
-      <Route path="login" element={<Login />} />
-      <Route path="callback/kakaotalk" element={<AuthCallback />} />
       <Route path="nickname" element={<Nickname />} />
       <Route path="nickname-complete" element={<NicknameComplete />} />
     </Routes>

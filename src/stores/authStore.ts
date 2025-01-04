@@ -14,9 +14,10 @@ const cookies = new Cookies()
 const REFRESH_TOKEN_KEY = 'TH-RT'
 
 const useAuthStore = create<AuthStore>((set, get) => ({
-  isLoggedIn: false,
+  //isLoggedIn: false,
   //accessToken: null,
   // 액세스 토큰 재발급 API 전까지만 사용
+  isLoggedIn: !!sessionStorage.getItem('accessToken'),
   accessToken: sessionStorage.getItem('accessToken')
     ? JSON.parse(sessionStorage.getItem('accessToken')!)
     : null,

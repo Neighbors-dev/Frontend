@@ -3,3 +3,7 @@ interface NoticeType {
   title: string
   date: string
 }
+
+interface NoticeDetailType extends NoticeType {
+  content: string
+}

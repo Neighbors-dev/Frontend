@@ -3,9 +3,11 @@ import { ArrowLeftIcon } from '@/assets'
 import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Notice() {
   const [notices, setNotices] = useState<NoticeType[]>([])
+  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
 
   useEffect(() => {
@@ -20,7 +22,12 @@ export default function Notice() {
   return (
     <main className="flex w-full flex-col">
       <header className="max-w-600 fixed flex items-center justify-between bg-neutral-90 px-5 py-3">
-        <button type="button" onClick={() => {}}>
+        <button
+          type="button"
+          onClick={() => {
+            navigate(-1)
+          }}
+        >
           <ArrowLeftIcon className="h-6 w-6 text-white" />
         </button>
         <p className="title-medium text-white">공지사항</p>

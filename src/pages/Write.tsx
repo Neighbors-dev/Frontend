@@ -1,3 +1,4 @@
+import { MessageIcon, ThumbUpIcon } from '@/assets'
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import SelectTarget from '@/containers/Write/SelectTarget'
@@ -37,14 +38,28 @@ export default function Write() {
   const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
   const [specificTarget, setSpecificTarget] = useState<string>()
   const [selectedHeroType, setSelectedHeroType] = useState<string>()
-  const { Funnel, Step, setPrevStep, setNextStep } = useFunnel(WRITE_STEPS[0])
+  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
 
   console.log(messageInfo)
 
   return (
     <main className="flex w-full flex-col">
-      <Header onClick={setPrevStep} />
+      <Header
+        onClick={setPrevStep}
+        icons={
+          currentStep === WRITE_STEPS[4] && (
+            <section className="flex items-center gap-3">
+              <button type="button">
+                <ThumbUpIcon className="h-6 w-6 text-white" />
+              </button>
+              <button>
+                <MessageIcon className="h-6 w-6 text-white" />
+              </button>
+            </section>
+          )
+        }
+      />
       <Funnel>
         <Step name={WRITE_STEPS[0]}>
           <SelectTarget

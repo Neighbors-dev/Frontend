@@ -17,18 +17,18 @@ client.interceptors.request.use((config) => {
   return config
 })
 
-/* let retry = false
+let retry = false
 
 client.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config
+    //const originalRequest = error.config
     if (error.response?.status === 401 && !retry) {
       retry = true
-      const refreshToken = useAuthStore.getState().getRefreshToken()
+      //const refreshToken = useAuthStore.getState().getRefreshToken()
 
       try {
-        const { data } = await client.post('/refresh', {
+        /* const { data } = await client.post('/refresh', {
           refreshToken,
         });
         useAuthStore.getState().login({
@@ -43,13 +43,18 @@ client.interceptors.response.use(
         });
 
         originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
-        return client(originalRequest);
+        return client(originalRequest); */
+
+        // 임시 로직 : 토큰 재발급 실패 시 로그아웃
+        if (window.confirm('토큰 재발급에 실패했습니다. 다시 로그인하시겠습니까?')) {
+          useAuthStore.getState().logout()
+        }
       } catch {
-        useAuthStore.getState().logout();
+        //useAuthStore.getState().logout();
         // 토큰 재발급 실패 시 로그아웃
       } finally {
-        retry = false;
+        retry = false
       }
     }
   }
-) */
+)

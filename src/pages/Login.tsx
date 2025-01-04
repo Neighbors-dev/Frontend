@@ -2,11 +2,13 @@ import { KakaoIcon, PencilIcon } from '@/assets'
 import SolidButton from '@/components/SolidButton'
 import TextButton from '@/components/TextButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
+import { useNavigate } from 'react-router-dom'
 
 const REDIRECT_URI = `${window.location.origin}${import.meta.env.VITE_KAKAO_REDIRECT_URI}`
 const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
 
 export default function Login() {
+  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
 
   return (
@@ -32,7 +34,7 @@ export default function Login() {
           type="button"
           className="text-brand-yellow"
           onClick={() => {
-            // TODO: 작성하기 페이지로 이동
+            navigate('/')
           }}
         >
           비회원으로 작성하기

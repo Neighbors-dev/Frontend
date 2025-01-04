@@ -1,12 +1,24 @@
 import { client } from './client'
 
-interface Notice {
-  notices: string[]
+interface NoticeResponse {
+  notices: NoticeType[]
 }
 
 export const getNotices = async () => {
   try {
-    const { data } = await client.get<Notice>('/mocks/notice.json')
+    const { data } = await client.get<NoticeResponse>('/mocks/notice.json')
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}
+
+export const getNoticeById = async (id: string) => {
+  console.log(id)
+  try {
+    const { data } = await client.get<NoticeDetailType>('/mocks/notice/1.json')
     return data
   } catch (error) {
     if (error instanceof Error) {

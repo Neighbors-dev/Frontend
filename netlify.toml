@@ -1,0 +1,7 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
+  SECRETS_SCAN_OMIT_KEYS = "VITE_KAKAO_REDIRECT_URI,VITE_KAKAO_CLIENT_ID"

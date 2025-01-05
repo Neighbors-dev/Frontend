@@ -1,48 +1,72 @@
-import { getMainData, getMessages, Message } from '@/apis/message'
-import { HamburgerIcon, PencilIcon } from '@/assets'
+import { getMainData, getMessages } from '@/apis/message'
+import { PencilIcon } from '@/assets'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import TopButton from '@/components/TopButton'
+import Header from '@/containers/Main/Header'
+import NoticeSection from '@/containers/Main/NoticeSection'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import Sidebar from '@/layouts/Sidebar'
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
 import { twMerge } from 'tailwind-merge'
+
+const MESSAGE_SIZE = 5
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
-  const [slideIndex, setSlideIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(true)
-  const [letterCount, setLetterCount] = useState()
-  const [messages, setMessages] = useState<Message[]>([])
-  const [notices, setNotices] = useState<NoticeType[]>([])
   const [showSidebar, setShowSidebar] = useState(false)
-  const noticeRef = useRef<HTMLDivElement>(null)
+  const [loading, setLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+  const [messageCount, setMessageCount] = useState<number | undefined>()
+  const [page, setPage] = useState(0)
+  const [messages, setMessages] = useState<MessageType[]>([])
+  const [notices, setNotices] = useState<NoticeType[]>([])
+  const [ref, inView] = useInView()
   useBodyBackgroundColor('#14192F')
 
-  const fetchData = async () => {
-    const result = await getMainData()
-    console.log(result)
-    if (result) {
-      setNotices([...result.topNotices, result.topNotices[0]])
-      setLetterCount(result.writtenLetterNumber)
+  const fetchMessages = async () => {
+    setLoading(true)
+    try {
+      const result = await getMessages(page, MESSAGE_SIZE)
+      if (result) {
+        if (result.openedLetters.length < MESSAGE_SIZE) {
+          setHasMore(false)
+        }
+        setMessageCount((prev) =>
+          Math.max(prev || 0, messages.length + result.openedLetters.length)
+        )
+        setMessages((prev) => [...prev, ...result.openedLetters])
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
-  /* const fetchNotices = async () => {
-    const result = await getNotices()
-    if (result) setNotices([...result.notices, result.notices[0]])
-  } */
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const result = await getMainData(MESSAGE_SIZE)
 
-  const fetchMessages = async () => {
-    const result = await getMessages()
-    if (result) setMessages(result.messages)
-  }
+        if (result) {
+          setNotices([...result.topNotices, result.topNotices[0]])
+          setMessageCount(result.writtenLetterNumber)
+          if (result.openedLetters.length < MESSAGE_SIZE) {
+            setHasMore(false)
+          }
+          setMessages(result.openedLetters)
+          setPage(1)
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) => prevIndex + 1)
-    }, 3000)
     const handleScroll = () => {
       const scrollPosition = window.scrollY
       const targetPosition = 430
@@ -50,72 +74,28 @@ export default function Main() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    //fetchNotices()
-    fetchData()
-    fetchMessages()
 
     return () => {
-      clearInterval(interval)
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
   useEffect(() => {
-    const handleMoveToFirstSlide = () => {
-      setTimeout(() => {
-        if (noticeRef.current) {
-          setIsTransitioning(false)
-        }
-        setSlideIndex(0)
-        setTimeout(() => {
-          if (noticeRef.current) {
-            setIsTransitioning(true)
-          }
-        }, 100)
-      }, 500)
+    if (inView && !loading && hasMore) {
+      setPage((prevPage) => prevPage + 1)
+      fetchMessages()
     }
-
-    if (slideIndex === notices.length) {
-      handleMoveToFirstSlide()
-    }
-  }, [slideIndex])
+  }, [inView])
 
   return (
     <>
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
+      <Header onClick={() => setShowSidebar(true)} />
       <main className="mt-12 w-full">
-        <header className="max-w-600 fixed left-1/2 top-0 z-40 mb-1 flex -translate-x-1/2 items-center justify-between bg-[#14192F] px-5 py-3">
-          <h1 className="text-white">로고</h1>
-          <button type="button" onClick={() => setShowSidebar(true)}>
-            <HamburgerIcon className="h-6 w-6 text-white" />
-          </button>
-        </header>
-        <Link to="/notice">
-          <section className="relative z-10 mx-5 mt-1 flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3">
-            <h2 className="title-small shrink-0 text-white">공지</h2>
-            <div className="h-[22px] w-full overflow-hidden">
-              <div
-                ref={noticeRef}
-                className={twMerge(isTransitioning && 'ease transition-transform duration-500')}
-                style={{
-                  transform: `translateY(-${slideIndex * 22}px)`,
-                }}
-              >
-                {notices.map((notice, index) => (
-                  <p
-                    key={index}
-                    className="body-medium line-clamp-1 h-[22px] break-all text-white/60"
-                  >
-                    {notice.title}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </section>
-        </Link>
+        <NoticeSection notices={notices} />
         <h2 className="headline-small mx-5 mt-6 text-white">
-          지금까지 {letterCount}개의
+          지금까지 {messageCount}개의
           <br />
           메시지가 모였어요 💌
         </h2>
@@ -131,15 +111,12 @@ export default function Main() {
             showFade ? 'opacity-100' : 'opacity-0'
           )}
         />
-        <section className="mx-5 my-7 flex flex-col gap-5">
-          {messages.map((message) => (
-            <MessageCard
-              key={message.id}
-              to={message.to}
-              from={message.from}
-              content={message.content}
-            />
+        <section className="mx-5 mt-7 flex flex-col items-center gap-5">
+          {messages.map((message, index) => (
+            <MessageCard key={index} message={message} />
           ))}
+          {loading && <div className="loader" />}
+          <div ref={ref} className="h-2" />
         </section>
         <div className="max-w-600 fixed bottom-0 left-1/2 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
       </main>

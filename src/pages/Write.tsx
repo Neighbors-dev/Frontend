@@ -1,8 +1,8 @@
 import { MessageIcon, ThumbUpIcon } from '@/assets'
 import Header from '@/components/Header'
-import SolidButton from '@/components/SolidButton'
 import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
+import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
 import { useState } from 'react'
@@ -94,18 +94,7 @@ export default function Write() {
             />
           </Step>
           <Step name={WRITE_STEPS[2]}>
-            <div className="flex grow flex-col justify-between">
-              <h1>{WRITE_STEPS[2]}</h1>
-              <p className="text-center text-white">경찰 or 소방관 정보 입력 페이지 넣을 예정</p>
-              <SolidButton
-                variant="primary"
-                size="large"
-                className="w-full"
-                onClick={() => setNextStep(WRITE_STEPS[4])}
-              >
-                다음
-              </SolidButton>
-            </div>
+            <WriteTargetInfo nextButtonOnClick={() => setNextStep(WRITE_STEPS[4])} />
           </Step>
           <Step name={WRITE_STEPS[3]}>
             <h1>{WRITE_STEPS[3]}</h1>

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function NoticeDetail() {
-  const [notice, setNotice] = useState<NoticeDetailType>()
+  const [notice, setNotice] = useState<NoticeType>()
   const { id } = useParams()
   const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
@@ -25,7 +25,7 @@ export default function NoticeDetail() {
       <main className="flex w-full flex-col gap-4 px-5 py-5">
         <section>
           <h2 className="title-large mb-1 text-white">{notice?.title}</h2>
-          <p className="label-medium text-neutral-50">{notice?.date}</p>
+          <p className="label-medium text-neutral-50">{notice?.createdAT}</p>
         </section>
         <hr className="border-neutral-80" />
         <p className="body-large whitespace-pre-wrap text-neutral-30">{notice?.content}</p>

@@ -1,0 +1,25 @@
+@layer base {
+  :root {
+    --body-bg-color: var(--color-white);
+    --vh: 1vh;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  body {
+    font-family: 'Pretendard', sans-serif;
+    font-synthesis: none;
+    background-color: var(--body-bg-color);
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    min-height: calc(var(--vh, 1vh) * 100);
+    margin: 0 auto;
+  }
+}

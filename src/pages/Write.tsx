@@ -41,8 +41,6 @@ export default function Write() {
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
 
-  console.log(messageInfo)
-
   return (
     <>
       <Header

@@ -1,12 +1,34 @@
-import { mockingClient } from './client'
+import { client, mockingClient } from './client'
 
 interface NoticeResponse {
-  notices: NoticeType[]
+  data: {
+    noticeList: NoticeType[]
+  }
 }
 
-export const getNotices = async () => {
+/* export const getNotices2 = async (page: number, size: number) => {
   try {
-    const { data } = await mockingClient.get<NoticeResponse>('/mocks/notice.json')
+    const {
+      data: { data },
+    } = await mockingClient.get<NoticeResponse>('/mocks/notice.json')
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+} */
+
+export const getNotices = async (page: number, size: number) => {
+  try {
+    const {
+      data: { data },
+    } = await client.get<NoticeResponse>('/notice', {
+      params: {
+        page,
+        size,
+      },
+    })
     return data
   } catch (error) {
     if (error instanceof Error) {
@@ -18,7 +40,7 @@ export const getNotices = async () => {
 export const getNoticeById = async (id: string) => {
   console.log(id)
   try {
-    const { data } = await mockingClient.get<NoticeDetailType>('/mocks/notice/1.json')
+    const { data } = await mockingClient.get<NoticeType>('/mocks/notice/1.json')
     return data
   } catch (error) {
     if (error instanceof Error) {

@@ -22,6 +22,7 @@ export default function Main() {
   const [page, setPage] = useState(0)
   const [messages, setMessages] = useState<MessageType[]>([])
   const [notices, setNotices] = useState<NoticeType[]>([])
+  const [initialFetch, setInitialFetch] = useState(false)
   const [ref, inView] = useInView()
   useBodyBackgroundColor('#14192F')
 
@@ -38,6 +39,8 @@ export default function Main() {
         )
         setMessages((prev) => [...prev, ...result.openedLetters])
       }
+    } catch {
+      setHasMore(false)
     } finally {
       setLoading(false)
     }
@@ -60,6 +63,7 @@ export default function Main() {
         }
       } finally {
         setLoading(false)
+        setInitialFetch(true)
       }
     }
 
@@ -81,9 +85,9 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
-    if (inView && !loading && hasMore) {
-      setPage((prevPage) => prevPage + 1)
+    if (inView && !loading && hasMore && initialFetch) {
       fetchMessages()
+      setPage((prevPage) => prevPage + 1)
     }
   }, [inView])
 
@@ -111,12 +115,12 @@ export default function Main() {
             showFade ? 'opacity-100' : 'opacity-0'
           )}
         />
-        <section className="mx-5 mt-7 flex flex-col items-center gap-5">
+        <section className="mx-5 my-7 flex flex-col items-center gap-5">
           {messages.map((message, index) => (
             <MessageCard key={index} message={message} />
           ))}
           {loading && <div className="loader" />}
-          <div ref={ref} className="h-2" />
+          {messages.length > 0 && hasMore && <div ref={ref} className="h-4" />}
         </section>
         <div className="max-w-600 fixed bottom-0 left-1/2 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
       </main>

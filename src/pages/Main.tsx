@@ -9,6 +9,7 @@ import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import Sidebar from '@/layouts/Sidebar'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 const MESSAGE_SIZE = 5
@@ -24,6 +25,7 @@ export default function Main() {
   const [notices, setNotices] = useState<NoticeType[]>([])
   const [initialFetch, setInitialFetch] = useState(false)
   const [ref, inView] = useInView()
+  const navigate = useNavigate()
   useBodyBackgroundColor('#14192F')
 
   const fetchMessages = async () => {
@@ -106,7 +108,12 @@ export default function Main() {
         <div className="my-5 flex h-[300px] w-full items-center justify-center bg-brand-yellow py-10">
           배경 이미지 들어갈 예정
         </div>
-        <SolidButton variant="primary" size="large" className="mx-auto rounded-full">
+        <SolidButton
+          variant="primary"
+          size="large"
+          className="mx-auto rounded-full"
+          onClick={() => navigate('/write')}
+        >
           메시지 작성하기 <PencilIcon className="h-5 w-5" />
         </SolidButton>
         <div

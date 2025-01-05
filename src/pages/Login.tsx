@@ -12,7 +12,7 @@ export default function Login() {
   useBodyBackgroundColor('neutral-90')
 
   return (
-    <main className="content-padding flex w-full flex-col items-center justify-between">
+    <main className="content-padding flex w-full grow flex-col items-center justify-between">
       {/* TODO: 로고 이미지 넣기 */}
       <h1 className="headline-medium py-20 text-white">로고</h1>
       <section className="flex w-full flex-col gap-5">

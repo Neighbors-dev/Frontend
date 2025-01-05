@@ -7,3 +7,9 @@ interface NoticeType {
 interface NoticeDetailType extends NoticeType {
   content: string
 }
+
+interface MessageType {
+  to: string
+  from: string
+  content: string
+}

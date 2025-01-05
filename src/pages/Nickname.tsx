@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // 닉네임 페이지로 이동 시, 재등록 가능?
+const MAX_NICKNAME_LENGTH = 5
 
 export default function Nickname() {
   const [nickname, setNickname] = useState('')
@@ -40,13 +41,18 @@ export default function Nickname() {
             메시지 작성 전<br />
             닉네임을 입력해주세요
           </h1>
-          <TextField
-            label="닉네임"
-            value={nickname}
-            maxLength={5}
-            placeholder="5자 이내의 닉네임을 입력해주세요."
-            onChange={(e) => handleNicknameChange(e, 5)}
-          />
+          <fieldset className="flex flex-col gap-1">
+            <label className="title-small text-white">닉네임</label>
+            <TextField
+              value={nickname}
+              maxLength={MAX_NICKNAME_LENGTH}
+              placeholder="5자 이내의 닉네임을 입력해주세요."
+              onChange={(e) => handleNicknameChange(e, 5)}
+            />
+            <p className="label-medium self-end text-neutral-50">
+              {nickname.length}/{MAX_NICKNAME_LENGTH}
+            </p>
+          </fieldset>
         </section>
         <SolidButton variant="primary" size="large" type="submit" disabled={nickname.trim() === ''}>
           다음

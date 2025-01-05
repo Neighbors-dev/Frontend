@@ -1,5 +1,4 @@
-import { getMessages, Message } from '@/apis/message'
-import { getNotices } from '@/apis/notice'
+import { getMainData, getMessages, Message } from '@/apis/message'
 import { HamburgerIcon, PencilIcon } from '@/assets'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
@@ -14,16 +13,26 @@ export default function Main() {
   const [showFade, setShowFade] = useState(false)
   const [slideIndex, setSlideIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(true)
+  const [letterCount, setLetterCount] = useState()
   const [messages, setMessages] = useState<Message[]>([])
   const [notices, setNotices] = useState<NoticeType[]>([])
   const [showSidebar, setShowSidebar] = useState(false)
   const noticeRef = useRef<HTMLDivElement>(null)
   useBodyBackgroundColor('#14192F')
 
-  const fetchNotices = async () => {
+  const fetchData = async () => {
+    const result = await getMainData()
+    console.log(result)
+    if (result) {
+      setNotices([...result.topNotices, result.topNotices[0]])
+      setLetterCount(result.writtenLetterNumber)
+    }
+  }
+
+  /* const fetchNotices = async () => {
     const result = await getNotices()
     if (result) setNotices([...result.notices, result.notices[0]])
-  }
+  } */
 
   const fetchMessages = async () => {
     const result = await getMessages()
@@ -41,7 +50,8 @@ export default function Main() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    fetchNotices()
+    //fetchNotices()
+    fetchData()
     fetchMessages()
 
     return () => {
@@ -105,7 +115,7 @@ export default function Main() {
           </section>
         </Link>
         <h2 className="headline-small mx-5 mt-6 text-white">
-          지금까지 {messages.length}개의
+          지금까지 {letterCount}개의
           <br />
           메시지가 모였어요 💌
         </h2>

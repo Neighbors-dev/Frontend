@@ -1,4 +1,4 @@
-import { mockingClient } from './client'
+import { client, mockingClient } from './client'
 
 interface MessageResponse {
   messages: Message[]
@@ -18,6 +18,17 @@ export const getMessages = async () => {
   try {
     const { data } = await mockingClient.get<MessageResponse>('/mocks/message.json')
     return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}
+
+export const getMainData = async () => {
+  try {
+    const { data } = await client.get('/mainPage')
+    return data.data
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)

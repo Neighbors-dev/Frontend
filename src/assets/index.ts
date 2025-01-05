@@ -6,6 +6,10 @@ import HamburgerIcon from '@/assets/hamburger.svg?react'
 import SettingIcon from '@/assets/setting.svg?react'
 import ShareIcon from '@/assets/share.svg?react'
 import QuestionIcon from '@/assets/question.svg?react'
+import CheckIcon from '@/assets/check.svg?react'
+import MessageIcon from '@/assets/message.svg?react'
+import ThumbUpIcon from '@/assets/thumb-up.svg?react'
+import SearchIcon from '@/assets/search.svg?react'
 
 export {
   PencilIcon,
@@ -16,4 +20,8 @@ export {
   SettingIcon,
   ShareIcon,
   QuestionIcon,
+  CheckIcon,
+  MessageIcon,
+  ThumbUpIcon,
+  SearchIcon,
 }

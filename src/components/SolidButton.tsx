@@ -18,7 +18,7 @@ export default function SolidButton({
   // TODO: 색상 - 디자인시스템
 
   const variantClass = {
-    primary: 'bg-brand-yellow text-neutral-100 disabled:bg-neutral-70 disabled:text-neutral-80',
+    primary: 'bg-brand-yellow text-neutral-100 disabled:bg-neutral-80 disabled:text-neutral-90',
     secondary: 'bg-[#EFF1FF] text-[#6272FF] disabled:bg-[#EDEEF1] disabled:text-[#B1B4BC]',
   }[variant]
 

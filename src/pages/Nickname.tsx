@@ -1,24 +1,16 @@
 import { postNickname } from '@/apis/user'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
+import { MAX_NICKNAME_LENGTH } from '@/constants'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
+import useRegisterNickname from '@/hooks/useRegisterNickname'
 import { setSessionNickname } from '@/utils/nicknameUtils'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// 닉네임 페이지로 이동 시, 재등록 가능?
-const MAX_NICKNAME_LENGTH = 5
-
 export default function Nickname() {
-  const [nickname, setNickname] = useState('')
+  const { nickname, handleNicknameChange } = useRegisterNickname('')
   const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
-
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>, maxlength: number) => {
-    let currentValue = e.target.value
-    if (currentValue.length > maxlength) currentValue = currentValue.slice(0, maxlength)
-    setNickname(currentValue)
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -47,7 +39,7 @@ export default function Nickname() {
               value={nickname}
               maxLength={MAX_NICKNAME_LENGTH}
               placeholder="5자 이내의 닉네임을 입력해주세요."
-              onChange={(e) => handleNicknameChange(e, 5)}
+              onChange={handleNicknameChange}
             />
             <p className="label-medium self-end text-neutral-50">
               {nickname.length}/{MAX_NICKNAME_LENGTH}

@@ -18,7 +18,7 @@ export default function NicknameComplete() {
 
   return (
     <>
-      <Header onClick={() => navigate(-1)} />
+      <Header />
       <main className="content-padding flex w-full grow flex-col items-center justify-between">
         <section className="w-full text-center">
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>

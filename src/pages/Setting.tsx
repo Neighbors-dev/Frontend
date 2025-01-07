@@ -1,9 +1,27 @@
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
+import useAuthStore from '@/stores/authStore'
+import useModalStore from '@/stores/modalStore'
+import { useNavigate } from 'react-router-dom'
 
 export default function Setting() {
+  const openModal = useModalStore((state) => state.openModal)
+  const logout = useAuthStore((state) => state.logout)
+  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
+
+  const handleLogout = () => {
+    openModal({
+      content: '로그아웃 하시겠어요?',
+      confirmText: '로그아웃',
+      cancelText: '취소',
+      onConfirm: () => {
+        logout()
+        navigate('/login')
+      },
+    })
+  }
 
   return (
     <>
@@ -21,7 +39,9 @@ export default function Setting() {
             <button type="button">약관 및 정책</button>
           </li>
           <li className="py-3">
-            <button type="button">로그아웃</button>
+            <button type="button" onClick={handleLogout}>
+              로그아웃
+            </button>
           </li>
           <li className="py-3">
             <button type="button">탈퇴하기</button>

@@ -1,4 +1,4 @@
-import { SIDEBAR_NAV_ITEMS } from '@/constants/sidebar'
+import { SIDEBAR_NAV_ITEMS } from '@/constants'
 import { getSessionNickname } from '@/utils/nicknameUtils'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'

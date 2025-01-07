@@ -1,5 +1,7 @@
 import { PencilIcon, QuestionIcon, SettingIcon, ShareIcon } from '@/assets'
 
+export const MAX_NICKNAME_LENGTH = 5
+
 export const SIDEBAR_NAV_ITEMS = [
   {
     menu: '계정 설정',

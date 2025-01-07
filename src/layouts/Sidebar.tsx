@@ -34,19 +34,14 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
   }, [show])
 
   return (
-    <div
-      className={twMerge(
-        'full-height max-w-600 fixed left-1/2 top-0 -translate-x-1/2',
-        show ? 'z-50' : 'z-[-10]'
-      )}
-    >
+    <div className="full-height max-w-600 pointer-events-none fixed left-1/2 top-0 z-50 -translate-x-1/2">
       <div
         className="pointer-events-none absolute h-[1px] opacity-0 will-change-transform"
         aria-hidden="true"
       />
       <aside
         className={twMerge(
-          'sidebar ml-auto h-full w-[280px] bg-neutral-90 px-[33px] pb-[30px] pt-[60px] transition-transform duration-300',
+          'sidebar pointer-events-auto ml-auto h-full w-[280px] bg-neutral-90 px-[33px] pb-[30px] pt-[60px] transition-transform duration-300',
           animate ? 'translate-x-0' : 'translate-x-full'
         )}
       >

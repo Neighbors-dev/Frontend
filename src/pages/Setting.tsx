@@ -29,7 +29,12 @@ export default function Setting() {
       <main className="content-padding flex grow flex-col gap-5">
         <section className="flex items-center justify-between">
           <h2 className="headline-small text-white">죠죠다 님</h2>
-          <SolidButton variant="secondary" size="large" className="px-3 py-2">
+          <SolidButton
+            variant="secondary"
+            size="large"
+            className="px-3 py-2"
+            onClick={() => navigate('edit')}
+          >
             변경
           </SolidButton>
         </section>

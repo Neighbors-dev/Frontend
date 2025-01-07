@@ -11,6 +11,7 @@ import Write from '@/pages/Write'
 import Notice from '@/pages/Notice'
 import NoticeDetail from '@/pages/NoticeDetail'
 import Setting from '@/pages/Setting'
+import EditSetting from './pages/EditSetting'
 
 export default function App() {
   useViewportHeight()
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="notice" element={<Notice />} />
         <Route path="notice/:id" element={<NoticeDetail />} />
         <Route path="setting" element={<Setting />} />
+        <Route path="setting/edit" element={<EditSetting />} />
       </Routes>
     </>
   )

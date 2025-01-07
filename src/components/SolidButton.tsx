@@ -19,7 +19,7 @@ export default function SolidButton({
 
   const variantClass = {
     primary: 'bg-brand-yellow text-neutral-100 disabled:bg-neutral-80 disabled:text-neutral-90',
-    secondary: 'bg-[#EFF1FF] text-[#6272FF] disabled:bg-[#EDEEF1] disabled:text-[#B1B4BC]',
+    secondary: 'bg-neutral-80 text-white disabled:bg-[#EDEEF1] disabled:text-[#B1B4BC]',
   }[variant]
 
   const sizeClass = {

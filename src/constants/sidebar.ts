@@ -4,7 +4,7 @@ export const SIDEBAR_NAV_ITEMS = [
   {
     menu: '계정 설정',
     icon: SettingIcon,
-    path: '/',
+    path: '/setting',
   },
   {
     menu: '공유하기',

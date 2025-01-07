@@ -9,6 +9,7 @@ import NicknameComplete from '@/pages/NicknameComplete'
 import Write from '@/pages/Write'
 import Notice from '@/pages/Notice'
 import NoticeDetail from '@/pages/NoticeDetail'
+import Setting from '@/pages/Setting'
 
 export default function App() {
   useViewportHeight()
@@ -25,6 +26,7 @@ export default function App() {
       <Route path="write" element={<Write />} />
       <Route path="notice" element={<Notice />} />
       <Route path="notice/:id" element={<NoticeDetail />} />
+      <Route path="setting" element={<Setting />} />
     </Routes>
   )
 }

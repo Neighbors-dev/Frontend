@@ -9,3 +9,9 @@ interface MessageType {
   from: string
   content: string
 }
+
+interface OfficeAddressType {
+  addressId: number
+  officeName: string
+  roadAddress: string
+}

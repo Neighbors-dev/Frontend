@@ -1,5 +1,6 @@
 import { MessageIcon, ThumbUpIcon } from '@/assets'
 import Header from '@/components/Header'
+import SearchOffice from '@/containers/Write/SearchOffice'
 import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
 import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
@@ -44,6 +45,7 @@ export default function Write() {
   return (
     <>
       <Header
+        className="bg-neutral-90"
         onClick={setPrevStep}
         icons={
           currentStep === WRITE_STEPS[4] && (
@@ -92,10 +94,13 @@ export default function Write() {
             />
           </Step>
           <Step name={WRITE_STEPS[2]}>
-            <WriteTargetInfo nextButtonOnClick={() => setNextStep(WRITE_STEPS[4])} />
+            <WriteTargetInfo
+              searchButtonOnClick={() => setNextStep(WRITE_STEPS[3])}
+              nextButtonOnClick={() => setNextStep(WRITE_STEPS[4])}
+            />
           </Step>
           <Step name={WRITE_STEPS[3]}>
-            <h1>{WRITE_STEPS[3]}</h1>
+            <SearchOffice />
           </Step>
           <Step name={WRITE_STEPS[4]}>
             <WriteMessage isTarget={!!messageInfo.target} />

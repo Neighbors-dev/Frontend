@@ -4,10 +4,14 @@ import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
 
 interface WriteTargetInfoProps {
+  searchButtonOnClick: () => void
   nextButtonOnClick: () => void
 }
 
-export default function WriteTargetInfo({ nextButtonOnClick }: WriteTargetInfoProps) {
+export default function WriteTargetInfo({
+  searchButtonOnClick,
+  nextButtonOnClick,
+}: WriteTargetInfoProps) {
   return (
     <div className="flex grow flex-col justify-between">
       <section className="">
@@ -33,24 +37,22 @@ export default function WriteTargetInfo({ nextButtonOnClick }: WriteTargetInfoPr
             </label>
           </fieldset>
           <fieldset className="flex flex-col gap-4">
-            <label htmlFor="workplace" className="title-small flex flex-col text-white">
+            <label htmlFor="office" className="title-small flex flex-col text-white">
               <p className="mb-1">근무지</p>
               <TextField
                 type="text"
-                id="workplace"
+                id="office"
                 placeholder="근무지를 검색해주세요. ex) 강동경찰서"
                 rightIcon={
                   <button type="button">
                     <SearchIcon />
                   </button>
                 }
+                onClick={searchButtonOnClick}
               />
             </label>
-            <label
-              htmlFor="no-workplace"
-              className="label-medium flex items-center gap-2 text-white"
-            >
-              <Checkbox id="no-workplace" />잘 모르겠어요
+            <label htmlFor="no-office" className="label-medium flex items-center gap-2 text-white">
+              <Checkbox id="no-office" />잘 모르겠어요
             </label>
           </fieldset>
         </div>

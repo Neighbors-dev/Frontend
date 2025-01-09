@@ -1,6 +1,8 @@
 import { PencilIcon, QuestionIcon, SettingIcon, ShareIcon } from '@/assets'
 
 export const MAX_NICKNAME_LENGTH = 5
+export const NON_MEMBER = 'GUEST'
+export const MEMBER = 'USER'
 
 export const SIDEBAR_NAV_ITEMS = [
   {

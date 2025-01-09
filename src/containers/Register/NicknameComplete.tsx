@@ -1,24 +1,21 @@
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
-import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
-import { getSessionNickname } from '@/utils/nicknameUtils'
-import { Navigate, useNavigate } from 'react-router-dom'
 import LampImage from '@/assets/images/lamp.png'
 
-export default function NicknameComplete() {
-  const nickname = getSessionNickname()
-  const navigate = useNavigate()
-  useBodyBackgroundColor('neutral-90')
+interface NicknameCompleteProps {
+  nickname: string
+  prevButtonOnclick: () => void
+  nextButtonOnClick: () => void
+}
 
-  /* useEffect(() => {
-    return () => removeSessionNickname()
-  }, []) */
-
-  if (!nickname) return <Navigate to="/nickname" replace />
-
+export default function NicknameComplete({
+  nickname,
+  prevButtonOnclick,
+  nextButtonOnClick,
+}: NicknameCompleteProps) {
   return (
     <>
-      <Header />
+      <Header onClick={prevButtonOnclick} />
       <main className="content-padding flex w-full grow flex-col items-center justify-between">
         <section className="w-full text-center">
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
@@ -30,10 +27,7 @@ export default function NicknameComplete() {
           size="large"
           type="button"
           className="w-full"
-          onClick={() => {
-            // TODO: 메시지 작성 페이지로 이동
-            navigate('/')
-          }}
+          onClick={nextButtonOnClick}
         >
           메시지 작성하러 가기
         </SolidButton>

@@ -1,5 +1,5 @@
 import { SIDEBAR_NAV_ITEMS } from '@/constants/sidebar'
-import { getSessionNickname } from '@/utils/nicknameUtils'
+import useAuthStore from '@/stores/authStore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
@@ -11,7 +11,9 @@ interface SidebarProps {
 
 export default function Sidebar({ show, setShow }: SidebarProps) {
   const [animate, setAnimate] = useState(false)
-  const nickname = getSessionNickname()
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
+  const nickname = useAuthStore((state) => state.user)?.nickname
+  const navItems = isLoggedIn ? SIDEBAR_NAV_ITEMS : SIDEBAR_NAV_ITEMS.slice(1)
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (event.target instanceof HTMLElement && !event.target.closest('.sidebar')) {
@@ -50,11 +52,11 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
           animate ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <h2 className="headline-small text-white">{nickname}님</h2>
+        <h2 className="headline-small text-white">{nickname} 님</h2>
         <hr className="my-5 h-[1px] w-full border-none bg-neutral-80" />
         <nav>
           <ul className="flex flex-col">
-            {SIDEBAR_NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <li key={item.menu}>
                 <Link
                   to={item.path}

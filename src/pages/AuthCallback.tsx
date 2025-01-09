@@ -1,4 +1,4 @@
-import { postLogin } from '@/apis/login'
+import { postLogin } from '@/apis/auth'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -10,11 +10,14 @@ export default function AuthCallback() {
   useEffect(() => {
     const login = async (code: string) => {
       const result = await postLogin(code)
-      if (result) {
-        navigate('/', { replace: true })
-      } else {
+
+      if (!result) {
         window.alert('로그인에 실패했습니다.')
+        return
       }
+
+      if (result.isRegistered) navigate('/', { replace: true })
+      else navigate('/register', { replace: true })
     }
 
     if (authorizationCode) {

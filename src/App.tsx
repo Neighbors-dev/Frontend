@@ -1,11 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import useViewportHeight from '@/hooks/useViewportHeight'
+import LoggedInRoute from '@/layouts/LoggedInRoute'
 import NonLoggedInRoute from '@/layouts/NonLoggedInRoute'
+import NonRegisteredRoute from '@/layouts/NonRegisteredRoute'
 import Login from '@/pages/Login'
 import AuthCallback from '@/pages/AuthCallback'
 import Main from '@/pages/Main'
-import Nickname from '@/pages/Nickname'
-import NicknameComplete from '@/pages/NicknameComplete'
+import RegisterNickname from '@/pages/RegisterNickname'
 import Write from '@/pages/Write'
 import Notice from '@/pages/Notice'
 import NoticeDetail from '@/pages/NoticeDetail'
@@ -19,12 +20,15 @@ export default function App() {
         <Route path="login" element={<Login />} />
         <Route path="callback/kakaotalk" element={<AuthCallback />} />
       </Route>
-      <Route index element={<Main />} />
-      <Route path="nickname" element={<Nickname />} />
-      <Route path="nickname-complete" element={<NicknameComplete />} />
-      <Route path="write" element={<Write />} />
-      <Route path="notice" element={<Notice />} />
-      <Route path="notice/:id" element={<NoticeDetail />} />
+      <Route element={<NonRegisteredRoute />}>
+        <Route path="register" element={<RegisterNickname />} />
+      </Route>
+      <Route element={<LoggedInRoute />}>
+        <Route index element={<Main />} />
+        <Route path="write" element={<Write />} />
+        <Route path="notice" element={<Notice />} />
+        <Route path="notice/:id" element={<NoticeDetail />} />
+      </Route>
     </Routes>
   )
 }

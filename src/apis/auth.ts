@@ -1,5 +1,5 @@
 import useAuthStore from '@/stores/authStore'
-import { guestClient } from './client'
+import { client, guestClient } from './client'
 
 export const postLogin = async (code: string) => {
   const memberLogin = useAuthStore.getState().memberLogin
@@ -80,21 +80,39 @@ export const postNickname = async (userInfo: User) => {
   }
 }
 
-/* export const refreshAccessToken = async (refreshToken: string) => {
+export const refreshAccessToken = async () => {
+  const updateToken = useAuthStore.getState().updateToken
+  const refreshToken = useAuthStore.getState().getRefreshToken()
   // TODO: 데이터 구조 확인
   try {
+    if (!refreshToken) {
+      throw new Error('Refresh token is not found')
+    }
+
     const {
-      data: { data },
+      data: {
+        data: { authTokens },
+      },
     } = await client.get('/auth/refreshToken', {
       params: {
         refreshToken,
       },
     })
 
-    console.log(data)
+    const at = {
+      value: authTokens.accessToken,
+      expiresIn: authTokens.expiresIn,
+    }
+
+    const rt = {
+      value: authTokens.refreshToken,
+      expiresIn: authTokens.refreshTokenExpiresIn,
+    }
+
+    updateToken(at, rt)
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     }
   }
-} */
+}

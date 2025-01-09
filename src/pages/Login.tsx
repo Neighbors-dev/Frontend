@@ -34,7 +34,7 @@ export default function Login() {
           type="button"
           className="text-brand-yellow"
           onClick={() => {
-            navigate('/')
+            navigate('/register')
           }}
         >
           비회원으로 작성하기

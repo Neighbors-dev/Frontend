@@ -1,3 +1,8 @@
+interface TokenType {
+  value: string
+  expiresIn: number
+}
+
 interface NoticeType {
   title: string
   content: string

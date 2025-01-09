@@ -20,7 +20,7 @@ export default function App() {
         <Route path="callback/kakaotalk" element={<AuthCallback />} />
       </Route>
       <Route index element={<Main />} />
-      <Route path="nickname" element={<Nickname />} />
+      <Route path="register" element={<Nickname />} />
       <Route path="nickname-complete" element={<NicknameComplete />} />
       <Route path="write" element={<Write />} />
       <Route path="notice" element={<Notice />} />

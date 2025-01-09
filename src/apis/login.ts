@@ -14,7 +14,7 @@ export const postLogin = async (code: string) => {
   try {
     const {
       data: {
-        data: { authTokens },
+        data: { isMember, userInfo, authTokens },
       },
     } = await client.get(api, {
       params: {
@@ -22,19 +22,19 @@ export const postLogin = async (code: string) => {
       },
     })
 
-    const token: LoginTokenType = {
-      accessToken: {
-        value: authTokens.accessToken,
-        expiresIn: authTokens.expiresIn + Date.now(),
-      },
-      refreshToken: {
-        value: authTokens.refreshToken,
-        expiresIn: authTokens.refreshTokenExpiresIn + Date.now(),
-      },
+    const accessToken = {
+      value: authTokens.accessToken,
+      expiresIn: authTokens.expiresIn,
     }
-    login(token)
 
-    return true
+    const refreshToken = {
+      value: authTokens.refreshToken,
+      expiresIn: authTokens.refreshTokenExpiresIn,
+    }
+
+    login(accessToken, refreshToken, isMember ? userInfo.nickname : null)
+
+    return { isRegistered: isMember ? !!userInfo.nickname : false }
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)

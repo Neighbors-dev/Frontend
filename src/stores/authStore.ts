@@ -3,53 +3,36 @@ import { create } from 'zustand'
 
 interface AuthStore {
   isLoggedIn: boolean
+  nickname: string | null
   accessToken: { value: string; expiresIn: number } | null
-  getAccessToken: () => string | null
-  getRefreshToken: () => string | null
-  login: (tokenData: LoginTokenType) => void
-  logout: () => void
+  login: (accessToken: TokenType, refreshToken: TokenType, nickname: string | null) => void
 }
 
 const cookies = new Cookies()
+const NICKNAME_KEY = 'TH-NN'
 const REFRESH_TOKEN_KEY = 'TH-RT'
+const EXPIRE_OFFSET = 1000 * 60 * 1 // 1분
 
-const useAuthStore = create<AuthStore>((set, get) => ({
-  //isLoggedIn: false,
-  //accessToken: null,
-  // 액세스 토큰 재발급 API 전까지만 사용
-  isLoggedIn: !!sessionStorage.getItem('accessToken'),
-  accessToken: sessionStorage.getItem('accessToken')
-    ? JSON.parse(sessionStorage.getItem('accessToken')!)
-    : null,
-  getAccessToken: () => {
-    const accessToken = get().accessToken
-    if (!accessToken) return null
+const useAuthStore = create<AuthStore>((set) => ({
+  isLoggedIn: !!cookies.get(REFRESH_TOKEN_KEY),
+  nickname: cookies.get(NICKNAME_KEY) || null,
+  accessToken: null,
+  login: (accessToken, refreshToken, nickname) => {
+    const expires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
 
-    if (Date.now() > accessToken.expiresIn) {
-      get().logout()
-      return null
-    }
-
-    return accessToken.value
-  },
-  getRefreshToken: () => {
-    return cookies.get(REFRESH_TOKEN_KEY)
-  },
-  login: ({ accessToken, refreshToken }) => {
-    console.log(accessToken, refreshToken, new Date(refreshToken.expiresIn))
     set({ isLoggedIn: true, accessToken })
+    // 리프레시 토큰에 특별 설정?
+
     cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, {
       path: '/',
-      expires: new Date(refreshToken.expiresIn),
+      expires,
     })
-    // 액세스 토큰 재발급 API 전까지만 사용
-    sessionStorage.setItem('accessToken', JSON.stringify(accessToken.value))
-  },
-  logout: () => {
-    set({ isLoggedIn: false, accessToken: null })
-    cookies.remove(REFRESH_TOKEN_KEY)
-    // 액세스 토큰 재발급 API 전까지만 사용
-    sessionStorage.removeItem('accessToken')
+
+    if (nickname)
+      cookies.set(NICKNAME_KEY, nickname, {
+        path: '/',
+        expires,
+      })
   },
 }))
 

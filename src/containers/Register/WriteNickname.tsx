@@ -57,7 +57,7 @@ export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps)
               value={nickname}
               maxLength={MAX_NICKNAME_LENGTH}
               placeholder="5자 이내의 닉네임을 입력해주세요."
-              onChange={(e) => handleNicknameChange(e)}
+              onChange={handleNicknameChange}
             />
             <p className="label-medium self-end text-neutral-50">
               {nickname.length}/{MAX_NICKNAME_LENGTH}

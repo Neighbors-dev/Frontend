@@ -1,33 +1,31 @@
-import { postNickname } from '@/apis/user'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
-import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
-import { setSessionNickname } from '@/utils/nicknameUtils'
+import { MAX_NICKNAME_LENGTH } from '@/constants'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-// 닉네임 페이지로 이동 시, 재등록 가능?
-const MAX_NICKNAME_LENGTH = 5
+interface WriteNicknameProps {
+  nextButtonOnClick: (value: string) => void
+}
 
-export default function Nickname() {
+export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps) {
   const [nickname, setNickname] = useState('')
-  const navigate = useNavigate()
-  useBodyBackgroundColor('neutral-90')
 
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>, maxlength: number) => {
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let currentValue = e.target.value
-    if (currentValue.length > maxlength) currentValue = currentValue.slice(0, maxlength)
+    if (currentValue.length > MAX_NICKNAME_LENGTH)
+      currentValue = currentValue.slice(0, MAX_NICKNAME_LENGTH)
     setNickname(currentValue)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: 닉네임 서버로 전송
-    // 성공 시, 스토리지에 닉네임 저장 & /nickname-complete로 이동
-    const result = await postNickname(nickname.slice(0, 5))
+    const result = true
+    //const result = await postNickname(nickname.slice(0, 5))
+    // TODO: 닉네임 등록 API 호출
     if (result) {
-      setSessionNickname(nickname.slice(0, 5))
-      navigate('/nickname-complete')
+      //setSessionNickname(nickname.slice(0, 5))
+      // TODO: 성공 시, 닉네임 등록
+      nextButtonOnClick(nickname)
     } else {
       window.alert('닉네임 등록에 실패했습니다. 다시 시도해주세요.')
     }
@@ -47,7 +45,7 @@ export default function Nickname() {
               value={nickname}
               maxLength={MAX_NICKNAME_LENGTH}
               placeholder="5자 이내의 닉네임을 입력해주세요."
-              onChange={(e) => handleNicknameChange(e, 5)}
+              onChange={(e) => handleNicknameChange(e)}
             />
             <p className="label-medium self-end text-neutral-50">
               {nickname.length}/{MAX_NICKNAME_LENGTH}

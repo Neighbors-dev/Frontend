@@ -14,3 +14,9 @@ interface MessageType {
   from: string
   content: string
 }
+
+interface User {
+  role?: string
+  email: string
+  nickname?: string
+}

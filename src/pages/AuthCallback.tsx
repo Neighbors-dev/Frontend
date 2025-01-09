@@ -1,4 +1,4 @@
-import { postLogin } from '@/apis/login'
+import { postLogin } from '@/apis/auth'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 

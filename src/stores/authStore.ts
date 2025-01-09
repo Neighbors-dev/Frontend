@@ -3,37 +3,51 @@ import { create } from 'zustand'
 
 interface AuthStore {
   isLoggedIn: boolean
-  nickname: string | null
+  user: User | null
   accessToken: { value: string; expiresIn: number } | null
-  login: (accessToken: TokenType, refreshToken: TokenType, nickname: string | null) => void
+  memberLogin: (accessToken: TokenType, refreshToken: TokenType, user: User) => void
+  nonMemberLogin: (user: User) => void
+  //nonMemberLogin: () => void
+  //getRefreshToken: () => string | undefined
 }
 
 const cookies = new Cookies()
-const NICKNAME_KEY = 'TH-NN'
 const REFRESH_TOKEN_KEY = 'TH-RT'
+const MEMBER_INFO_KEY = 'TH-MI'
+const GUEST_INFO_KEY = 'TH-GI'
+//const NICKNAME_KEY = 'TH-NN'
 const EXPIRE_OFFSET = 1000 * 60 * 1 // 1분
 
 const useAuthStore = create<AuthStore>((set) => ({
-  isLoggedIn: !!cookies.get(REFRESH_TOKEN_KEY),
-  nickname: cookies.get(NICKNAME_KEY) || null,
+  isLoggedIn: !!cookies.get(MEMBER_INFO_KEY),
+  user: cookies.get(MEMBER_INFO_KEY) || cookies.get(GUEST_INFO_KEY) || null,
   accessToken: null,
-  login: (accessToken, refreshToken, nickname) => {
+  memberLogin: (accessToken, refreshToken, user) => {
+    // 닉네임 등록이 완료된 사용자 로그인
+    console.log('memberLogin')
     const expires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    set({ isLoggedIn: true, user, accessToken })
 
-    set({ isLoggedIn: true, accessToken })
-    // 리프레시 토큰에 특별 설정?
-
+    // TODO: 리프레시 토큰에 특별 설정
     cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, {
       path: '/',
       expires,
     })
 
-    if (nickname)
-      cookies.set(NICKNAME_KEY, nickname, {
-        path: '/',
-        expires,
-      })
+    cookies.set(MEMBER_INFO_KEY, user, {
+      path: '/',
+      expires,
+    })
   },
+  nonMemberLogin: (user) => {
+    // 닉네임 등록이 완료되지 않은 사용자 로그인
+    console.log('nonMemberLogin')
+    set({ isLoggedIn: true, user })
+    cookies.set(MEMBER_INFO_KEY, user, {
+      path: '/',
+    })
+  },
+  /*getRefreshToken: () => cookies.get(REFRESH_TOKEN_KEY), */
 }))
 
 export default useAuthStore

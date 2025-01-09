@@ -1,6 +1,8 @@
+import { postNickname } from '@/apis/auth'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
-import { MAX_NICKNAME_LENGTH } from '@/constants'
+import { MAX_NICKNAME_LENGTH, MEMBER, NON_MEMBER } from '@/constants'
+import useAuthStore from '@/stores/authStore'
 import { useState } from 'react'
 
 interface WriteNicknameProps {
@@ -9,22 +11,32 @@ interface WriteNicknameProps {
 
 export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps) {
   const [nickname, setNickname] = useState('')
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
+  const user = useAuthStore((state) => state.user)
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let currentValue = e.target.value
     if (currentValue.length > MAX_NICKNAME_LENGTH)
       currentValue = currentValue.slice(0, MAX_NICKNAME_LENGTH)
     setNickname(currentValue)
+
+    console.log(currentValue)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const result = true
-    //const result = await postNickname(nickname.slice(0, 5))
-    // TODO: 닉네임 등록 API 호출
+    const userInfo: User = { nickname: nickname.slice(0, 5) }
+    console.log(nickname.slice(0, 5))
+
+    if (isLoggedIn) {
+      userInfo.role = user?.role || MEMBER
+      userInfo.email = user?.email || ''
+    } else {
+      userInfo.role = NON_MEMBER
+    }
+
+    const result = await postNickname(userInfo)
     if (result) {
-      //setSessionNickname(nickname.slice(0, 5))
-      // TODO: 성공 시, 닉네임 등록
       nextButtonOnClick(nickname)
     } else {
       window.alert('닉네임 등록에 실패했습니다. 다시 시도해주세요.')

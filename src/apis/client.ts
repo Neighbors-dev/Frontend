@@ -4,6 +4,10 @@ export const mockingClient = axios.create({
   baseURL: '',
 })
 
+export const guestClient = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+})
+
 export const client = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })

@@ -17,6 +17,6 @@ interface MessageType {
 
 interface User {
   role?: string
-  email: string
+  email?: string
   nickname?: string
 }

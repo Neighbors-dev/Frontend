@@ -1,5 +1,5 @@
 import useAuthStore from '@/stores/authStore'
-import { client } from './client'
+import { guestClient } from './client'
 
 export const postLogin = async (code: string) => {
   const memberLogin = useAuthStore.getState().memberLogin
@@ -18,7 +18,7 @@ export const postLogin = async (code: string) => {
       data: {
         data: { isMember, authTokens, email, role, nickname },
       },
-    } = await client.get(api, {
+    } = await guestClient.get(api, {
       params: {
         code,
       },
@@ -47,6 +47,37 @@ export const postLogin = async (code: string) => {
     }
 
     return { isRegistered: isMember }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
+  }
+}
+
+export const postNickname = async (userInfo: User) => {
+  const registerNickname = useAuthStore.getState().registerNickname
+
+  try {
+    const {
+      data: {
+        data: { authTokens },
+      },
+    } = await guestClient.post('/user/auth', userInfo)
+
+    const accessToken = {
+      value: authTokens.accessToken,
+      expiresIn: authTokens.expiresIn,
+    }
+
+    const refreshToken = {
+      value: authTokens.refreshToken,
+      expiresIn: authTokens.refreshTokenExpiresIn,
+    }
+
+    registerNickname(accessToken, refreshToken, userInfo)
+
+    return true
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)

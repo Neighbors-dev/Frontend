@@ -16,19 +16,13 @@ export const postLogin = async (code: string) => {
   try {
     const {
       data: {
-        data: { isMember, authTokens, email, role, nickname },
+        data: { isMember, authTokens, email, userInfo },
       },
     } = await guestClient.get(api, {
       params: {
         code,
       },
     })
-
-    const userInfo = {
-      email,
-      role,
-      nickname,
-    }
 
     if (isMember) {
       const accessToken = {
@@ -43,7 +37,7 @@ export const postLogin = async (code: string) => {
 
       memberLogin(accessToken, refreshToken, userInfo)
     } else {
-      nonMemberLogin(userInfo)
+      nonMemberLogin({ email })
     }
 
     return { isRegistered: isMember }
@@ -85,3 +79,22 @@ export const postNickname = async (userInfo: User) => {
     return false
   }
 }
+
+/* export const refreshAccessToken = async (refreshToken: string) => {
+  // TODO: 데이터 구조 확인
+  try {
+    const {
+      data: { data },
+    } = await client.get('/auth/refreshToken', {
+      params: {
+        refreshToken,
+      },
+    })
+
+    console.log(data)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+} */

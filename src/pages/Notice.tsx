@@ -72,8 +72,8 @@ export default function Notice() {
     <>
       <Header className="bg-neutral-90" onClick={() => navigate(-1)} title="공지사항" />
       <main ref={mainRef} className="flex grow flex-col gap-3 px-5 pb-5">
-        {notices.map((notice, index) => (
-          <NoticeItem key={index} index={index} notice={notice} />
+        {notices.map((notice) => (
+          <NoticeItem key={notice.noticeId} notice={notice} />
         ))}
         {loading && (
           <div className="flex justify-center p-4">

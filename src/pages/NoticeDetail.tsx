@@ -2,10 +2,11 @@ import { getNoticeById } from '@/apis/notice'
 import Header from '@/components/Header'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 export default function NoticeDetail() {
   const [notice, setNotice] = useState<NoticeType>()
+  const [error, setError] = useState(false)
   const { id } = useParams()
   const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
@@ -13,11 +14,17 @@ export default function NoticeDetail() {
   useEffect(() => {
     const fetchNotice = async (id: string) => {
       const result = await getNoticeById(id)
-      if (result) setNotice(result)
+      if (result) {
+        setNotice(result)
+      } else {
+        setError(true)
+      }
     }
 
     if (id) fetchNotice(id)
   }, [])
+
+  if (!id || error) return <Navigate to="/notice" replace />
 
   return (
     <>

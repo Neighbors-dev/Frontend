@@ -25,7 +25,7 @@ export default function Write() {
   const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
   const [specificTarget, setSpecificTarget] = useState<string>()
   const [selectedHeroType, setSelectedHeroType] = useState<string>()
-  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[4])
+  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
 
   return (
@@ -36,7 +36,7 @@ export default function Write() {
         icons={currentStep === WRITE_STEPS[4] && <WriteMessageHeader setNextStep={setNextStep} />}
         onClick={setPrevStep}
       />
-      <main className="content-padding-small flex w-full grow flex-col bg-green-600">
+      <main className="content-padding-small flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>
             <SelectTarget
@@ -79,7 +79,7 @@ export default function Write() {
             <SearchOffice />
           </Step>
           <Step name={WRITE_STEPS[4]}>
-            <WriteMessage isTarget={!!messageInfo.target} />
+            <WriteMessage />
           </Step>
           <Step name={WRITE_STEPS[5]}>
             <NewsCollection />

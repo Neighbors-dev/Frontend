@@ -1,14 +1,18 @@
 import SolidButton from '@/components/SolidButton'
+import { MESSAGE_MAX_LENGTH } from '@/constants/write'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-interface MessageMessageProps {
-  isTarget: boolean
-}
-
-export default function WriteMessage({ isTarget }: MessageMessageProps) {
+export default function WriteMessage() {
   const navigate = useNavigate()
   const [message, setMessage] = useState('')
+
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let currentValue = e.target.value
+    if (currentValue.length > MESSAGE_MAX_LENGTH)
+      currentValue = currentValue.slice(0, MESSAGE_MAX_LENGTH)
+    setMessage(currentValue)
+  }
 
   return (
     <div className="flex grow flex-col justify-between">
@@ -34,22 +38,28 @@ export default function WriteMessage({ isTarget }: MessageMessageProps) {
             placeholder="내용을 입력해주세요."
             className="body-large h-[204px] resize-none bg-transparent text-neutral-80 placeholder:text-neutral-50"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={handleMessageChange}
           />
           {/* TODO: 닉네임 받아서 넣기 */}
-          <p className="title-small text-neutral-50">From. 닉네임</p>
+          <div className="flex justify-between text-neutral-50">
+            <p className="title-small">From. 닉네임</p>
+            <p className="label-medium">
+              {message.length}/{MESSAGE_MAX_LENGTH}
+            </p>
+          </div>
         </section>
       </section>
       <SolidButton
         variant="primary"
         size="large"
+        disabled={message.trim() === ''}
         onClick={() => {
           // TODO: 메시지 작성 API 호출
           // TODO: 성공 시 메시지 목록으로 이동
           navigate('/')
         }}
       >
-        {isTarget ? '다음' : '작성 완료'}
+        작성 완료
       </SolidButton>
     </div>
   )

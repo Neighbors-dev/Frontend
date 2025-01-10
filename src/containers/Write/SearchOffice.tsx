@@ -2,15 +2,17 @@ import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
 import SearchResultItem from './SearchResultItem'
 import { useState } from 'react'
+import useWriteMessageStore from '@/stores/writeMessageStore'
 
 interface SearchOfficeProps {
-  selectButtonOnClick: (office: string) => void
+  onCompleteSelect: () => void
 }
 
-export default function SearchOffice({ selectButtonOnClick }: SearchOfficeProps) {
+export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchResult, setSearchResult] = useState<OfficeAddressType[]>([])
+  const setTargetOffice = useWriteMessageStore((state) => state.setTargetOffice)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
@@ -28,6 +30,11 @@ export default function SearchOffice({ selectButtonOnClick }: SearchOfficeProps)
     ])
     // TODO: 검색 API 호출
     // TODO: 검색 결과를 setSearchResult로 업데이트
+  }
+
+  const handleSelect = (officeName: string) => {
+    setTargetOffice(officeName)
+    onCompleteSelect()
   }
 
   return (
@@ -70,13 +77,7 @@ export default function SearchOffice({ selectButtonOnClick }: SearchOfficeProps)
       </div>
       <section>
         {searchResult.map((result) => (
-          <SearchResultItem
-            key={result.addressId}
-            information={result}
-            onSelect={() => {
-              selectButtonOnClick(result.officeName)
-            }}
-          />
+          <SearchResultItem key={result.addressId} information={result} onSelect={handleSelect} />
         ))}
       </section>
     </div>

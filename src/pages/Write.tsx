@@ -9,19 +9,13 @@ import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
 import useWriteMessageStore from '@/stores/writeMessageStore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import SelectIsSpecific from '@/containers/Write/SelectIsSpecific'
 import SelectHeroType from '@/containers/Write/SelectHeroType'
-
-interface MessageInfo {
-  target: null | undefined | { name?: string; office?: string }
-  message: string
-}
 
 export default function Write() {
   const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
   const targetType = useWriteMessageStore((state) => state.targetType)
-  const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
 
@@ -55,18 +49,12 @@ export default function Write() {
           </Step>
           <Step name={WRITE_STEPS[2]}>
             <WriteTargetInfo
-              searchButtonOnClick={() => setNextStep(WRITE_STEPS[3])}
-              nextButtonOnClick={() => setNextStep(WRITE_STEPS[4])}
+              onSearch={() => setNextStep(WRITE_STEPS[3])}
+              onClickNextStep={() => setNextStep(WRITE_STEPS[4])}
             />
           </Step>
           <Step name={WRITE_STEPS[3]}>
-            <SearchOffice
-              selectButtonOnClick={(office: string) => {
-                setMessageInfo((prev) => ({ ...prev, target: { office } }))
-                setNextStep(WRITE_STEPS[2])
-                console.log(messageInfo)
-              }}
-            />
+            <SearchOffice onCompleteSelect={() => setNextStep(WRITE_STEPS[2])} />
           </Step>
           <Step name={WRITE_STEPS[4]}>
             <WriteMessage />

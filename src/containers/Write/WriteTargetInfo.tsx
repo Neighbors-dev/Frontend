@@ -5,14 +5,11 @@ import TextField from '@/components/TextField'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 
 interface WriteTargetInfoProps {
-  searchButtonOnClick: () => void
-  nextButtonOnClick: () => void
+  onSearch: () => void
+  onClickNextStep: () => void
 }
 
-export default function WriteTargetInfo({
-  searchButtonOnClick,
-  nextButtonOnClick,
-}: WriteTargetInfoProps) {
+export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTargetInfoProps) {
   const targetInfo = useWriteMessageStore((state) => state.targetInfo)
   const setTargetInfo = useWriteMessageStore((state) => state.setTargetInfo)
 
@@ -73,7 +70,7 @@ export default function WriteTargetInfo({
                 value={targetInfo.office}
                 disabled={targetInfo.noOffice}
                 Icon={SearchIcon}
-                onClick={searchButtonOnClick}
+                onClick={onSearch}
               />
             </label>
             <label
@@ -95,7 +92,7 @@ export default function WriteTargetInfo({
         size="large"
         className="w-full"
         disabled={noDataName || noDataOffice}
-        onClick={nextButtonOnClick}
+        onClick={onClickNextStep}
       >
         다음
       </SolidButton>

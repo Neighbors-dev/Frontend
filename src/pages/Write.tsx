@@ -1,34 +1,20 @@
-import { MessageIcon, ThumbUpIcon } from '@/assets'
 import Header from '@/components/Header'
+import {
+  HEADER_TITLE,
+  SELECT_HERO_TYPE_BUTTONS,
+  SELECT_TARGET_BUTTONS,
+  WRITE_STEPS,
+} from '@/constants/write'
+import MessagesCollection from '@/containers/Write/MessagesCollection'
+import NewsCollection from '@/containers/Write/NewsCollection'
 import SearchOffice from '@/containers/Write/SearchOffice'
 import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
+import WriteMessageHeader from '@/containers/Write/WriteMessageHeader'
 import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
 import { useState } from 'react'
-
-const WRITE_STEPS = ['SL-T', 'SL-H-T', 'W-I', 'SE-W', 'W-M']
-const SELECT_TARGET_BUTTONS = [
-  {
-    text: '특정 경찰/소방관 분께 남길게요',
-    value: 'specific',
-  },
-  {
-    text: '특정 대상이 없어요',
-    value: 'general',
-  },
-]
-const SELECT_HERO_TYPE_BUTTONS = [
-  {
-    text: '경찰관님 👮‍♂️',
-    value: 'police-officer',
-  },
-  {
-    text: '소방관님 🧑',
-    value: 'firefighter',
-  },
-]
 
 interface MessageInfo {
   target: string | null | undefined
@@ -39,28 +25,18 @@ export default function Write() {
   const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
   const [specificTarget, setSpecificTarget] = useState<string>()
   const [selectedHeroType, setSelectedHeroType] = useState<string>()
-  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
+  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[4])
   useBodyBackgroundColor('neutral-90')
 
   return (
     <>
       <Header
+        title={HEADER_TITLE[currentStep]}
         className="bg-neutral-90"
+        icons={currentStep === WRITE_STEPS[4] && <WriteMessageHeader setNextStep={setNextStep} />}
         onClick={setPrevStep}
-        icons={
-          currentStep === WRITE_STEPS[4] && (
-            <section className="flex items-center gap-3">
-              <button type="button">
-                <ThumbUpIcon className="h-6 w-6 text-white" />
-              </button>
-              <button>
-                <MessageIcon className="h-6 w-6 text-white" />
-              </button>
-            </section>
-          )
-        }
       />
-      <main className="content-padding-small flex w-full grow flex-col">
+      <main className="content-padding-small flex w-full grow flex-col bg-green-600">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>
             <SelectTarget
@@ -104,6 +80,12 @@ export default function Write() {
           </Step>
           <Step name={WRITE_STEPS[4]}>
             <WriteMessage isTarget={!!messageInfo.target} />
+          </Step>
+          <Step name={WRITE_STEPS[5]}>
+            <NewsCollection />
+          </Step>
+          <Step name={WRITE_STEPS[6]}>
+            <MessagesCollection />
           </Step>
         </Funnel>
       </main>

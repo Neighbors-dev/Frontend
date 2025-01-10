@@ -1,33 +1,43 @@
-import { postNickname } from '@/apis/user'
+import { postNickname } from '@/apis/auth'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
-import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
-import { setSessionNickname } from '@/utils/nicknameUtils'
+import { MAX_NICKNAME_LENGTH, MEMBER, NON_MEMBER } from '@/constants'
+import useAuthStore from '@/stores/authStore'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-// 닉네임 페이지로 이동 시, 재등록 가능?
-const MAX_NICKNAME_LENGTH = 5
+interface WriteNicknameProps {
+  nextButtonOnClick: (value: string) => void
+}
 
-export default function Nickname() {
+export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps) {
   const [nickname, setNickname] = useState('')
-  const navigate = useNavigate()
-  useBodyBackgroundColor('neutral-90')
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
+  const user = useAuthStore((state) => state.user)
 
-  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>, maxlength: number) => {
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let currentValue = e.target.value
-    if (currentValue.length > maxlength) currentValue = currentValue.slice(0, maxlength)
+    if (currentValue.length > MAX_NICKNAME_LENGTH)
+      currentValue = currentValue.slice(0, MAX_NICKNAME_LENGTH)
     setNickname(currentValue)
+
+    console.log(currentValue)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: 닉네임 서버로 전송
-    // 성공 시, 스토리지에 닉네임 저장 & /nickname-complete로 이동
-    const result = await postNickname(nickname.slice(0, 5))
+    const userInfo: User = { nickname: nickname.slice(0, 5) }
+    console.log(nickname.slice(0, 5))
+
+    if (isLoggedIn) {
+      userInfo.role = user?.role || MEMBER
+      userInfo.email = user?.email || ''
+    } else {
+      userInfo.role = NON_MEMBER
+    }
+
+    const result = await postNickname(userInfo)
     if (result) {
-      setSessionNickname(nickname.slice(0, 5))
-      navigate('/nickname-complete')
+      nextButtonOnClick(nickname)
     } else {
       window.alert('닉네임 등록에 실패했습니다. 다시 시도해주세요.')
     }
@@ -47,7 +57,7 @@ export default function Nickname() {
               value={nickname}
               maxLength={MAX_NICKNAME_LENGTH}
               placeholder="5자 이내의 닉네임을 입력해주세요."
-              onChange={(e) => handleNicknameChange(e, 5)}
+              onChange={handleNicknameChange}
             />
             <p className="label-medium self-end text-neutral-50">
               {nickname.length}/{MAX_NICKNAME_LENGTH}

@@ -1,3 +1,8 @@
+interface TokenType {
+  value: string
+  expiresIn: number
+}
+
 interface NoticeType {
   title: string
   content: string
@@ -14,4 +19,10 @@ interface OfficeAddressType {
   addressId: number
   officeName: string
   roadAddress: string
+}
+
+interface User {
+  role?: string
+  email?: string
+  nickname?: string
 }

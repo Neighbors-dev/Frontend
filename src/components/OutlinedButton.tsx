@@ -26,6 +26,7 @@ export default function OutlinedButton({
 
   return (
     <button
+      type={props.type || 'button'}
       className={twMerge(
         'flex items-center justify-center gap-1.5 border bg-neutral-80',
         sizeClass,

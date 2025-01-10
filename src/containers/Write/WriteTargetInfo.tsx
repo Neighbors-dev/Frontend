@@ -2,6 +2,7 @@ import { SearchIcon } from '@/assets'
 import Checkbox from '@/components/Checkbox'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
+import useWriteMessageStore from '@/stores/writeMessageStore'
 
 interface WriteTargetInfoProps {
   searchButtonOnClick: () => void
@@ -12,6 +13,21 @@ export default function WriteTargetInfo({
   searchButtonOnClick,
   nextButtonOnClick,
 }: WriteTargetInfoProps) {
+  const targetInfo = useWriteMessageStore((state) => state.targetInfo)
+  const setTargetInfo = useWriteMessageStore((state) => state.setTargetInfo)
+
+  const noDataName = !targetInfo.noName && targetInfo.name.trim() === ''
+  const noDataOffice = !targetInfo.noOffice && targetInfo.office.trim() === ''
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTargetInfo({ ...targetInfo, name: e.target.value })
+  }
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target
+    setTargetInfo({ ...targetInfo, [id]: checked })
+  }
+
   return (
     <div className="flex grow flex-col justify-between">
       <section className="">
@@ -30,10 +46,21 @@ export default function WriteTargetInfo({
           <fieldset className="flex flex-col gap-4">
             <label htmlFor="name" className="title-small flex flex-col text-white">
               <p className="mb-1">성함</p>
-              <TextField type="text" id="name" placeholder="성함을 입력해주세요." />
+              <TextField
+                type="text"
+                id="name"
+                placeholder="성함을 입력해주세요."
+                value={targetInfo.name}
+                disabled={targetInfo.noName}
+                onChange={handleNameChange}
+              />
             </label>
-            <label htmlFor="no-name" className="label-medium flex items-center gap-2 text-white">
-              <Checkbox id="no-name" />잘 모르겠어요
+            <label
+              htmlFor="noName"
+              className="label-medium flex cursor-pointer items-center gap-2 text-white"
+            >
+              <Checkbox id="noName" checked={targetInfo.noName} onChange={handleCheckboxChange} />
+              <span>잘 모르겠어요</span>
             </label>
           </fieldset>
           <fieldset className="flex flex-col gap-4">
@@ -43,21 +70,33 @@ export default function WriteTargetInfo({
                 type="text"
                 id="office"
                 placeholder="근무지를 검색해주세요. ex) 강동경찰서"
-                rightIcon={
-                  <button type="button">
-                    <SearchIcon />
-                  </button>
-                }
+                value={targetInfo.office}
+                disabled={targetInfo.noOffice}
+                Icon={SearchIcon}
                 onClick={searchButtonOnClick}
               />
             </label>
-            <label htmlFor="no-office" className="label-medium flex items-center gap-2 text-white">
-              <Checkbox id="no-office" />잘 모르겠어요
+            <label
+              htmlFor="noOffice"
+              className="label-medium flex cursor-pointer items-center gap-2 text-white"
+            >
+              <Checkbox
+                id="noOffice"
+                checked={targetInfo.noOffice}
+                onChange={handleCheckboxChange}
+              />
+              <span>잘 모르겠어요</span>
             </label>
           </fieldset>
         </div>
       </section>
-      <SolidButton variant="primary" size="large" className="w-full" onClick={nextButtonOnClick}>
+      <SolidButton
+        variant="primary"
+        size="large"
+        className="w-full"
+        disabled={noDataName || noDataOffice}
+        onClick={nextButtonOnClick}
+      >
         다음
       </SolidButton>
     </div>

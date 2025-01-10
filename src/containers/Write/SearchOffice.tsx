@@ -3,7 +3,11 @@ import TextField from '@/components/TextField'
 import SearchResultItem from './SearchResultItem'
 import { useState } from 'react'
 
-export default function SearchOffice() {
+interface SearchOfficeProps {
+  selectButtonOnClick: (office: string) => void
+}
+
+export default function SearchOffice({ selectButtonOnClick }: SearchOfficeProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchResult, setSearchResult] = useState<OfficeAddressType[]>([])
@@ -15,12 +19,15 @@ export default function SearchOffice() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     setSearchKeyword(searchQuery)
+    setSearchResult([
+      { addressId: 1, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
+      { addressId: 2, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
+      { addressId: 3, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
+      { addressId: 4, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
+      { addressId: 5, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
+    ])
     // TODO: 검색 API 호출
     // TODO: 검색 결과를 setSearchResult로 업데이트
-  }
-
-  const handleSelect = () => {
-    // TODO: 선택한 근무지 정보를 저장하고 이전 화면으로 이동
   }
 
   return (
@@ -36,13 +43,7 @@ export default function SearchOffice() {
                 className="py-3"
                 onChange={handleInput}
               />
-              <SolidButton
-                variant="primary"
-                size="large"
-                type="submit"
-                className="shrink-0 px-4"
-                onClick={handleSelect}
-              >
+              <SolidButton variant="primary" size="large" type="submit" className="shrink-0 px-4">
                 검색
               </SolidButton>
             </form>
@@ -69,7 +70,13 @@ export default function SearchOffice() {
       </div>
       <section>
         {searchResult.map((result) => (
-          <SearchResultItem key={result.addressId} information={result} onSelect={() => {}} />
+          <SearchResultItem
+            key={result.addressId}
+            information={result}
+            onSelect={() => {
+              selectButtonOnClick(result.officeName)
+            }}
+          />
         ))}
       </section>
     </div>

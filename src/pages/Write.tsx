@@ -1,32 +1,33 @@
 import Header from '@/components/Header'
-import {
-  HEADER_TITLE,
-  SELECT_HERO_TYPE_BUTTONS,
-  SELECT_TARGET_BUTTONS,
-  WRITE_STEPS,
-} from '@/constants/write'
+import { HEADER_TITLE, SELECT_TARGET_BUTTONS, WRITE_STEPS } from '@/constants/write'
 import MessagesCollection from '@/containers/Write/MessagesCollection'
 import NewsCollection from '@/containers/Write/NewsCollection'
 import SearchOffice from '@/containers/Write/SearchOffice'
-import SelectTarget from '@/containers/Write/SelectTarget'
 import WriteMessage from '@/containers/Write/WriteMessage'
 import WriteMessageHeader from '@/containers/Write/WriteMessageHeader'
 import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
-import { useState } from 'react'
+import useWriteMessageStore from '@/stores/writeMessageStore'
+import { useEffect, useState } from 'react'
+import SelectIsSpecific from '@/containers/Write/SelectIsSpecific'
+import SelectHeroType from '@/containers/Write/SelectHeroType'
 
 interface MessageInfo {
-  target: string | null | undefined
+  target: null | undefined | { name?: string; office?: string }
   message: string
 }
 
 export default function Write() {
+  const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
+  const targetType = useWriteMessageStore((state) => state.targetType)
   const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
-  const [specificTarget, setSpecificTarget] = useState<string>()
-  const [selectedHeroType, setSelectedHeroType] = useState<string>()
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   useBodyBackgroundColor('neutral-90')
+
+  useEffect(() => {
+    clearTargetType()
+  }, [])
 
   return (
     <>
@@ -39,35 +40,18 @@ export default function Write() {
       <main className="content-padding-small flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>
-            <SelectTarget
-              buttonList={SELECT_TARGET_BUTTONS}
-              defaultSelected={specificTarget}
-              nextButtonOnClick={(selected) => {
-                setSpecificTarget(selected)
-                setSelectedHeroType(undefined)
-                if (selected === 'specific') {
+            <SelectIsSpecific
+              onClickNextStep={() => {
+                if (targetType === SELECT_TARGET_BUTTONS[0].value) {
                   setNextStep(WRITE_STEPS[1])
                 } else {
                   setNextStep(WRITE_STEPS[4])
-                  setMessageInfo((prev) => ({ ...prev, target: null }))
                 }
               }}
             />
           </Step>
           <Step name={WRITE_STEPS[1]}>
-            <SelectTarget
-              buttonList={SELECT_HERO_TYPE_BUTTONS}
-              defaultSelected={selectedHeroType}
-              nextButtonOnClick={(selected) => {
-                setNextStep(WRITE_STEPS[2])
-                setSelectedHeroType(selected)
-                if (selected === 'police-officer') {
-                  setMessageInfo((prev) => ({ ...prev, target: '경찰관님' }))
-                } else {
-                  setMessageInfo((prev) => ({ ...prev, target: '소방관님' }))
-                }
-              }}
-            />
+            <SelectHeroType onClickNextStep={() => setNextStep(WRITE_STEPS[2])} />
           </Step>
           <Step name={WRITE_STEPS[2]}>
             <WriteTargetInfo
@@ -76,7 +60,13 @@ export default function Write() {
             />
           </Step>
           <Step name={WRITE_STEPS[3]}>
-            <SearchOffice />
+            <SearchOffice
+              selectButtonOnClick={(office: string) => {
+                setMessageInfo((prev) => ({ ...prev, target: { office } }))
+                setNextStep(WRITE_STEPS[2])
+                console.log(messageInfo)
+              }}
+            />
           </Step>
           <Step name={WRITE_STEPS[4]}>
             <WriteMessage />

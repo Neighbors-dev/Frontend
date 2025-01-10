@@ -12,6 +12,7 @@
     font-family: 'Pretendard', sans-serif;
     font-synthesis: none;
     background-color: var(--body-bg-color);
+    overflow-y: scroll;
   }
 
   #root {

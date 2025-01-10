@@ -2,13 +2,12 @@ import { getNoticeById } from '@/apis/notice'
 import Header from '@/components/Header'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useEffect, useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 export default function NoticeDetail() {
   const [notice, setNotice] = useState<NoticeType>()
   const [error, setError] = useState(false)
   const { id } = useParams()
-  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function NoticeDetail() {
 
   return (
     <>
-      <Header className="bg-neutral-90" onClick={() => navigate(-1)} title="공지사항" />
+      <Header className="bg-neutral-90" title="공지사항" />
       <main className="flex w-full flex-col gap-4 px-5 py-5">
         <section>
           <h2 className="title-large mb-1 text-white">{notice?.title}</h2>

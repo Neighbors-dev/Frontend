@@ -4,7 +4,6 @@ import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
 
 const NOTICE_SIZE = 10
 
@@ -14,7 +13,6 @@ export default function Notice() {
   const [hasMore, setHasMore] = useState(true)
   const [notices, setNotices] = useState<NoticeType[]>([])
   const [initialFetch, setInitialFetch] = useState(false)
-  const navigate = useNavigate()
   const [ref, inView] = useInView()
   const mainRef = useRef<HTMLElement>(null)
   useBodyBackgroundColor('neutral-90')
@@ -70,7 +68,7 @@ export default function Notice() {
 
   return (
     <>
-      <Header className="bg-neutral-90" onClick={() => navigate(-1)} title="공지사항" />
+      <Header className="bg-neutral-90" title="공지사항" />
       <main ref={mainRef} className="flex grow flex-col gap-3 px-5 pb-5">
         {notices.map((notice) => (
           <NoticeItem key={notice.noticeId} notice={notice} />

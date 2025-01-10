@@ -12,11 +12,12 @@ import useWriteMessageStore from '@/stores/writeMessageStore'
 import { useEffect } from 'react'
 import SelectIsSpecific from '@/containers/Write/Funnel/SelectIsSpecific'
 import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
+import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
 
 export default function Write() {
-  const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
+  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[4])
   const targetType = useWriteMessageStore((state) => state.targetType)
-  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
+  const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
   useBodyBackgroundColor('neutral-90')
 
   useEffect(() => {
@@ -31,7 +32,8 @@ export default function Write() {
         icons={currentStep === WRITE_STEPS[4] && <WriteMessageHeader setNextStep={setNextStep} />}
         onClick={setPrevStep}
       />
-      <main className="content-padding-small flex w-full grow flex-col">
+      <CollectionIntro />
+      <main className="content-padding-small relative flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>
             <SelectIsSpecific

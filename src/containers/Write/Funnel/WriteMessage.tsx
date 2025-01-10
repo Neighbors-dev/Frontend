@@ -1,6 +1,7 @@
 import SolidButton from '@/components/SolidButton'
 import { MESSAGE_MAX_LENGTH } from '@/constants/write'
 import useAuthStore from '@/stores/authStore'
+import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +10,7 @@ export default function WriteMessage() {
   const navigate = useNavigate()
   const [content, setContent] = useState('')
   const nickname = useAuthStore((state) => state.user)?.nickname
+  const toggleCollectionIntro = useWriteBottomStore((state) => state.toggleCollectionIntro)
   const setMessage = useWriteMessageStore((state) => state.setMessage)
   const generateTargetString = useWriteMessageStore((state) => state.generateTargetString)
   const targetString = generateTargetString()
@@ -38,6 +40,7 @@ export default function WriteMessage() {
         <button
           type="button"
           className="label-medium mb-7 text-neutral-40 underline underline-offset-2"
+          onClick={toggleCollectionIntro}
         >
           어떻게 작성해야 하나요?
         </button>

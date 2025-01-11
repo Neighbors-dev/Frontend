@@ -38,6 +38,5 @@ export const getNoticeById = async (noticeId: string) => {
     if (error instanceof Error) {
       console.error(error.message)
     }
-    return null
   }
 }

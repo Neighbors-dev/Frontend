@@ -31,7 +31,6 @@ export default function Login() {
         <TextButton
           variant="primary"
           size="medium"
-          type="button"
           className="text-brand-yellow"
           onClick={() => {
             navigate('/register')

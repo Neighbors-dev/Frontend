@@ -1,20 +1,19 @@
 import OutlinedButton from '@/components/OutlinedButton'
 import SolidButton from '@/components/SolidButton'
-import { useState } from 'react'
 
 interface SelectTargetProps {
   buttonList: { text: string; value: string }[]
-  defaultSelected?: string
-  nextButtonOnClick: (selected: string) => void
+  selected: string | undefined
+  setSelected: (selected: string) => void
+  onClickNextStep: () => void
 }
 
 export default function SelectTarget({
   buttonList,
-  defaultSelected,
-  nextButtonOnClick,
+  selected,
+  setSelected,
+  onClickNextStep,
 }: SelectTargetProps) {
-  const [selectedTarget, setSelectedTarget] = useState<string | undefined>(defaultSelected)
-
   return (
     <div className="flex grow flex-col justify-between">
       <section>
@@ -33,10 +32,10 @@ export default function SelectTarget({
             <OutlinedButton
               key={button.value}
               size="large"
-              selected={selectedTarget === button.value}
+              selected={selected === button.value}
               className="w-full"
               icon="check"
-              onClick={() => setSelectedTarget(button.value)}
+              onClick={() => setSelected(button.value)}
             >
               {button.text}
             </OutlinedButton>
@@ -47,8 +46,8 @@ export default function SelectTarget({
         variant="primary"
         size="large"
         className="w-full"
-        disabled={!selectedTarget}
-        onClick={() => selectedTarget && nextButtonOnClick(selectedTarget)}
+        disabled={!selected}
+        onClick={() => selected && onClickNextStep()}
       >
         다음
       </SolidButton>

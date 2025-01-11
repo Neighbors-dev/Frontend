@@ -19,7 +19,7 @@ export default function SolidButton({
 
   const variantClass = {
     primary: 'bg-brand-yellow text-neutral-100 disabled:bg-neutral-80 disabled:text-neutral-90',
-    secondary: 'bg-neutral-80 text-white disabled:bg-[#EDEEF1] disabled:text-[#B1B4BC]',
+    secondary: 'bg-neutral-80 text-white',
   }[variant]
 
   const sizeClass = {
@@ -31,7 +31,7 @@ export default function SolidButton({
   return (
     <button
       className={twMerge(
-        'flex items-center justify-center gap-1.5',
+        'flex shrink-0 items-center justify-center gap-1.5',
         variantClass,
         sizeClass,
         className

@@ -6,7 +6,7 @@ export default function TopButton() {
   }
 
   return (
-    <div className="max-w-600 pointer-events-none fixed bottom-8 overflow-visible pb-8">
+    <div className="max-w-600 pointer-events-none fixed bottom-4 overflow-visible pb-8">
       <button
         type="button"
         className="pointer-events-auto z-30 float-end mr-5 rounded-full border border-neutral-20 bg-white p-[10px] shadow-[0_15px_20px_0] shadow-black/15"

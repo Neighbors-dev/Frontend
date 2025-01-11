@@ -1,9 +1,11 @@
 import Header from '@/components/Header'
+import Loading from '@/components/Loading'
 import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetNotices } from '@/hooks/useNotices'
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { twMerge } from 'tailwind-merge'
 
 const NOTICE_SIZE = 10
 
@@ -34,15 +36,14 @@ export default function Notice() {
   return (
     <>
       <Header className="bg-neutral-90" title="공지사항" />
-      <main ref={mainRef} className="flex grow flex-col gap-3 px-5 pb-5">
+      <main
+        ref={mainRef}
+        className={twMerge('flex grow flex-col gap-3 px-5 pb-5', 'justify-center')}
+      >
         {notices.map((notice, index) => (
           <NoticeItem key={index} index={index} notice={notice} />
         ))}
-        {isFetching && (
-          <div className="flex justify-center p-4">
-            <div className="loader" />
-          </div>
-        )}
+        {isFetching && <Loading />}
         {notices.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
       </main>
     </>

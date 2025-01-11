@@ -1,5 +1,4 @@
 import Header from '@/components/Header'
-import Loading from '@/components/Loading'
 import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetNotices } from '@/hooks/useNotices'
@@ -43,7 +42,6 @@ export default function Notice() {
         {notices.map((notice, index) => (
           <NoticeItem key={index} index={index} notice={notice} />
         ))}
-        {isFetching && <Loading />}
         {notices.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
       </main>
     </>

@@ -13,6 +13,7 @@ export const useGetNotices = (size: number) => {
     },
     initialPageParam: 0,
     staleTime: 1000 * 60 * 5, // 5분
+    gcTime: 1000 * 60 * 60, // 1시간
   })
 }
 
@@ -21,5 +22,6 @@ export const useGetNoticeById = (id: string) => {
     queryKey: ['notice', id],
     queryFn: () => getNoticeById(id),
     staleTime: 1000 * 60 * 60, // 1시간
+    gcTime: 1000 * 60 * 60 * 2, // 2시간
   })
 }

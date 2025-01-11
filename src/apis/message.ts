@@ -1,28 +1,15 @@
-import { client, mockingClient } from './client'
-
-interface MessageResponse {
-  data: { openedLetters: MessageType[] }
-}
+import { client } from './client'
 
 export const getMessages = async (page: number, size: number) => {
   try {
-    const { data } = await client.get<MessageResponse>('/mainPage/letter', {
+    const {
+      data: { data },
+    } = await client.get('/mainPage/letter', {
       params: {
         page,
         size,
       },
     })
-    return data.data
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
-  }
-}
-
-export const getMessages2 = async () => {
-  try {
-    const { data } = await mockingClient.get<MessageResponse>('/mocks/message.json')
     return data
   } catch (error) {
     if (error instanceof Error) {
@@ -31,15 +18,17 @@ export const getMessages2 = async () => {
   }
 }
 
-export const getMainData = async (size: number) => {
+export const getMainData = async () => {
   try {
-    const { data } = await client.get('/mainPage', {
+    const {
+      data: { data },
+    } = await client.get('/mainPage', {
       params: {
         page: 0,
-        size,
+        size: 1,
       },
     })
-    return data.data
+    return data
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)

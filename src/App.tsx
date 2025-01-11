@@ -13,12 +13,14 @@ import Notice from '@/pages/Notice'
 import NoticeDetail from '@/pages/NoticeDetail'
 import Setting from '@/pages/Setting'
 import EditSetting from '@/pages/EditSetting'
+import Modal from './components/Modal'
 
 export default function App() {
   useViewportHeight()
 
   return (
     <>
+      <Modal />
       <Routes>
         <Route element={<NonLoggedInRoute />}>
           <Route path="login" element={<Login />} />

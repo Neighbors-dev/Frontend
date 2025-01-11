@@ -6,6 +6,7 @@ import useModalStore from '@/stores/modalStore'
 import { useNavigate } from 'react-router-dom'
 
 export default function Setting() {
+  const nickname = useAuthStore((state) => state.user)?.nickname
   const openModal = useModalStore((state) => state.openModal)
   const logout = useAuthStore((state) => state.logout)
   const navigate = useNavigate()
@@ -28,7 +29,7 @@ export default function Setting() {
       <Header title="계정 설정" />
       <main className="content-padding flex grow flex-col gap-5">
         <section className="flex items-center justify-between">
-          <h2 className="headline-small text-white">죠죠다 님</h2>
+          <h2 className="headline-small text-white">{nickname} 님</h2>
           <SolidButton
             variant="secondary"
             size="large"

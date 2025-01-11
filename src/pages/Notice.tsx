@@ -37,10 +37,10 @@ export default function Notice() {
       <Header className="bg-neutral-90" title="공지사항" />
       <main
         ref={mainRef}
-        className={twMerge('flex grow flex-col gap-3 px-5 pb-5', 'justify-center')}
+        className={twMerge('flex grow flex-col gap-3 px-5 pb-5', isFetching && 'justify-center')}
       >
-        {notices.map((notice, index) => (
-          <NoticeItem key={index} index={index} notice={notice} />
+        {notices.map((notice) => (
+          <NoticeItem key={notice.noticeId} notice={notice} />
         ))}
         {notices.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
       </main>

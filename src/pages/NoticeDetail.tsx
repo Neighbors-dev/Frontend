@@ -2,14 +2,16 @@ import Header from '@/components/Header'
 import Loading from '@/components/Loading'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetNoticeById } from '@/hooks/useNotices'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 export default function NoticeDetail() {
   const { id } = useParams()
   useBodyBackgroundColor('neutral-90')
 
-  const { data: notice, isFetching } = useGetNoticeById(id || '')
+  const { data: notice, isFetching, isError } = useGetNoticeById(id || '')
+
+  if (!id || isError) return <Navigate to="/notice" replace />
 
   return (
     <>

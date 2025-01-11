@@ -4,6 +4,7 @@ interface TokenType {
 }
 
 interface NoticeType {
+  noticeId: number
   title: string
   content?: string
   createdAT?: string

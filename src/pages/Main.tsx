@@ -46,7 +46,6 @@ export default function Main() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
-  // TODO: z-index 수정
   return (
     <>
       <TopButton />

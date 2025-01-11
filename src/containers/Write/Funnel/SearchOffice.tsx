@@ -3,6 +3,7 @@ import TextField from '@/components/TextField'
 import SearchResultItem from './SearchResultItem'
 import { useState } from 'react'
 import useWriteMessageStore from '@/stores/writeMessageStore'
+import { getSearchResult } from '@/apis/message'
 
 interface SearchOfficeProps {
   onCompleteSelect: () => void
@@ -12,24 +13,19 @@ export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchResult, setSearchResult] = useState<OfficeAddressType[]>([])
+  const heroType = useWriteMessageStore((state) => state.heroType)
   const setTargetOffice = useWriteMessageStore((state) => state.setTargetOffice)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
   }
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
     setSearchKeyword(searchQuery)
-    setSearchResult([
-      { addressId: 1, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
-      { addressId: 2, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
-      { addressId: 3, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
-      { addressId: 4, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
-      { addressId: 5, officeName: '강동경찰서', roadAddress: '서울 강동구 성내로 57 강동경찰서 ' },
-    ])
-    // TODO: 검색 API 호출
-    // TODO: 검색 결과를 setSearchResult로 업데이트
+
+    const result = await getSearchResult(searchQuery, heroType || '')
+    setSearchResult(result)
   }
 
   const handleSelect = (officeName: string) => {

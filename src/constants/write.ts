@@ -18,8 +18,8 @@ export const SELECT_TARGET_BUTTONS = [
   },
 ]
 
-export const POLICE = 'police-officer'
-export const FIREFIGHTER = 'firefighter'
+export const POLICE = 'POLICE_OFFICER'
+export const FIREFIGHTER = 'FIRE_FIGHTER'
 export const SELECT_HERO_TYPE_BUTTONS = [
   {
     text: '경찰관님 👮‍♂️',

@@ -5,8 +5,8 @@ interface TokenType {
 
 interface NoticeType {
   title: string
-  content: string
-  createdAT: string
+  content?: string
+  createdAT?: string
 }
 
 interface MessageType {

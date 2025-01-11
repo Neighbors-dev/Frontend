@@ -16,7 +16,7 @@ import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
 import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
 
 export default function Write() {
-  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[4])
+  const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   const targetType = useWriteMessageStore((state) => state.targetType)
   const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
   useBodyBackgroundColor('neutral-90')

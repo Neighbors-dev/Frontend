@@ -36,7 +36,12 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
   }, [show])
 
   return (
-    <div className="full-height max-w-600 pointer-events-none fixed left-1/2 top-0 z-50 -translate-x-1/2">
+    <div
+      className={twMerge(
+        'full-height max-w-600 pointer-events-none fixed left-1/2 top-0 -translate-x-1/2',
+        show ? 'z-50' : 'z-40'
+      )}
+    >
       <div
         className="pointer-events-none absolute h-[1px] opacity-0 will-change-transform"
         aria-hidden="true"

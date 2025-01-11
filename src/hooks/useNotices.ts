@@ -1,5 +1,5 @@
-import { getNotices } from '@/apis/notice'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { getNoticeById, getNotices } from '@/apis/notice'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useGetNotices = (size: number) => {
   return useInfiniteQuery({
@@ -13,5 +13,13 @@ export const useGetNotices = (size: number) => {
     },
     initialPageParam: 0,
     staleTime: 1000 * 60 * 5, // 5분
+  })
+}
+
+export const useGetNoticeById = (id: string) => {
+  return useQuery({
+    queryKey: ['notice', id],
+    queryFn: () => getNoticeById(id),
+    staleTime: 1000 * 60 * 60, // 1시간
   })
 }

@@ -46,3 +46,23 @@ export const getMainData = async (size: number) => {
     }
   }
 }
+
+export const getSearchResult = async (keyword: string, target: string) => {
+  try {
+    const {
+      data: {
+        data: { addressInfos },
+      },
+    } = await client.get('/address', {
+      params: {
+        searchAddress: keyword,
+        targetJob: target,
+      },
+    })
+    return addressInfos
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}

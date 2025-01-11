@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import SelectIsSpecific from '@/containers/Write/Funnel/SelectIsSpecific'
 import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
 import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
+import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
 
 export default function Write() {
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[4])
@@ -33,6 +34,7 @@ export default function Write() {
         onClick={setPrevStep}
       />
       <CollectionIntro />
+      <WriteFinish />
       <main className="content-padding-small relative flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>

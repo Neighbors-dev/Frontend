@@ -16,7 +16,7 @@ export default function CollectionIntro() {
     >
       <article
         className={twMerge(
-          'mb-8 flex h-[395px] flex-col gap-5 rounded-tl-[20px] rounded-tr-[20px] bg-neutral-80 px-8 py-6 transition-transform duration-300',
+          'mb-8 flex h-full flex-col gap-5 rounded-tl-[20px] rounded-tr-[20px] bg-neutral-80 px-8 py-6 transition-transform duration-300',
           showCollectionIntro ? 'translate-y-0' : 'translate-y-full'
         )}
       >

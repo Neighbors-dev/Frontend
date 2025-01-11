@@ -9,10 +9,12 @@ import { useNavigate } from 'react-router-dom'
 export default function WriteMessage() {
   const navigate = useNavigate()
   const [content, setContent] = useState('')
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
   const toggleCollectionIntro = useWriteBottomStore((state) => state.toggleCollectionIntro)
   const setMessage = useWriteMessageStore((state) => state.setMessage)
   const generateTargetString = useWriteMessageStore((state) => state.generateTargetString)
+  const toggleWriteFinish = useWriteBottomStore((state) => state.toggleWriteFinish)
   const targetString = generateTargetString()
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,10 +25,14 @@ export default function WriteMessage() {
   }
 
   const handleSubmit = () => {
-    setMessage(content)
-    // TODO: 메시지 작성 API 호출
-    // TODO: 성공 시 메시지 목록으로 이동
-    navigate('/')
+    if (isLoggedIn) {
+      toggleWriteFinish()
+    } else {
+      setMessage(content)
+      // TODO: 메시지 작성 API 호출
+      // TODO: 성공 시 메시지 목록으로 이동
+      navigate('/')
+    }
   }
 
   return (

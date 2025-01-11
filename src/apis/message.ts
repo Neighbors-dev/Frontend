@@ -53,5 +53,6 @@ export const getSearchResult = async (keyword: string, target: string) => {
     if (error instanceof Error) {
       console.error(error.message)
     }
+    return false
   }
 }

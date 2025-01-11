@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
+import BackgroundImg from '@/assets/images/background.png'
 
 const MESSAGE_SIZE = 5
 
@@ -51,15 +52,29 @@ export default function Main() {
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <Header onClick={() => setShowSidebar(true)} />
-      <main className="mt-12 w-full">
+      {/* <div>
+        <div id="1" className="main-blur-item-1" />
+        <div id="2" className="main-blur-item-2" />
+        <div id="bg-1" className="main-background-1l" />
+        <div
+          id="3"
+          className="absolute left-1/2 top-[638px] h-[23px] w-[93px] -translate-x-1/2 rounded-full bg-brand-yellow blur-[27px]"
+        />
+      </div> */}
+      <main className="relative mt-12 w-full">
         <NoticeSection notices={mainData?.topNotices || []} />
-        <h2 className="headline-small mx-5 mt-6 text-white">
+        <h2 className="headline-small mx-5 mb-6 mt-6 text-white">
           지금까지 {Math.max(mainData?.writtenLetterNumber || 0, messages.length)}개의
           <br />
           메시지가 모였어요 💌
         </h2>
-        <div className="my-5 flex h-[300px] w-full items-center justify-center bg-brand-yellow py-10">
-          배경 이미지 들어갈 예정
+        <div className="relative mx-5 my-16">
+          <img
+            src={BackgroundImg}
+            alt="배경 이미지"
+            className="mx-auto h-auto w-full max-w-[498px]"
+          />
+          <div id="bg-2" className="main-background-2" />
         </div>
         <SolidButton
           variant="primary"

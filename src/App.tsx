@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-import useViewportHeight from '@/hooks/useViewportHeight'
 import RegisteredRoute from '@/layouts/RegisteredRoute'
 import LoggedInRoute from '@/layouts/LoggedInRoute'
 import NonLoggedInRoute from '@/layouts/NonLoggedInRoute'
@@ -14,9 +13,10 @@ import NoticeDetail from '@/pages/NoticeDetail'
 import Setting from '@/pages/Setting'
 import EditSetting from '@/pages/EditSetting'
 import Modal from './components/Modal'
+import useViewport from '@/hooks/useViewport'
 
 export default function App() {
-  useViewportHeight()
+  useViewport()
 
   return (
     <>

@@ -1,86 +1,48 @@
-import { getNotices } from '@/apis/notice'
 import Header from '@/components/Header'
 import NoticeItem from '@/containers/Notice/NoticeItem'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
-import { useEffect, useRef, useState } from 'react'
+import { useGetNotices } from '@/hooks/useNotices'
+import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
+import { twMerge } from 'tailwind-merge'
 
 const NOTICE_SIZE = 10
 
 export default function Notice() {
-  const [loading, setLoading] = useState(false)
-  const [page, setPage] = useState(0)
-  const [hasMore, setHasMore] = useState(true)
-  const [notices, setNotices] = useState<NoticeType[]>([])
-  const [initialFetch, setInitialFetch] = useState(false)
-  const navigate = useNavigate()
-  const [ref, inView] = useInView()
   const mainRef = useRef<HTMLElement>(null)
+  const [ref, inView] = useInView()
   useBodyBackgroundColor('neutral-90')
 
-  const fetchNotices = async () => {
-    setLoading(true)
-    try {
-      const result = await getNotices(page, NOTICE_SIZE)
-      if (result) {
-        if (result.noticeList.length < NOTICE_SIZE) {
-          setHasMore(false)
-        }
-        setNotices((prev) => [...prev, ...result.noticeList])
-      }
-    } catch (error) {
-      console.error('Failed to fetch notices:', error)
-      setHasMore(false)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { data, fetchNextPage, hasNextPage, isFetching } = useGetNotices(NOTICE_SIZE)
+  const notices = data?.pages.flatMap((page) => page?.noticeList ?? []) ?? []
 
   useEffect(() => {
-    const fetchFirstNotices = async () => {
-      await fetchNotices()
-      setPage(1)
-      setInitialFetch(true)
+    // 초기 로드 후 화면 높이 체크
+    if (data && !isFetching && mainRef.current) {
+      if (mainRef.current.scrollHeight <= window.innerHeight && hasNextPage) {
+        fetchNextPage()
+      }
     }
-
-    fetchFirstNotices()
-  }, [])
+  }, [data, isFetching, hasNextPage, fetchNextPage])
 
   useEffect(() => {
-    const loadMoreNotices = () => {
-      if (loading || !hasMore || page === 0 || !initialFetch) return
-      if (inView) {
-        setPage((prevPage) => prevPage + 1)
-        fetchNotices()
-        return
-      }
-
-      // 컨텐츠가 화면 높이보다 작은 경우 추가 데이터 로드 (1번)
-      if (mainRef.current) {
-        if (mainRef.current.scrollHeight <= window.innerHeight) {
-          setPage((prevPage) => prevPage + 1)
-          fetchNotices()
-        }
-      }
+    // 무한 스크롤
+    if (inView && hasNextPage && !isFetching) {
+      fetchNextPage()
     }
-
-    loadMoreNotices()
-  }, [inView, initialFetch])
+  }, [inView, hasNextPage, isFetching, fetchNextPage])
 
   return (
     <>
-      <Header className="bg-neutral-90" onClick={() => navigate(-1)} title="공지사항" />
-      <main ref={mainRef} className="flex grow flex-col gap-3 px-5 pb-5">
-        {notices.map((notice, index) => (
-          <NoticeItem key={index} index={index} notice={notice} />
+      <Header className="bg-neutral-90" title="공지사항" />
+      <main
+        ref={mainRef}
+        className={twMerge('flex grow flex-col gap-3 px-5 pb-5', isFetching && 'justify-center')}
+      >
+        {notices.map((notice) => (
+          <NoticeItem key={notice.noticeId} notice={notice} />
         ))}
-        {loading && (
-          <div className="flex justify-center p-4">
-            <div className="loader" />
-          </div>
-        )}
-        {notices.length > 0 && hasMore && <div ref={ref} className="h-4" />}
+        {notices.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
       </main>
     </>
   )

@@ -31,10 +31,9 @@ export default function Login() {
         <TextButton
           variant="primary"
           size="medium"
-          type="button"
           className="text-brand-yellow"
           onClick={() => {
-            navigate('/')
+            navigate('/register')
           }}
         >
           비회원으로 작성하기

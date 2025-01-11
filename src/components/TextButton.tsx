@@ -18,7 +18,7 @@ export default function TextButton({
   // TODO: 색상 - 디자인시스템
 
   const variantClass = {
-    primary: 'text-[#6272FF] disabled:text-[#D2D5DB]',
+    primary: 'text-brand-yellow disabled:text-[#D2D5DB]',
     assistive: 'text-[#94989F] disabled:text-[#D2D5DB]',
   }[variant]
 
@@ -29,6 +29,7 @@ export default function TextButton({
 
   return (
     <button
+      type={props.type || 'button'}
       className={twMerge(
         'flex items-center justify-center gap-1.5',
         variantClass,

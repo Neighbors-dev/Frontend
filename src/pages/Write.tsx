@@ -1,104 +1,73 @@
-import { MessageIcon, ThumbUpIcon } from '@/assets'
 import Header from '@/components/Header'
-import SelectTarget from '@/containers/Write/SelectTarget'
-import WriteMessage from '@/containers/Write/WriteMessage'
-import WriteTargetInfo from '@/containers/Write/WriteTargetInfo'
+import { HEADER_TITLE, SELECT_TARGET_BUTTONS, WRITE_STEPS } from '@/constants/write'
+import MessagesCollection from '@/containers/Write/Funnel/MessagesCollection'
+import NewsCollection from '@/containers/Write/Funnel/NewsCollection'
+import SearchOffice from '@/containers/Write/Funnel/SearchOffice'
+import WriteMessage from '@/containers/Write/Funnel/WriteMessage'
+import WriteMessageHeader from '@/containers/Write/WriteMessageHeader'
+import WriteTargetInfo from '@/containers/Write/Funnel/WriteTargetInfo'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useFunnel from '@/hooks/useFunnel'
-import { useState } from 'react'
-
-const WRITE_STEPS = ['SL-T', 'SL-H-T', 'W-I', 'SE-W', 'W-M']
-const SELECT_TARGET_BUTTONS = [
-  {
-    text: '특정 경찰/소방관 분께 남길게요',
-    value: 'specific',
-  },
-  {
-    text: '특정 대상이 없어요',
-    value: 'general',
-  },
-]
-const SELECT_HERO_TYPE_BUTTONS = [
-  {
-    text: '경찰관님 👮‍♂️',
-    value: 'police-officer',
-  },
-  {
-    text: '소방관님 🧑',
-    value: 'firefighter',
-  },
-]
-
-interface MessageInfo {
-  target: string | null | undefined
-  message: string
-}
+import useWriteMessageStore from '@/stores/writeMessageStore'
+import { useEffect } from 'react'
+import SelectIsSpecific from '@/containers/Write/Funnel/SelectIsSpecific'
+import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
+import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
+import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
 
 export default function Write() {
-  const [messageInfo, setMessageInfo] = useState<MessageInfo>({ target: undefined, message: '' })
-  const [specificTarget, setSpecificTarget] = useState<string>()
-  const [selectedHeroType, setSelectedHeroType] = useState<string>()
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
+  const targetType = useWriteMessageStore((state) => state.targetType)
+  const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
   useBodyBackgroundColor('neutral-90')
+
+  useEffect(() => {
+    clearTargetType()
+  }, [])
 
   return (
     <>
       <Header
+        title={HEADER_TITLE[currentStep]}
+        className="bg-neutral-90"
+        icons={currentStep === WRITE_STEPS[4] && <WriteMessageHeader setNextStep={setNextStep} />}
         onClick={setPrevStep}
-        icons={
-          currentStep === WRITE_STEPS[4] && (
-            <section className="flex items-center gap-3">
-              <button type="button">
-                <ThumbUpIcon className="h-6 w-6 text-white" />
-              </button>
-              <button>
-                <MessageIcon className="h-6 w-6 text-white" />
-              </button>
-            </section>
-          )
-        }
       />
-      <main className="content-padding-small flex w-full grow flex-col">
+      <CollectionIntro />
+      <WriteFinish />
+      <main className="content-padding-small relative flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>
-            <SelectTarget
-              buttonList={SELECT_TARGET_BUTTONS}
-              defaultSelected={specificTarget}
-              nextButtonOnClick={(selected) => {
-                setSpecificTarget(selected)
-                setSelectedHeroType(undefined)
-                if (selected === 'specific') {
+            <SelectIsSpecific
+              onClickNextStep={() => {
+                if (targetType === SELECT_TARGET_BUTTONS[0].value) {
                   setNextStep(WRITE_STEPS[1])
                 } else {
                   setNextStep(WRITE_STEPS[4])
-                  setMessageInfo((prev) => ({ ...prev, target: null }))
                 }
               }}
             />
           </Step>
           <Step name={WRITE_STEPS[1]}>
-            <SelectTarget
-              buttonList={SELECT_HERO_TYPE_BUTTONS}
-              defaultSelected={selectedHeroType}
-              nextButtonOnClick={(selected) => {
-                setNextStep(WRITE_STEPS[2])
-                setSelectedHeroType(selected)
-                if (selected === 'police-officer') {
-                  setMessageInfo((prev) => ({ ...prev, target: '경찰관님' }))
-                } else {
-                  setMessageInfo((prev) => ({ ...prev, target: '소방관님' }))
-                }
-              }}
-            />
+            <SelectHeroType onClickNextStep={() => setNextStep(WRITE_STEPS[2])} />
           </Step>
           <Step name={WRITE_STEPS[2]}>
-            <WriteTargetInfo nextButtonOnClick={() => setNextStep(WRITE_STEPS[4])} />
+            <WriteTargetInfo
+              onSearch={() => setNextStep(WRITE_STEPS[3])}
+              onClickNextStep={() => setNextStep(WRITE_STEPS[4])}
+            />
           </Step>
           <Step name={WRITE_STEPS[3]}>
-            <h1>{WRITE_STEPS[3]}</h1>
+            <SearchOffice onCompleteSelect={() => setNextStep(WRITE_STEPS[2])} />
           </Step>
           <Step name={WRITE_STEPS[4]}>
-            <WriteMessage isTarget={!!messageInfo.target} />
+            <WriteMessage />
+          </Step>
+          <Step name={WRITE_STEPS[5]}>
+            <NewsCollection />
+          </Step>
+          <Step name={WRITE_STEPS[6]}>
+            <MessagesCollection />
           </Step>
         </Funnel>
       </main>

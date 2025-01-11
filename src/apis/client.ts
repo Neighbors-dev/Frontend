@@ -1,10 +1,4 @@
-import useAuthStore from '@/stores/authStore'
 import axios from 'axios'
-import { refreshAccessToken } from './auth'
-
-export const mockingClient = axios.create({
-  baseURL: '',
-})
 
 export const guestClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -13,7 +7,7 @@ export const guestClient = axios.create({
 export const client = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })
-
+/* 
 client.interceptors.request.use((config) => {
   console.log('client.interceptors.request.use')
   const accessToken = useAuthStore.getState().getAccessToken()
@@ -51,3 +45,4 @@ client.interceptors.response.use(
     }
   }
 )
+ */

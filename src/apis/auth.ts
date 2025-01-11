@@ -80,6 +80,19 @@ export const postNickname = async (userInfo: User) => {
   }
 }
 
+export const updateNickname = async (nickname: string) => {
+  //const updateNickname = useAuthStore.getState().updateNickname
+  try {
+    const data = await client.put('/user/name', { nickname })
+    console.log(data)
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}
+
 export const refreshAccessToken = async () => {
   const updateToken = useAuthStore.getState().updateToken
   const refreshToken = useAuthStore.getState().getRefreshToken()

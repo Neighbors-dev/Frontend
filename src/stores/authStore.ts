@@ -4,7 +4,7 @@ import { create } from 'zustand'
 interface AuthStore {
   isLoggedIn: boolean
   user: User | null
-  accessToken: { value: string; expiresIn: number } | null
+  accessToken: { value: string; expiresIn: Date } | null
   memberLogin: (accessToken: TokenType, refreshToken: TokenType, user: User) => void
   nonMemberLogin: (user: User) => void
   logout: () => void
@@ -12,6 +12,7 @@ interface AuthStore {
   getAccessToken: () => string | null
   getRefreshToken: () => string | undefined
   updateToken: (accessToken: TokenType, refreshToken: TokenType) => void
+  updateNickname: (nickname: string) => void
 }
 
 const cookies = new Cookies()
@@ -27,12 +28,18 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   memberLogin: (accessToken, refreshToken, user) => {
     // 닉네임 등록이 완료된 사용자 로그인
     console.log('memberLogin')
-    const expires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
-    set({ isLoggedIn: true, user, accessToken })
+    const accessExpires = new Date(accessToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    const refreshExpires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    set({
+      isLoggedIn: true,
+      user,
+      accessToken: { value: accessToken.value, expiresIn: accessExpires },
+    })
+    console.log(accessToken)
 
     // TODO: 리프레시 토큰에 특별 설정
-    cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, { path: '/', expires })
-    cookies.set(MEMBER_INFO_KEY, user, { path: '/', expires })
+    cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, { path: '/', expires: refreshExpires })
+    cookies.set(MEMBER_INFO_KEY, user, { path: '/', expires: refreshExpires })
     cookies.remove(GUEST_INFO_KEY, { path: '/' })
   },
   nonMemberLogin: (user) => {
@@ -49,7 +56,8 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   registerNickname: (accessToken, refreshToken, user) => {
     console.log('registerNickname')
-    set({ user, accessToken })
+    const accessExpires = new Date(accessToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    set({ user, accessToken: { value: accessToken.value, expiresIn: accessExpires } })
 
     if (get().isLoggedIn) {
       const expires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
@@ -64,19 +72,34 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   getAccessToken: () => {
     const accessToken = get().accessToken
+    console.log(accessToken, !accessToken)
 
     if (!accessToken) return null
 
-    return accessToken.expiresIn - EXPIRE_OFFSET < Date.now() ? null : accessToken.value
+    return accessToken.expiresIn.getTime() > Date.now() ? accessToken.value : null
   },
   getRefreshToken: () => cookies.get(REFRESH_TOKEN_KEY),
   updateToken: (accessToken, refreshToken) => {
-    const expires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
-    set({ accessToken })
-    cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, { path: '/', expires })
+    const accessExpires = new Date(accessToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    const refreshExpires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
+    set({ accessToken: { value: accessToken.value, expiresIn: accessExpires } })
+    cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, { path: '/', expires: refreshExpires })
 
     if (get().isLoggedIn) {
-      cookies.set(MEMBER_INFO_KEY, get().user, { path: '/', expires })
+      cookies.set(MEMBER_INFO_KEY, get().user, { path: '/', expires: refreshExpires })
+    }
+  },
+  updateNickname: (nickname: string) => {
+    if (get().isLoggedIn) {
+      const expires = cookies.get(MEMBER_INFO_KEY)?.expires
+
+      const user = { ...get().user, nickname }
+      set({ user })
+      cookies.set(MEMBER_INFO_KEY, user, { path: '/', expires })
+    } else {
+      const user = { ...get().user, nickname }
+      set({ user })
+      cookies.set(GUEST_INFO_KEY, user, { path: '/' })
     }
   },
 }))

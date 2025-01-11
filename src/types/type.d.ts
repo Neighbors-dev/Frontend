@@ -15,6 +15,12 @@ interface MessageType {
   content: string
 }
 
+interface OfficeAddressType {
+  addressId: number
+  officeName: string
+  roadAddress: string
+}
+
 interface User {
   role?: string
   email?: string

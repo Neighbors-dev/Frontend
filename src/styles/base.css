@@ -12,6 +12,7 @@
     font-family: 'Pretendard', sans-serif;
     font-synthesis: none;
     background-color: var(--body-bg-color);
+    overflow-y: scroll;
   }
 
   #root {
@@ -21,5 +22,6 @@
     width: 100%;
     min-height: calc(var(--vh, 1vh) * 100);
     margin: 0 auto;
+    position: relative;
   }
 }

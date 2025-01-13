@@ -50,7 +50,9 @@ export default function Setting() {
             </button>
           </li>
           <li className="py-3">
-            <button type="button">탈퇴하기</button>
+            <button type="button" onClick={() => navigate('/withdraw')}>
+              탈퇴하기
+            </button>
           </li>
         </ul>
       </main>

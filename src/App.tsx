@@ -14,6 +14,7 @@ import Setting from '@/pages/Setting'
 import EditSetting from '@/pages/EditSetting'
 import Modal from './components/Modal'
 import useViewport from '@/hooks/useViewport'
+import Withdraw from './pages/Withdraw'
 
 export default function App() {
   useViewport()
@@ -38,6 +39,7 @@ export default function App() {
         <Route element={<LoggedInRoute />}>
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
+          <Route path="withdraw" element={<Withdraw />} />
         </Route>
       </Routes>
     </>

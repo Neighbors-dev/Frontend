@@ -6,15 +6,52 @@ import SolidButton from '@/components/SolidButton'
 import TextareaField from '@/components/TextareaField'
 import { WITHDRAW_OPTIONS } from '@/constants'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
+import useAuthStore from '@/stores/authStore'
+import useModalStore from '@/stores/modalStore'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Withdraw() {
   const [selected, setSelected] = useState<string | undefined>()
   const [agree, setAgree] = useState(false)
+  const [reason, setReason] = useState('')
+  const logout = useAuthStore((state) => state.logout)
+  const openModal = useModalStore((state) => state.openModal)
+  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
+
+  const handleReasonChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReason(event.target.value)
+  }
 
   const handleSelected = (option: string) => {
     setSelected(option)
+  }
+
+  const handleWithdrawCheck = () => {
+    openModal({
+      content: '정말 탈퇴하시겠어요?',
+      confirmText: '탈퇴',
+      cancelText: '취소',
+      onConfirm: () => {
+        // 탈퇴 로직
+        setTimeout(() => {
+          handleWithdraw()
+        }, 300)
+      },
+    })
+  }
+
+  const handleWithdraw = () => {
+    openModal({
+      content: '탈퇴되었습니다.',
+      confirmText: '닫기',
+      cancelText: null,
+      onConfirm: () => {
+        logout()
+        navigate('/login')
+      },
+    })
   }
 
   return (
@@ -34,8 +71,10 @@ export default function Withdraw() {
           />
           <TextareaField
             rows={8}
+            value={reason}
             placeholder="더 나은 서비스를 위해 의견을 남겨주세요. (선택)"
             className="mb-4"
+            onChange={handleReasonChange}
           />
           <label
             htmlFor="withdraw"
@@ -57,6 +96,7 @@ export default function Withdraw() {
             size="large"
             className="flex-1 basis-1/2 disabled:bg-neutral-70 disabled:text-neutral-80"
             disabled={!selected || !agree}
+            onClick={handleWithdrawCheck}
           >
             회원 탈퇴
           </SolidButton>

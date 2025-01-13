@@ -14,12 +14,22 @@ import SelectIsSpecific from '@/containers/Write/Funnel/SelectIsSpecific'
 import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
 import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
 import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
+import { useNavigate } from 'react-router-dom'
 
 export default function Write() {
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   const targetType = useWriteMessageStore((state) => state.targetType)
   const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
+  const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
+
+  const handlePrevStep = () => {
+    if (currentStep === WRITE_STEPS[0]) {
+      navigate(-1)
+    } else {
+      setPrevStep()
+    }
+  }
 
   useEffect(() => {
     clearTargetType()
@@ -31,7 +41,7 @@ export default function Write() {
         title={HEADER_TITLE[currentStep]}
         className="bg-neutral-90"
         icons={currentStep === WRITE_STEPS[4] && <WriteMessageHeader setNextStep={setNextStep} />}
-        onClick={setPrevStep}
+        onClick={handlePrevStep}
       />
       <CollectionIntro />
       <WriteFinish />

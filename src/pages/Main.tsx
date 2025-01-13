@@ -14,12 +14,14 @@ import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import BackgroundImg from '@/assets/images/background.png'
+import MessageModal from '@/containers/Main/MessageModal'
 
 const MESSAGE_SIZE = 5
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
+  const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
   const navigate = useNavigate()
   useBodyBackgroundColor('#14192F')
@@ -49,6 +51,9 @@ export default function Main() {
 
   return (
     <>
+      {activeMessage && (
+        <MessageModal message={activeMessage} onClose={() => setActiveMessage(undefined)} />
+      )}
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <Header onClick={() => setShowSidebar(true)} />
@@ -92,7 +97,12 @@ export default function Main() {
         />
         <section className="mx-5 my-7 flex flex-col items-center gap-5">
           {messages.map((message, index) => (
-            <MessageCard key={index} message={message} />
+            <MessageCard
+              key={index}
+              message={message}
+              isShort
+              onClick={() => setActiveMessage(message)}
+            />
           ))}
           {isFetching && <Loading />}
           {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}

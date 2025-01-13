@@ -11,6 +11,7 @@ import MessageIcon from '@/assets/message.svg?react'
 import ThumbUpIcon from '@/assets/thumb-up.svg?react'
 import SearchIcon from '@/assets/search.svg?react'
 import CancelIcon from '@/assets/cancel.svg?react'
+import ArrowSmallUpIcon from '@/assets/arrow-small-up.svg?react'
 
 export {
   PencilIcon,
@@ -26,4 +27,5 @@ export {
   ThumbUpIcon,
   SearchIcon,
   CancelIcon,
+  ArrowSmallUpIcon,
 }

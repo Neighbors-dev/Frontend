@@ -26,3 +26,11 @@ export const SIDEBAR_NAV_ITEMS = [
     path: '/',
   },
 ]
+
+export const WITHDRAW_OPTIONS = [
+  '개인정보를 삭제하기 위해',
+  '서비스 이용이 불편함',
+  '재가입을 위해',
+  '사용하지 않을 서비스',
+  '그 외 기타',
+]

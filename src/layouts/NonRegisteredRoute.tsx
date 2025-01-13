@@ -1,13 +1,18 @@
 import useAuthStore from '@/stores/authStore'
-import { Navigate, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function NonRegisteredRoute() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const user = useAuthStore((state) => state.user)
+  const navigate = useNavigate()
 
-  if (isLoggedIn && user?.nickname) {
-    return <Navigate to="/" replace />
-  }
+  useEffect(() => {
+    console.log('teststest')
+    if (isLoggedIn && user?.nickname) {
+      navigate('/', { replace: true })
+    }
+  }, [])
 
   return <Outlet />
 }

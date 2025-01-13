@@ -19,8 +19,6 @@ export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps)
     if (currentValue.length > MAX_NICKNAME_LENGTH)
       currentValue = currentValue.slice(0, MAX_NICKNAME_LENGTH)
     setNickname(currentValue)
-
-    console.log(currentValue)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

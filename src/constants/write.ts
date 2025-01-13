@@ -26,7 +26,7 @@ export const SELECT_HERO_TYPE_BUTTONS = [
     value: POLICE,
   },
   {
-    text: '소방관님 🧑',
+    text: '소방관님 🧑‍🚒',
     value: FIREFIGHTER,
   },
 ]

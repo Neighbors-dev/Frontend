@@ -1,20 +1,21 @@
 import { Route, Routes } from 'react-router-dom'
-import RegisteredRoute from '@/layouts/RegisteredRoute'
-import LoggedInRoute from '@/layouts/LoggedInRoute'
-import NonLoggedInRoute from '@/layouts/NonLoggedInRoute'
-import NonRegisteredRoute from '@/layouts/NonRegisteredRoute'
-import Login from '@/pages/Login'
-import AuthCallback from '@/pages/AuthCallback'
-import Main from '@/pages/Main'
-import RegisterNickname from '@/pages/RegisterNickname'
-import Write from '@/pages/Write'
-import Notice from '@/pages/Notice'
-import NoticeDetail from '@/pages/NoticeDetail'
-import Setting from '@/pages/Setting'
-import EditSetting from '@/pages/EditSetting'
+import RegisteredRoute from './layouts/RegisteredRoute'
+import LoggedInRoute from './layouts/LoggedInRoute'
+import NonLoggedInRoute from './layouts/NonLoggedInRoute'
+import NonRegisteredRoute from './layouts/NonRegisteredRoute'
+import Login from './pages/Login'
+import AuthCallback from './pages/AuthCallback'
+import Main from './pages/Main'
+import RegisterNickname from './pages/RegisterNickname'
+import Write from './pages/Write'
+import Notice from './pages/Notice'
+import NoticeDetail from './pages/NoticeDetail'
+import Setting from './pages/Setting'
+import EditSetting from './pages/EditSetting'
 import Modal from './components/Modal'
-import useViewport from '@/hooks/useViewport'
+import useViewport from './hooks/useViewport'
 import Withdraw from './pages/Withdraw'
+import Terms from './pages/Terms'
 
 export default function App() {
   useViewport()
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
           <Route path="withdraw" element={<Withdraw />} />
+          <Route path="terms" element={<Terms />} />
         </Route>
       </Routes>
     </>

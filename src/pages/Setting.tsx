@@ -42,7 +42,9 @@ export default function Setting() {
         <hr className="border-neutral-80" />
         <ul className="title-large text-white">
           <li className="py-3">
-            <button type="button">약관 및 정책</button>
+            <button type="button" onClick={() => navigate('/terms')}>
+              약관 및 정책
+            </button>
           </li>
           <li className="py-3">
             <button type="button" onClick={handleLogout}>
@@ -50,7 +52,9 @@ export default function Setting() {
             </button>
           </li>
           <li className="py-3">
-            <button type="button">탈퇴하기</button>
+            <button type="button" onClick={() => navigate('/withdraw')}>
+              탈퇴하기
+            </button>
           </li>
         </ul>
       </main>

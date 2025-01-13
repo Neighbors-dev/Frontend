@@ -21,15 +21,17 @@ export default function Modal() {
       <section className="w-full max-w-[335px] rounded-xl bg-neutral-80 p-6">
         <p className="title-medium mb-[26px] text-center text-white">{content}</p>
         <div className="flex w-full justify-center gap-3">
-          <OutlinedButton
-            size="large"
-            className="flex-1 basis-1/2 border border-neutral-70"
-            onClick={() => {
-              if (onCancel) onCancel()
-            }}
-          >
-            {cancelText}
-          </OutlinedButton>
+          {cancelText && (
+            <OutlinedButton
+              size="large"
+              className="flex-1 basis-1/2 border border-neutral-70"
+              onClick={() => {
+                if (onCancel) onCancel()
+              }}
+            >
+              {cancelText}
+            </OutlinedButton>
+          )}
           <SolidButton
             variant="primary"
             size="large"

@@ -10,7 +10,7 @@ interface ModalStore {
   openModal: (params: {
     content: string
     confirmText: string
-    cancelText: string
+    cancelText: string | null
     onConfirm: () => void
     onCancel?: () => void
   }) => void

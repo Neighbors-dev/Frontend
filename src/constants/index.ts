@@ -18,7 +18,7 @@ export const SIDEBAR_NAV_ITEMS = [
   {
     menu: '내가 작성한 메시지',
     icon: PencilIcon,
-    path: '/',
+    path: '/message',
   },
   {
     menu: '자주 묻는 질문',

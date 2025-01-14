@@ -26,8 +26,6 @@ export default function MessageCard({ message, isShort, onClick }: MessageCardPr
         )}
       >
         {message.content}
-        {message.content}
-        {message.content}
       </p>
       <p className="title-small text-neutral-50">From. {message.from}</p>
     </article>

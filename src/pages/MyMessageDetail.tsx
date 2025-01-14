@@ -5,6 +5,7 @@ import SolidButton from '@/components/SolidButton'
 import MyMessageCard from '@/containers/Message/MyMessageCard'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import useModalStore from '@/stores/modalStore'
+import useToastStore from '@/stores/toastStore'
 import { useState } from 'react'
 
 const TEMP = {
@@ -17,16 +18,19 @@ const TEMP = {
 export default function MyMessageDetail() {
   const [isPrivate, setIsPrivate] = useState(false)
   const openModal = useModalStore((store) => store.openModal)
+  const showToast = useToastStore((store) => store.showToast)
   useBodyBackgroundColor('neutral-90')
 
   const handleDelete = () => {
-    console.log('delete')
     openModal({
       content: '정말 삭제하시겠어요?',
       confirmText: '삭제',
       cancelText: '취소',
       onConfirm: () => {
         // delete message
+        setTimeout(() => {
+          showToast('내가 작성한 메시지를 삭제했어요.')
+        }, 300)
       },
       onCancel: () => {
         // close modal

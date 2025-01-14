@@ -41,11 +41,11 @@ export default function MyMessageCard({
       >
         {message.content}
       </p>
-      <p className="title-small flex items-center gap-1.5 text-neutral-50">
+      <div className="title-small flex items-center gap-1.5 text-neutral-50">
         <span>2024.12.31</span>
         <hr className="h-3.5 w-[1px] border-none bg-neutral-30" />
         <span>{isOpened ? '공개' : '비공개'}</span>
-      </p>
+      </div>
     </article>
   )
 }

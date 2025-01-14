@@ -4,6 +4,7 @@ import OutlinedButton from '@/components/OutlinedButton'
 import SolidButton from '@/components/SolidButton'
 import MyMessageCard from '@/containers/Message/MyMessageCard'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
+import useModalStore from '@/stores/modalStore'
 import { useState } from 'react'
 
 const TEMP = {
@@ -15,7 +16,23 @@ const TEMP = {
 
 export default function MyMessageDetail() {
   const [isPrivate, setIsPrivate] = useState(false)
+  const openModal = useModalStore((store) => store.openModal)
   useBodyBackgroundColor('neutral-90')
+
+  const handleDelete = () => {
+    console.log('delete')
+    openModal({
+      content: '정말 삭제하시겠어요?',
+      confirmText: '삭제',
+      cancelText: '취소',
+      onConfirm: () => {
+        // delete message
+      },
+      onCancel: () => {
+        // close modal
+      },
+    })
+  }
 
   return (
     <>
@@ -43,6 +60,7 @@ export default function MyMessageDetail() {
           <OutlinedButton
             size="large"
             className="flex-1 basis-1/2 border-neutral-70 bg-transparent"
+            onClick={handleDelete}
           >
             삭제하기
           </OutlinedButton>

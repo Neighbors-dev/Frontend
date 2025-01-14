@@ -14,7 +14,7 @@ export default function Modal() {
   return (
     <div
       className={twMerge(
-        'fixed inset-0 z-50 flex items-center justify-center bg-neutral-90/70 p-5 transition-opacity duration-200',
+        'fixed inset-0 z-[60] flex items-center justify-center bg-neutral-90/70 p-5 transition-opacity duration-200',
         isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
       )}
     >

@@ -16,7 +16,7 @@ export default function NicknameComplete({
   return (
     <>
       <Header onClick={prevButtonOnclick} />
-      <main className="content-padding flex w-full grow flex-col items-center justify-between">
+      <main className="content-padding flex w-full grow flex-col items-center justify-between gap-10">
         <section className="w-full text-center">
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
           <h3 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h3>

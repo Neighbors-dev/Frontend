@@ -57,7 +57,7 @@ export default function Withdraw() {
   return (
     <>
       <Header title="탈퇴하기" />
-      <main className="content-padding flex grow flex-col justify-between">
+      <main className="content-padding flex grow flex-col justify-between gap-10">
         <section>
           <div className="text-white">
             <p className="label-large mb-1">탈퇴 후, 계정 복구는 불가능해요 🥺</p>
@@ -66,7 +66,7 @@ export default function Withdraw() {
           <Dropdown
             options={WITHDRAW_OPTIONS}
             selected={selected}
-            className="h-sm:my-2 my-5"
+            className="my-5 h-sm:my-2"
             handleSelected={handleSelected}
           />
           <TextareaField

@@ -27,7 +27,7 @@ export default function EditSetting() {
     <>
       <Header title="닉네임 변경" />
       <main className="content-padding flex grow flex-col">
-        <form className="flex w-full grow flex-col justify-between" onSubmit={handleSubmit}>
+        <form className="flex w-full grow flex-col justify-between gap-10" onSubmit={handleSubmit}>
           <fieldset className="flex flex-col gap-1">
             <label className="title-small text-white">닉네임</label>
             <TextField

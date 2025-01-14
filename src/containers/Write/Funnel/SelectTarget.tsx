@@ -1,5 +1,5 @@
-import OutlinedButton from '@/components/OutlinedButton'
-import SolidButton from '@/components/SolidButton'
+import OutlinedButton from '@/components/OutlinedButton';
+import SolidButton from '@/components/SolidButton';
 
 interface SelectTargetProps {
   buttonList: { text: string; value: string }[]
@@ -15,7 +15,7 @@ export default function SelectTarget({
   onClickNextStep,
 }: SelectTargetProps) {
   return (
-    <div className="flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between gap-10">
       <section>
         <h2 className="headline-small mb-4 text-white">
           경찰관, 소방관 분들에게

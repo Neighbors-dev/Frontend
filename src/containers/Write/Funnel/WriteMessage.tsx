@@ -36,7 +36,7 @@ export default function WriteMessage() {
   }
 
   return (
-    <div className="flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between gap-10">
       <section>
         <h2 className="headline-small mb-2 text-white">
           감사의 메시지를

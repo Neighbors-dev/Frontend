@@ -26,7 +26,7 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
   }
 
   return (
-    <div className="flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between gap-10">
       <section className="">
         <div className="mb-8 flex flex-col gap-4">
           <h2 className="headline-small text-white">

@@ -15,15 +15,18 @@ import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
 import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
 import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
 import { useNavigate } from 'react-router-dom'
+import useWriteBottomStore from '@/stores/writeBottomStore'
 
 export default function Write() {
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
   const targetType = useWriteMessageStore((state) => state.targetType)
   const clearTargetType = useWriteMessageStore((state) => state.clearTargetType)
+  const preventShow = useWriteBottomStore((state) => state.preventShow)
   const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
 
   const handlePrevStep = () => {
+    preventShow()
     if (currentStep === WRITE_STEPS[0]) {
       navigate(-1)
     } else {

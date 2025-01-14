@@ -7,12 +7,18 @@ interface MyMessageCardProps {
   onClick?: () => void
 }
 
-export default function MyMessageCard({ message, isShort, isOpened, onClick }: MyMessageCardProps) {
+export default function MyMessageCard({
+  message,
+  isShort,
+  isOpened = false,
+  onClick,
+}: MyMessageCardProps) {
   return (
     <article
       className={twMerge(
-        'flex w-full flex-col gap-4 rounded-[20px] bg-message-gradient p-6',
-        onClick && 'cursor-pointer'
+        'flex max-h-[324px] w-full flex-col gap-4 rounded-[20px] bg-message-gradient p-6',
+        onClick && 'cursor-pointer',
+        !isShort && 'grow'
       )}
       onClick={onClick}
     >
@@ -29,7 +35,7 @@ export default function MyMessageCard({ message, isShort, isOpened, onClick }: M
       </div>
       <p
         className={twMerge(
-          'body-large whitespace-pre-wrap text-neutral-80',
+          'body-large grow overflow-auto whitespace-pre-wrap text-neutral-80',
           isShort && 'line-clamp-3'
         )}
       >
@@ -38,7 +44,7 @@ export default function MyMessageCard({ message, isShort, isOpened, onClick }: M
       <p className="title-small flex items-center gap-1.5 text-neutral-50">
         <span>2024.12.31</span>
         <hr className="h-3.5 w-[1px] border-none bg-neutral-30" />
-        <span>공개</span>
+        <span>{isOpened ? '공개' : '비공개'}</span>
       </p>
     </article>
   )

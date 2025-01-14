@@ -17,6 +17,7 @@ import useViewport from './hooks/useViewport'
 import Withdraw from './pages/Withdraw'
 import Terms from './pages/Terms'
 import MyMessage from './pages/MyMessage'
+import MyMessageDetail from './pages/MyMessageDetail'
 
 export default function App() {
   useViewport()
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
           <Route path="message" element={<MyMessage />} />
+          <Route path="message/:id" element={<MyMessageDetail />} />
           <Route path="withdraw" element={<Withdraw />} />
           <Route path="terms" element={<Terms />} />
         </Route>

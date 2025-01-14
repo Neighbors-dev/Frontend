@@ -21,7 +21,7 @@ export default function NicknameComplete({
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
           <h3 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h3>
         </section>
-        <img src={LampImagePng} alt="램프 이미지" />
+        <img src={LampImagePng} alt="램프 이미지" className="h-[260px] w-auto" />
         <SolidButton
           variant="primary"
           size="large"

@@ -56,11 +56,7 @@ export default function WriteFinish() {
             <CancelIcon />
           </button>
         )}
-        {isShareVisible ? (
-          <img src={Light} alt="가로등 아이콘" className="h-auto w-[102px]" />
-        ) : (
-          <img src={Envelope} alt="편지 아이콘" className="h-auto w-[102px]" />
-        )}
+        <img src={isShareVisible ? Light : Envelope} alt="아이콘" className="h-auto w-[102px]" />
         <section className="mt-1 h-[76px] text-center text-white">
           <p className="title-large mb-2">{title}</p>
           <p className="body-medium whitespace-pre-wrap text-center">{body}</p>

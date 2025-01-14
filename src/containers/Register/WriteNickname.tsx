@@ -19,8 +19,6 @@ export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps)
     if (currentValue.length > MAX_NICKNAME_LENGTH)
       currentValue = currentValue.slice(0, MAX_NICKNAME_LENGTH)
     setNickname(currentValue)
-
-    console.log(currentValue)
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +43,10 @@ export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps)
 
   return (
     <main className="content-padding flex grow flex-col">
-      <form className="flex h-full w-full grow flex-col justify-between" onSubmit={handleSubmit}>
+      <form
+        className="flex h-full w-full grow flex-col justify-between gap-10"
+        onSubmit={handleSubmit}
+      >
         <section>
           <h1 className="headline-small mb-12 text-white">
             메시지 작성 전<br />

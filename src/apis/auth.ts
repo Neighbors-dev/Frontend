@@ -84,12 +84,26 @@ export const updateNickname = async (nickname: string) => {
   //const updateNickname = useAuthStore.getState().updateNickname
   try {
     const data = await client.put('/user/name', { nickname })
-    console.log(data)
     return data
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     }
+  }
+}
+
+export const postLogout = async () => {
+  const logout = useAuthStore.getState().logout
+
+  try {
+    await client.post('/user/logout')
+    logout()
+    return true
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
   }
 }
 

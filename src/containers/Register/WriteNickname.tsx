@@ -24,7 +24,6 @@ export default function WriteNickname({ nextButtonOnClick }: WriteNicknameProps)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const userInfo: User = { nickname: nickname.slice(0, 5) }
-    console.log(nickname.slice(0, 5))
 
     if (isLoggedIn) {
       userInfo.role = user?.role || MEMBER

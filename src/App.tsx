@@ -16,6 +16,9 @@ import Modal from './components/Modal'
 import useViewport from './hooks/useViewport'
 import Withdraw from './pages/Withdraw'
 import Terms from './pages/Terms'
+import MyMessage from './pages/MyMessage'
+import MyMessageDetail from './pages/MyMessageDetail'
+import ToastMessage from './components/ToastMessage'
 
 export default function App() {
   useViewport()
@@ -23,6 +26,7 @@ export default function App() {
   return (
     <>
       <Modal />
+      <ToastMessage />
       <Routes>
         <Route element={<NonLoggedInRoute />}>
           <Route path="login" element={<Login />} />
@@ -40,6 +44,8 @@ export default function App() {
         <Route element={<LoggedInRoute />}>
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
+          <Route path="message" element={<MyMessage />} />
+          <Route path="message/:id" element={<MyMessageDetail />} />
           <Route path="withdraw" element={<Withdraw />} />
           <Route path="terms" element={<Terms />} />
         </Route>

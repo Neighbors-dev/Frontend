@@ -40,3 +40,19 @@ export const getNoticeById = async (noticeId: string) => {
     }
   }
 }
+
+export const getMyMessages = async () => {
+  try {
+    const {
+      data: {
+        data: { myLetterInfos },
+      },
+    } = await client.get('/letter')
+    console.log(myLetterInfos)
+    return myLetterInfos
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}

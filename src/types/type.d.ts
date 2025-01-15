@@ -11,6 +11,7 @@ interface NoticeType {
 }
 
 interface MessageType {
+  letterId?: number
   to: string
   from: string
   content: string

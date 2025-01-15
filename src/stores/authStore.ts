@@ -27,7 +27,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   accessToken: null,
   memberLogin: (accessToken, refreshToken, user) => {
     // 닉네임 등록이 완료된 사용자 로그인
-    console.log('memberLogin')
     const accessExpires = new Date(accessToken.expiresIn + Date.now() - EXPIRE_OFFSET)
     const refreshExpires = new Date(refreshToken.expiresIn + Date.now() - EXPIRE_OFFSET)
     set({
@@ -35,7 +34,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
       user,
       accessToken: { value: accessToken.value, expiresIn: accessExpires },
     })
-    console.log(accessToken)
 
     // TODO: 리프레시 토큰에 특별 설정
     cookies.set(REFRESH_TOKEN_KEY, refreshToken.value, { path: '/', expires: refreshExpires })
@@ -44,7 +42,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   nonMemberLogin: (user) => {
     // 닉네임 등록이 완료되지 않은 사용자 로그인
-    console.log('nonMemberLogin')
     set({ isLoggedIn: true, user })
     cookies.set(MEMBER_INFO_KEY, user, { path: '/' })
     cookies.remove(GUEST_INFO_KEY, { path: '/' })
@@ -55,7 +52,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
     cookies.remove(MEMBER_INFO_KEY, { path: '/' })
   },
   registerNickname: (accessToken, refreshToken, user) => {
-    console.log('registerNickname')
     const accessExpires = new Date(accessToken.expiresIn + Date.now() - EXPIRE_OFFSET)
     set({ user, accessToken: { value: accessToken.value, expiresIn: accessExpires } })
 
@@ -72,7 +68,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   getAccessToken: () => {
     const accessToken = get().accessToken
-    console.log(accessToken, !accessToken)
 
     if (!accessToken) return null
 

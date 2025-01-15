@@ -1,3 +1,4 @@
+import { postSignout } from '@/apis/user'
 import Checkbox from '@/components/Checkbox'
 import Dropdown from '@/components/Dropdown'
 import Header from '@/components/Header'
@@ -33,8 +34,10 @@ export default function Withdraw() {
       content: '정말 탈퇴하시겠어요?',
       confirmText: '탈퇴',
       cancelText: '취소',
-      onConfirm: () => {
-        // 탈퇴 로직
+      onConfirm: async () => {
+        const result = await postSignout(selected || '', reason.trim() || null)
+        if (!result) return
+
         setTimeout(() => {
           handleWithdraw()
         }, 300)
@@ -56,7 +59,7 @@ export default function Withdraw() {
 
   return (
     <>
-      <Header title="탈퇴하기" />
+      <Header title="탈퇴하기" className="bg-neutral-90" />
       <main className="content-padding flex grow flex-col justify-between gap-10">
         <section>
           <div className="text-white">

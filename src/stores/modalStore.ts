@@ -11,7 +11,7 @@ interface ModalStore {
     content: string
     confirmText: string
     cancelText: string | null
-    onConfirm: () => void
+    onConfirm: (() => void) | (() => Promise<void>)
     onCancel?: () => void
   }) => void
   clearModal: () => void

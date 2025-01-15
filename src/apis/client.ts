@@ -1,6 +1,6 @@
 import useAuthStore from '@/stores/authStore'
 import axios from 'axios'
-import { refreshAccessToken } from './auth'
+import { getAccessToken } from './auth'
 
 export const guestClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -28,7 +28,7 @@ client.interceptors.response.use(
       retry = true
 
       try {
-        await refreshAccessToken()
+        await getAccessToken()
         const accessToken = useAuthStore.getState().accessToken
 
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`

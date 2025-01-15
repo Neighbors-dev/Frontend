@@ -1,7 +1,7 @@
 import useAuthStore from '@/stores/authStore'
 import { client, guestClient } from './client'
 
-export const postLogin = async (code: string) => {
+export const getKakaoLogin = async (code: string) => {
   const memberLogin = useAuthStore.getState().memberLogin
   const nonMemberLogin = useAuthStore.getState().nonMemberLogin
 
@@ -49,65 +49,7 @@ export const postLogin = async (code: string) => {
   }
 }
 
-export const postNickname = async (userInfo: User) => {
-  const registerNickname = useAuthStore.getState().registerNickname
-
-  try {
-    const {
-      data: {
-        data: { authTokens },
-      },
-    } = await guestClient.post('/user/auth', userInfo)
-
-    const accessToken = {
-      value: authTokens.accessToken,
-      expiresIn: authTokens.expiresIn,
-    }
-
-    const refreshToken = {
-      value: authTokens.refreshToken,
-      expiresIn: authTokens.refreshTokenExpiresIn,
-    }
-
-    registerNickname(accessToken, refreshToken, userInfo)
-
-    return true
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
-    return false
-  }
-}
-
-export const updateNickname = async (nickname: string) => {
-  //const updateNickname = useAuthStore.getState().updateNickname
-  try {
-    const data = await client.put('/user/name', { nickname })
-    return data
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
-  }
-}
-
-export const postLogout = async () => {
-  const logout = useAuthStore.getState().logout
-
-  try {
-    await client.post('/user/logout')
-    logout()
-    return true
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
-    return false
-  }
-}
-
-export const refreshAccessToken = async () => {
+export const getAccessToken = async () => {
   const updateToken = useAuthStore.getState().updateToken
   const refreshToken = useAuthStore.getState().getRefreshToken()
   // TODO: 데이터 구조 확인

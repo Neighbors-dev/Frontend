@@ -1,4 +1,4 @@
-import { postNickname } from '@/apis/auth'
+import { postNickname } from '@/apis/user'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
 import { MAX_NICKNAME_LENGTH, MEMBER, NON_MEMBER } from '@/constants'

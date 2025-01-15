@@ -1,4 +1,4 @@
-import { postLogout } from '@/apis/auth'
+import { postLogout } from '@/apis/user'
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'

@@ -3,12 +3,13 @@ import { client, guestClient } from './client'
 
 export const putNickname = async (nickname: string) => {
   try {
-    const data = await client.put('/user/name', { nickname })
-    return data
+    await client.put(`/user/name?nickname=${nickname}`)
+    return true
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     }
+    return false
   }
 }
 

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import RegisteredRoute from './layouts/RegisteredRoute'
 import LoggedInRoute from './layouts/LoggedInRoute'
 import NonLoggedInRoute from './layouts/NonLoggedInRoute'
@@ -49,6 +49,7 @@ export default function App() {
           <Route path="withdraw" element={<Withdraw />} />
           <Route path="terms" element={<Terms />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   )

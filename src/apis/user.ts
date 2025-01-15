@@ -12,6 +12,21 @@ export const putNickname = async (nickname: string) => {
   }
 }
 
+export const postSignout = async (reason: string, opinion: string | null) => {
+  try {
+    await client.post('/user/signout', {
+      reasonCategory: reason,
+      opinionForService: opinion,
+    })
+    return true
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
+  }
+}
+
 export const postLogout = async () => {
   const logout = useAuthStore.getState().logout
 

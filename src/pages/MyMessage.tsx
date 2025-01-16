@@ -1,6 +1,6 @@
 import Header from '@/components/Header'
 import Loading from '@/components/Loading'
-import MessageList from '@/containers/Message/MessageList'
+import MyMessageList from '@/containers/Message/MyMessageList'
 import NoMessage from '@/containers/Message/NoMessage'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetMyMessages } from '@/hooks/useMessage'
@@ -21,7 +21,7 @@ export default function MyMessage() {
         {isFetching ? (
           <Loading />
         ) : (
-          <>{messages.length === 0 ? <NoMessage /> : <MessageList messages={messages} />}</>
+          <>{messages.length === 0 ? <NoMessage /> : <MyMessageList messages={messages} />}</>
         )}
       </main>
     </>

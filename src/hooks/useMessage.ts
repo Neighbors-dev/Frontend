@@ -21,8 +21,6 @@ export const useGetMessages = () => {
 }
 
 export const useGetMyMessages = () => {
-  // TODO: 메시지 등록 후 캐시 초기화
-  // queryClient.resetQueries(queryKey, { exact: true });
   return useQuery({
     queryKey: ['my-messages'],
     queryFn: () => getMyMessages(),

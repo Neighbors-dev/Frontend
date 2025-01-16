@@ -1,23 +1,28 @@
+import { postMessage } from '@/apis/message'
 import Checkbox from '@/components/Checkbox'
 import SolidButton from '@/components/SolidButton'
 import { MESSAGE_MAX_LENGTH } from '@/constants/write'
 import useAuthStore from '@/stores/authStore'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function WriteMessage() {
-  const navigate = useNavigate()
   const [content, setContent] = useState('')
-  const [isPrivate, setIsPrivate] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
+  const navigate = useNavigate()
+  const setIsPrivate = useWriteMessageStore((state) => state.setIsPrivate)
   const toggleCollectionIntro = useWriteBottomStore((state) => state.toggleCollectionIntro)
   const setMessage = useWriteMessageStore((state) => state.setMessage)
   const generateTargetString = useWriteMessageStore((state) => state.generateTargetString)
-  const toggleWriteFinish = useWriteBottomStore((state) => state.toggleWriteFinish)
+  const generateMessage = useWriteMessageStore((state) => state.generateMessage)
+  const toggleCheckAlarm = useWriteBottomStore((state) => state.toggleCheckAlarm)
   const targetString = generateTargetString()
+  const queryClient = useQueryClient()
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let currentValue = e.target.value
@@ -26,19 +31,27 @@ export default function WriteMessage() {
     setContent(currentValue)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setMessage(content)
+    setIsPrivate(isChecked)
     if (isLoggedIn) {
-      toggleWriteFinish()
+      toggleCheckAlarm()
     } else {
-      setMessage(content)
-      // TODO: 메시지 작성 API 호출
-      // TODO: 성공 시 메시지 목록으로 이동
-      navigate('/')
+      const message = generateMessage()
+      const result = await postMessage(message)
+
+      console.log(result)
+      if (result) {
+        await queryClient.invalidateQueries({ queryKey: ['messages'] })
+        //await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+        navigate('/')
+      }
     }
   }
 
   return (
-    <div className="flex grow flex-col justify-between gap-10">
+    <form className="flex grow flex-col justify-between gap-10" onSubmit={handleSubmit}>
       <section className="flex grow flex-col">
         <h2 className="headline-small mb-2 text-white">
           감사의 메시지를
@@ -79,21 +92,16 @@ export default function WriteMessage() {
           >
             <Checkbox
               id="isPrivate"
-              checked={isPrivate}
-              onChange={() => setIsPrivate((prev) => !prev)}
+              checked={isChecked}
+              onChange={() => setIsChecked((prev) => !prev)}
             />
             <span>비공개로 작성하기</span>
           </label>
         </div>
       </section>
-      <SolidButton
-        variant="primary"
-        size="large"
-        disabled={content.trim() === ''}
-        onClick={handleSubmit}
-      >
+      <SolidButton variant="primary" size="large" type="submit" disabled={content.trim() === ''}>
         작성 완료
       </SolidButton>
-    </div>
+    </form>
   )
 }

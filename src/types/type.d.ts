@@ -34,3 +34,12 @@ interface NewsType {
   title: string
   content: string
 }
+
+interface WriteMessageType {
+  content: string
+  targetJob: string | null
+  addressId: number | null
+  heroName: string
+  readingAlarm: boolean | null
+  isPublic: boolean
+}

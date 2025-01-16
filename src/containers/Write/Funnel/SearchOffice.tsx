@@ -28,8 +28,8 @@ export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
     setSearchResult(result)
   }
 
-  const handleSelect = (officeName: string) => {
-    setTargetOffice(officeName)
+  const handleSelect = (officeName: string, officeId: number) => {
+    setTargetOffice(officeName, officeId)
     onCompleteSelect()
   }
 

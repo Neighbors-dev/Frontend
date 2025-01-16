@@ -55,3 +55,15 @@ export const getSearchResult = async (keyword: string, target: string) => {
     }
   }
 }
+
+export const postMessage = async (message: WriteMessageType) => {
+  try {
+    const { data } = await client.post('/letter', message)
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
+  }
+}

@@ -2,12 +2,14 @@ import { getMessages } from '@/apis/message'
 import { getMyMessages } from '@/apis/notice'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
-export const useGetMessages = (size: number) => {
+const MESSAGE_SIZE = 5
+
+export const useGetMessages = () => {
   return useInfiniteQuery({
     queryKey: ['messages'],
-    queryFn: ({ pageParam = 0 }) => getMessages(pageParam, size),
+    queryFn: ({ pageParam = 0 }) => getMessages(pageParam, MESSAGE_SIZE),
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage && lastPage.openedLetters.length < size) {
+      if (lastPage && lastPage.openedLetters.length < MESSAGE_SIZE) {
         return undefined
       }
       return allPages.length

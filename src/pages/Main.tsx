@@ -14,9 +14,7 @@ import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import BackgroundImg from '@/assets/images/background.png'
-import MessageModal from '@/containers/Main/MessageModal'
-
-const MESSAGE_SIZE = 5
+import MessageModal from '@/components/MessageModal'
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
@@ -27,8 +25,7 @@ export default function Main() {
   useBodyBackgroundColor('#14192F')
 
   const { data: mainData } = useMainData()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useGetMessages(MESSAGE_SIZE)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetMessages()
 
   const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
 
@@ -57,15 +54,6 @@ export default function Main() {
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <Header onClick={() => setShowSidebar(true)} />
-      {/* <div>
-        <div id="1" className="main-blur-item-1" />
-        <div id="2" className="main-blur-item-2" />
-        <div id="bg-1" className="main-background-1l" />
-        <div
-          id="3"
-          className="absolute left-1/2 top-[638px] h-[23px] w-[93px] -translate-x-1/2 rounded-full bg-brand-yellow blur-[27px]"
-        />
-      </div> */}
       <main className="relative mt-12 w-full">
         <NoticeSection notices={mainData?.topNotices || []} />
         <h2 className="headline-small mx-5 mb-6 mt-6 text-white">

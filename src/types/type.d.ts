@@ -28,3 +28,9 @@ interface User {
   email?: string
   nickname?: string
 }
+
+interface NewsType {
+  newId: number
+  title: string
+  content: string
+}

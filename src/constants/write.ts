@@ -9,8 +9,8 @@ export const WRITE_STEPS = [
   'collect-message',
 ]
 export const HEADER_TITLE: { [key: string]: string } = {
-  'C-N': '소식 모아보기',
-  'C-M': '감사메시지 모아보기',
+  'collect-news': '소식 모아보기',
+  'collect-message': '감사메시지 모아보기',
 }
 
 export const SPECIFIC = 'specific'

@@ -13,8 +13,8 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import BackgroundImg from '@/assets/images/background.png'
 import MessageModal from '@/components/MessageModal'
+import { extractImgLink } from '@/utils/extractImgLink'
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
@@ -54,6 +54,7 @@ export default function Main() {
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <Header onClick={() => setShowSidebar(true)} />
+      <div className="absolute left-1/2 top-[-39px] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
       <main className="relative mt-12 w-full">
         <NoticeSection notices={mainData?.topNotices || []} />
         <h2 className="headline-small mx-5 mb-6 mt-6 text-white">
@@ -62,24 +63,29 @@ export default function Main() {
           메시지가 모였어요 💌
         </h2>
         <div className="relative mx-5 my-16">
-          <img
-            src={BackgroundImg}
-            alt="배경 이미지"
-            className="mx-auto h-auto w-full max-w-[498px]"
-          />
-          <div id="bg-2" className="main-background-2" />
+          <div className="overflow-hidden">
+            <img
+              src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
+              alt="배경 이미지"
+              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[498px] -translate-x-1/2"
+            />
+          </div>
+          <div id="bg-2" className="main-background" />
         </div>
-        <SolidButton
-          variant="primary"
-          size="large"
-          className="mx-auto rounded-full"
-          onClick={() => navigate('/write')}
-        >
-          메시지 작성하기 <PencilIcon className="h-5 w-5" />
-        </SolidButton>
+        <div className="relative">
+          <SolidButton
+            variant="primary"
+            size="large"
+            className="mx-auto rounded-full"
+            onClick={() => navigate('/write')}
+          >
+            메시지 작성하기 <PencilIcon className="h-5 w-5" />
+          </SolidButton>
+          <div className="absolute bottom-[-9px] left-1/2 z-[-1] h-[23px] w-[93px] -translate-x-1/2 rounded-[50px] bg-brand-yellow blur-[27px]" />
+        </div>
         <div
           className={twMerge(
-            'max-w-600 fixed left-1/2 top-12 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32] to-[#171D32]/0 to-45% transition-opacity duration-100',
+            'fixed left-1/2 top-12 h-[83px] w-full -translate-x-1/2 bg-gradient-to-b from-[#171D32] to-[#171D32]/0 to-45% transition-opacity',
             showFade ? 'opacity-100' : 'opacity-0'
           )}
         />

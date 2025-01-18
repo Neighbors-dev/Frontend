@@ -39,7 +39,7 @@ export default function MyMessageCard({ message, isShort, onClick }: MyMessageCa
         <span>{message.createdAt}</span>
         <hr className="h-3.5 w-[1px] border-none bg-neutral-30" />
         {/* TODO: isOpened가 아니라! */}
-        <span>{message.isOpened ? '공개' : '비공개'}</span>
+        <span>{message.isPublic ? '공개' : '비공개'}</span>
       </div>
     </article>
   )

@@ -1,4 +1,4 @@
-import { getMessages, getMyMessages } from '@/apis/message'
+import { getMessages, getMyMessageDetail, getMyMessages } from '@/apis/message'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 const MESSAGE_SIZE = 5
@@ -23,6 +23,15 @@ export const useGetMyMessages = () => {
   return useQuery({
     queryKey: ['my-messages'],
     queryFn: () => getMyMessages(),
+    staleTime: 1000 * 60 * 5, // 5분
+    gcTime: 1000 * 60 * 60, // 1시간
+  })
+}
+
+export const useGetMyMessageDetail = (id: string) => {
+  return useQuery({
+    queryKey: ['my-message-detail', id],
+    queryFn: () => getMyMessageDetail(id),
     staleTime: 1000 * 60 * 5, // 5분
     gcTime: 1000 * 60 * 60, // 1시간
   })

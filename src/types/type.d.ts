@@ -20,6 +20,7 @@ interface MessageType {
 interface MyMessageType extends MessageType {
   createdAt: string
   isOpened: boolean
+  isPublic: boolean
 }
 
 interface OfficeAddressType {

@@ -83,3 +83,17 @@ export const getMyMessages = async () => {
     }
   }
 }
+
+export const getMyMessageDetail = async (letterId: string) => {
+  try {
+    const {
+      data: { data },
+    } = await client.get(`/letter/detail?letterId=${letterId}`)
+    console.log(data)
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+  }
+}

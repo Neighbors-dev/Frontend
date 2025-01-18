@@ -9,6 +9,8 @@ interface SearchOfficeProps {
   onCompleteSelect: () => void
 }
 
+// TODO: 진입 시, Input에 포커스
+
 export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchKeyword, setSearchKeyword] = useState('')

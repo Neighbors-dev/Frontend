@@ -73,7 +73,7 @@ export default function Main() {
               className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[498px] -translate-x-1/2"
             />
           </div>
-          <div id="bg-2" className="main-background-2" />
+          <div id="bg-2" className="main-background" />
         </div>
         <div className="relative">
           <SolidButton

@@ -4,22 +4,36 @@ import Envelope from '@/assets/images/envelope.png'
 import SolidButton from '@/components/SolidButton'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 import TextButton from '@/components/TextButton'
+import { useQueryClient } from '@tanstack/react-query'
+import { postMessage } from '@/apis/message'
 
 export default function CheckAlarm() {
+  const queryClient = useQueryClient()
   const showCheckAlarm = useWriteBottomStore((state) => state.showCheckAlarm)
   const toggleCheckAlarm = useWriteBottomStore((state) => state.toggleCheckAlarm)
   const setIsAlarm = useWriteMessageStore((state) => state.setIsAlarm)
+  const generateMessage = useWriteMessageStore((state) => state.generateMessage)
+  const toggleShareLink = useWriteBottomStore((state) => state.toggleShareLink)
 
   const handleAgreePush = () => {
     setIsAlarm(true)
-    toggleCheckAlarm()
-    // TODO: 메시지 작성 API 호출
+    handleSubmitMessage()
   }
 
   const handleDisagreePush = () => {
     setIsAlarm(false)
+    handleSubmitMessage()
+  }
+
+  const handleSubmitMessage = async () => {
     toggleCheckAlarm()
-    // TODO: 메시지 작성 API 호출
+    const message = generateMessage()
+    const result = await postMessage(message)
+
+    if (result) {
+      await queryClient.invalidateQueries({ queryKey: ['messages'] })
+      toggleShareLink()
+    }
   }
 
   return (

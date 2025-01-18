@@ -1,4 +1,4 @@
-import { putMyMessageIsPublic } from '@/apis/message'
+import { deleteMyMessage, putMyMessageIsPublic } from '@/apis/message'
 import Checkbox from '@/components/Checkbox'
 import Header from '@/components/Header'
 import Loading from '@/components/Loading'
@@ -9,6 +9,7 @@ import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetMyMessageDetail } from '@/hooks/useMessage'
 import useModalStore from '@/stores/modalStore'
 import useToastStore from '@/stores/toastStore'
+import { useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
@@ -19,21 +20,25 @@ export default function MyMessageDetail() {
   const openModal = useModalStore((store) => store.openModal)
   const showToast = useToastStore((store) => store.showToast)
   const navigate = useNavigate()
-  const { data: message, isFetching, isError } = useGetMyMessageDetail(id || '')
+  const { data, isFetching, isError } = useGetMyMessageDetail(id || '')
+  const queryClient = useQueryClient()
   useBodyBackgroundColor('neutral-90')
 
-  if (!id || isError) return <Navigate to="/message" replace />
+  if (!id) return <Navigate to="/message" replace />
 
   const handleDelete = () => {
     openModal({
       content: '정말 삭제하시겠어요?',
       confirmText: '삭제',
       cancelText: '취소',
-      onConfirm: () => {
-        // delete message
-        setTimeout(() => {
+      onConfirm: async () => {
+        const result = await deleteMyMessage(id)
+        if (result) {
+          await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+          await queryClient.invalidateQueries({ queryKey: ['messages'] })
+          navigate('/message', { replace: true })
           showToast('내가 작성한 메시지를 삭제했어요.')
-        }, 300)
+        }
       },
       onCancel: () => {
         // close modal
@@ -42,18 +47,25 @@ export default function MyMessageDetail() {
   }
 
   const handleComplete = async () => {
-    if (message.isPublic !== isPrivate) {
+    if (data.letterInfo.isPublic !== isPrivate) {
       await putMyMessageIsPublic(id, !isPrivate)
     }
-    navigate('/message')
+    await queryClient.invalidateQueries({ queryKey: ['my-message-detail', id] })
+    navigate('/message', { replace: true })
   }
 
   useEffect(() => {
     // isPublic도 들어오면 주석 해제
-    /* if (message) {
-      setIsPrivate(!message.letterInfo.isPublic)
+    /* if (data) {
+      setIsPrivate(!(data.letterInfo.isPublic))
     } */
-  }, [message])
+  }, [data])
+
+  useEffect(() => {
+    if (isError) {
+      navigate('/message', { replace: true })
+    }
+  }, [isError])
 
   return (
     <>
@@ -69,7 +81,7 @@ export default function MyMessageDetail() {
         ) : (
           <>
             <section className="flex grow flex-col">
-              <MyMessageCard message={message.letterInfo} isShort={false} />
+              {data && <MyMessageCard message={data.letterInfo} isShort={false} />}
               <p className="label-large-prominent mb-1 mt-6 text-white">공개 여부 설정</p>
               <p className="body-medium mb-5 text-neutral-40">
                 비공개로 설정 시, 다른 유저들이 메시지를 확인할 수 없어요.

@@ -75,12 +75,12 @@ export const getMyMessages = async () => {
         data: { myLetterInfos },
       },
     } = await client.get('/letter')
-    console.log(myLetterInfos)
     return myLetterInfos
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     }
+    throw new Error()
   }
 }
 
@@ -89,12 +89,12 @@ export const getMyMessageDetail = async (letterId: string) => {
     const {
       data: { data },
     } = await client.get(`/letter/detail?letterId=${letterId}`)
-    console.log(data)
     return data
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message)
     }
+    throw new Error()
   }
 }
 
@@ -104,6 +104,18 @@ export const putMyMessageIsPublic = async (letterId: string, isPublic: boolean) 
       letterId,
       isPublic,
     })
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
+  }
+}
+
+export const deleteMyMessage = async (letterId: string) => {
+  try {
+    const { data } = await client.delete('/letter', { data: { letterId } })
     return data
   } catch (error) {
     if (error instanceof Error) {

@@ -45,7 +45,6 @@ export default function WriteMessage() {
       console.log(result)
       if (result) {
         await queryClient.invalidateQueries({ queryKey: ['messages'] })
-        //await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
         navigate('/')
       }
     }

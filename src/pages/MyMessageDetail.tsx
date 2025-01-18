@@ -1,3 +1,4 @@
+import { putMyMessageIsPublic } from '@/apis/message'
 import Checkbox from '@/components/Checkbox'
 import Header from '@/components/Header'
 import Loading from '@/components/Loading'
@@ -9,7 +10,7 @@ import { useGetMyMessageDetail } from '@/hooks/useMessage'
 import useModalStore from '@/stores/modalStore'
 import useToastStore from '@/stores/toastStore'
 import { useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 
 export default function MyMessageDetail() {
@@ -17,6 +18,7 @@ export default function MyMessageDetail() {
   const [isPrivate, setIsPrivate] = useState(false)
   const openModal = useModalStore((store) => store.openModal)
   const showToast = useToastStore((store) => store.showToast)
+  const navigate = useNavigate()
   const { data: message, isFetching, isError } = useGetMyMessageDetail(id || '')
   useBodyBackgroundColor('neutral-90')
 
@@ -37,6 +39,13 @@ export default function MyMessageDetail() {
         // close modal
       },
     })
+  }
+
+  const handleComplete = async () => {
+    if (message.isPublic !== isPrivate) {
+      await putMyMessageIsPublic(id, !isPrivate)
+    }
+    navigate('/message')
   }
 
   useEffect(() => {
@@ -89,6 +98,7 @@ export default function MyMessageDetail() {
                 variant="primary"
                 size="large"
                 className="flex-1 basis-1/2 disabled:bg-neutral-70 disabled:text-neutral-80"
+                onClick={handleComplete}
               >
                 완료
               </SolidButton>

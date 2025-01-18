@@ -97,3 +97,18 @@ export const getMyMessageDetail = async (letterId: string) => {
     }
   }
 }
+
+export const putMyMessageIsPublic = async (letterId: string, isPublic: boolean) => {
+  try {
+    const { data } = await client.put('/letter', {
+      letterId,
+      isPublic,
+    })
+    return data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    }
+    return false
+  }
+}

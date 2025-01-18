@@ -36,6 +36,7 @@ interface WriteMessageAction {
   clearTargetType: () => void
   clearHeroType: () => void
   clearTargetInfo: () => void
+  clearMessage: () => void
   generateTargetString: () => string
   generateMessage: () => WriteMessageType
 }
@@ -59,6 +60,7 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
   clearHeroType: () => set({ heroType: undefined }),
   clearTargetInfo: () =>
     set({ targetInfo: { name: '', noName: false, office: '', officeId: -1, noOffice: false } }),
+  clearMessage: () => set({ message: '' }),
   generateTargetString: () => {
     const { targetInfo, targetType, heroType } = get()
     if (targetType === GENERAL) {

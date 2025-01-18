@@ -6,14 +6,15 @@ import useAuthStore from '@/stores/authStore'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 import { useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function WriteMessage() {
-  const [content, setContent] = useState('')
   const [isChecked, setIsChecked] = useState(false)
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
+  const content = useWriteMessageStore((state) => state.message)
+  const setContent = useWriteMessageStore((state) => state.setMessage)
   const navigate = useNavigate()
   const setIsPrivate = useWriteMessageStore((state) => state.setIsPrivate)
   const toggleCollectionIntro = useWriteBottomStore((state) => state.toggleCollectionIntro)
@@ -49,6 +50,8 @@ export default function WriteMessage() {
       }
     }
   }
+
+  useEffect(() => {}, [])
 
   return (
     <form className="flex grow flex-col justify-between gap-10" onSubmit={handleSubmit}>

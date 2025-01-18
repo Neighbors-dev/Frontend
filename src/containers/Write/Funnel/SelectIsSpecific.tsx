@@ -10,10 +10,12 @@ export default function SelectIsSpecific({ onClickNextStep }: SelectIsSpecificPr
   const targetType = useWriteMessageStore((state) => state.targetType)
   const setTargetType = useWriteMessageStore((state) => state.setTargetType)
   const clearHeroType = useWriteMessageStore((state) => state.clearHeroType)
+  const clearMessage = useWriteMessageStore((state) => state.clearMessage)
 
   const handleClickNextStep = () => {
     clearHeroType()
     onClickNextStep()
+    clearMessage()
   }
 
   return (

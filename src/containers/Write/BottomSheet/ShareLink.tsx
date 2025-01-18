@@ -11,6 +11,7 @@ export default function ShareLink() {
   const navigate = useNavigate()
 
   const handleAgreeShare = () => {
+    // TODO: 공유 로직
     toggleShareLink()
     navigate('/')
   }

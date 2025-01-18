@@ -17,6 +17,11 @@ interface MessageType {
   content: string
 }
 
+interface MyMessageType extends MessageType {
+  createdAt: string
+  isOpened: boolean
+}
+
 interface OfficeAddressType {
   addressId: number
   officeName: string

@@ -38,6 +38,7 @@ export default function MyMessageCard({ message, isShort, onClick }: MyMessageCa
       <div className="title-small flex items-center gap-1.5 text-neutral-50">
         <span>{message.createdAt}</span>
         <hr className="h-3.5 w-[1px] border-none bg-neutral-30" />
+        {/* TODO: isOpened가 아니라! */}
         <span>{message.isOpened ? '공개' : '비공개'}</span>
       </div>
     </article>

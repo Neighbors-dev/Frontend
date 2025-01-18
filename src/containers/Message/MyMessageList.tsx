@@ -1,10 +1,12 @@
+import { useNavigate } from 'react-router-dom'
 import MyMessageCard from './MyMessageCard'
 interface MessageListProps {
   messages: MyMessageType[]
 }
 
 export default function MyMessageList({ messages }: MessageListProps) {
-  // TODO: 데이터 구조 확인 및 변경
+  const navigate = useNavigate()
+
   return (
     <>
       <h2 className="title-large my-4 text-white">
@@ -12,7 +14,14 @@ export default function MyMessageList({ messages }: MessageListProps) {
       </h2>
       <section className="flex flex-col gap-4">
         {messages.map((message) => (
-          <MyMessageCard message={message} isShort />
+          <MyMessageCard
+            key={message.letterId}
+            message={message}
+            isShort
+            onClick={() => {
+              if (message.letterId) navigate(`${message.letterId}`)
+            }}
+          />
         ))}
       </section>
     </>

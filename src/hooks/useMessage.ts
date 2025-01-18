@@ -1,5 +1,4 @@
-import { getMessages } from '@/apis/message'
-import { getMyMessages } from '@/apis/notice'
+import { getMessages, getMyMessages } from '@/apis/message'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 const MESSAGE_SIZE = 5

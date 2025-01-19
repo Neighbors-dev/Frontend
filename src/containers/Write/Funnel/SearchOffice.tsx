@@ -27,7 +27,11 @@ export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
     setSearchKeyword(searchQuery)
 
     const result = await getSearchResult(searchQuery, heroType || '')
-    setSearchResult(result)
+    if (result) {
+      setSearchResult(result)
+    } else {
+      setSearchResult([])
+    }
   }
 
   const handleSelect = (officeName: string, officeId: number) => {

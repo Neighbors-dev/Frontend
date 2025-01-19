@@ -47,18 +47,20 @@ export default function MyMessageDetail() {
   }
 
   const handleComplete = async () => {
-    if (data.letterInfo.isPublic !== isPrivate) {
+    console.log(data.letterInfo.isPublic, isPrivate)
+    if (data.letterInfo.isPublic === isPrivate) {
+      console.log('실행 중')
       await putMyMessageIsPublic(id, !isPrivate)
     }
     await queryClient.invalidateQueries({ queryKey: ['my-message-detail', id] })
+    await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
     navigate('/message', { replace: true })
   }
 
   useEffect(() => {
-    // isPublic도 들어오면 주석 해제
-    /* if (data) {
+    if (data) {
       setIsPrivate(!(data.letterInfo.isPublic))
-    } */
+    }
   }, [data])
 
   useEffect(() => {

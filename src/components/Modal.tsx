@@ -32,7 +32,6 @@ export default function Modal() {
         'fixed inset-0 z-[60] flex items-center justify-center bg-neutral-90/70 p-5 transition-opacity duration-200',
         isOpen && isAnimating ? 'opacity-100' : 'opacity-0'
       )}
-      aria-hidden={!isOpen}
       role="dialog"
       aria-modal="true"
     >

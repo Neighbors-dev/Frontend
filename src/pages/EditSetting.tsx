@@ -1,3 +1,4 @@
+import { putNickname } from '@/apis/user'
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'
@@ -16,9 +17,8 @@ export default function EditSetting() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: 닉네임 서버로 전송
-    // 성공 시, 스토리지에 닉네임 저장 & /setting으로 이동
-    //const data = await updateNickname(nickname)
+    const result = await putNickname(nickname)
+    if (!result) return
     updateNickname(nickname)
     navigate('/setting')
   }
@@ -27,7 +27,7 @@ export default function EditSetting() {
     <>
       <Header title="닉네임 변경" />
       <main className="content-padding flex grow flex-col">
-        <form className="flex w-full grow flex-col justify-between" onSubmit={handleSubmit}>
+        <form className="flex w-full grow flex-col justify-between gap-10" onSubmit={handleSubmit}>
           <fieldset className="flex flex-col gap-1">
             <label className="title-small text-white">닉네임</label>
             <TextField

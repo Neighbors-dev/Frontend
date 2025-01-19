@@ -38,8 +38,8 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
   return (
     <div
       className={twMerge(
-        'full-height max-w-600 pointer-events-none fixed left-1/2 top-0 -translate-x-1/2',
-        show ? 'z-50' : 'z-40'
+        'full-height max-w-600 fixed left-1/2 top-0 -translate-x-1/2',
+        show ? 'z-50' : 'pointer-events-none z-40'
       )}
     >
       <div

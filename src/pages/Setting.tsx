@@ -1,3 +1,4 @@
+import { postLogout } from '@/apis/user'
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
@@ -8,7 +9,6 @@ import { useNavigate } from 'react-router-dom'
 export default function Setting() {
   const nickname = useAuthStore((state) => state.user)?.nickname
   const openModal = useModalStore((state) => state.openModal)
-  const logout = useAuthStore((state) => state.logout)
   const navigate = useNavigate()
   useBodyBackgroundColor('neutral-90')
 
@@ -17,9 +17,9 @@ export default function Setting() {
       content: '로그아웃 하시겠어요?',
       confirmText: '로그아웃',
       cancelText: '취소',
-      onConfirm: () => {
-        logout()
-        navigate('/login')
+      onConfirm: async () => {
+        const result = await postLogout()
+        if (result) navigate('/login')
       },
     })
   }
@@ -42,7 +42,9 @@ export default function Setting() {
         <hr className="border-neutral-80" />
         <ul className="title-large text-white">
           <li className="py-3">
-            <button type="button">약관 및 정책</button>
+            <button type="button" onClick={() => navigate('/terms')}>
+              약관 및 정책
+            </button>
           </li>
           <li className="py-3">
             <button type="button" onClick={handleLogout}>
@@ -50,7 +52,9 @@ export default function Setting() {
             </button>
           </li>
           <li className="py-3">
-            <button type="button">탈퇴하기</button>
+            <button type="button" onClick={() => navigate('/withdraw')}>
+              탈퇴하기
+            </button>
           </li>
         </ul>
       </main>

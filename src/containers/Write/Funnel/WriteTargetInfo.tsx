@@ -12,6 +12,7 @@ interface WriteTargetInfoProps {
 export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTargetInfoProps) {
   const targetInfo = useWriteMessageStore((state) => state.targetInfo)
   const setTargetInfo = useWriteMessageStore((state) => state.setTargetInfo)
+  const clearMessage = useWriteMessageStore((state) => state.clearMessage)
 
   const noDataName = !targetInfo.noName && targetInfo.name.trim() === ''
   const noDataOffice = !targetInfo.noOffice && targetInfo.office.trim() === ''
@@ -25,8 +26,13 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
     setTargetInfo({ ...targetInfo, [id]: checked })
   }
 
+  const handleNextStep = () => {
+    clearMessage()
+    onClickNextStep()
+  }
+
   return (
-    <div className="flex grow flex-col justify-between">
+    <div className="flex grow flex-col justify-between gap-10">
       <section className="">
         <div className="mb-8 flex flex-col gap-4">
           <h2 className="headline-small text-white">
@@ -92,7 +98,7 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
         size="large"
         className="w-full"
         disabled={noDataName || noDataOffice}
-        onClick={onClickNextStep}
+        onClick={handleNextStep}
       >
         다음
       </SolidButton>

@@ -1,19 +1,24 @@
-import { Route, Routes } from 'react-router-dom'
-import RegisteredRoute from '@/layouts/RegisteredRoute'
-import LoggedInRoute from '@/layouts/LoggedInRoute'
-import NonLoggedInRoute from '@/layouts/NonLoggedInRoute'
-import NonRegisteredRoute from '@/layouts/NonRegisteredRoute'
-import Login from '@/pages/Login'
-import AuthCallback from '@/pages/AuthCallback'
-import Main from '@/pages/Main'
-import RegisterNickname from '@/pages/RegisterNickname'
-import Write from '@/pages/Write'
-import Notice from '@/pages/Notice'
-import NoticeDetail from '@/pages/NoticeDetail'
-import Setting from '@/pages/Setting'
-import EditSetting from '@/pages/EditSetting'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import RegisteredRoute from './layouts/RegisteredRoute'
+import LoggedInRoute from './layouts/LoggedInRoute'
+import NonLoggedInRoute from './layouts/NonLoggedInRoute'
+import NonRegisteredRoute from './layouts/NonRegisteredRoute'
+import Login from './pages/Login'
+import AuthCallback from './pages/AuthCallback'
+import Main from './pages/Main'
+import RegisterNickname from './pages/RegisterNickname'
+import Write from './pages/Write'
+import Notice from './pages/Notice'
+import NoticeDetail from './pages/NoticeDetail'
+import Setting from './pages/Setting'
+import EditSetting from './pages/EditSetting'
 import Modal from './components/Modal'
-import useViewport from '@/hooks/useViewport'
+import useViewport from './hooks/useViewport'
+import Withdraw from './pages/Withdraw'
+import Terms from './pages/Terms'
+import MyMessage from './pages/MyMessage'
+import MyMessageDetail from './pages/MyMessageDetail'
+import ToastMessage from './components/ToastMessage'
 
 export default function App() {
   useViewport()
@@ -21,6 +26,7 @@ export default function App() {
   return (
     <>
       <Modal />
+      <ToastMessage />
       <Routes>
         <Route element={<NonLoggedInRoute />}>
           <Route path="login" element={<Login />} />
@@ -38,7 +44,12 @@ export default function App() {
         <Route element={<LoggedInRoute />}>
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
+          <Route path="message" element={<MyMessage />} />
+          <Route path="message/:id" element={<MyMessageDetail />} />
+          <Route path="withdraw" element={<Withdraw />} />
+          <Route path="terms" element={<Terms />} />
         </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   )

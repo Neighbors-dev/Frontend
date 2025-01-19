@@ -11,9 +11,16 @@ interface NoticeType {
 }
 
 interface MessageType {
+  letterId?: number
   to: string
   from: string
   content: string
+}
+
+interface MyMessageType extends MessageType {
+  createdAt: string
+  isOpened: boolean
+  isPublic: boolean
 }
 
 interface OfficeAddressType {
@@ -26,4 +33,19 @@ interface User {
   role?: string
   email?: string
   nickname?: string
+}
+
+interface NewsType {
+  newId: number
+  title: string
+  content: string
+}
+
+interface WriteMessageType {
+  content: string
+  targetJob: string | null
+  addressId: number | null
+  heroName: string
+  readingAlarm: boolean | null
+  isPublic: boolean
 }

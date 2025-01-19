@@ -12,8 +12,9 @@
   body {
     font-family: 'Pretendard', sans-serif;
     font-synthesis: none;
-    background-color: var(--body-bg-color);
+    background: var(--body-bg-color);
     overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   #root {

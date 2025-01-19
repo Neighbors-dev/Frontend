@@ -10,13 +10,14 @@ interface ModalStore {
   openModal: (params: {
     content: string
     confirmText: string
-    cancelText: string
-    onConfirm: () => void
+    cancelText: string | null
+    onConfirm: (() => void) | (() => Promise<void>)
     onCancel?: () => void
   }) => void
+  clearModal: () => void
 }
 
-const useModalStore = create<ModalStore>((set) => ({
+const useModalStore = create<ModalStore>((set, get) => ({
   isOpen: false,
   content: null,
   confirmText: null,
@@ -32,11 +33,26 @@ const useModalStore = create<ModalStore>((set) => ({
       onConfirm: () => {
         onConfirm()
         set({ isOpen: false })
+        setTimeout(() => {
+          get().clearModal()
+        }, 250)
       },
       onCancel: () => {
         if (onCancel) onCancel()
         set({ isOpen: false })
+        setTimeout(() => {
+          get().clearModal()
+        }, 250)
       },
+    })
+  },
+  clearModal: () => {
+    set({
+      content: null,
+      confirmText: null,
+      cancelText: null,
+      onConfirm: null,
+      onCancel: null,
     })
   },
 }))

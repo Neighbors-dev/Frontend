@@ -2,24 +2,28 @@ import { create } from 'zustand'
 
 interface WriteBottomState {
   showCollectionIntro: boolean
-  showWriteFinish: boolean
-  isShareVisible: boolean
+  showCheckAlarm: boolean
+  showShareLink: boolean
 }
 
 interface WriteBottomAction {
   toggleCollectionIntro: () => void
-  toggleWriteFinish: () => void
-  toggleShareVisible: () => void
+  preventShow: () => void
+
+  toggleShareLink: () => void
+  toggleCheckAlarm: () => void
 }
 
 const useWriteBottomStore = create<WriteBottomState & WriteBottomAction>((set) => ({
   showCollectionIntro: false,
-  showWriteFinish: false,
-  isShareVisible: false,
+  showCheckAlarm: false,
+  showShareLink: false,
   toggleCollectionIntro: () =>
     set((state) => ({ showCollectionIntro: !state.showCollectionIntro })),
-  toggleWriteFinish: () => set((state) => ({ showWriteFinish: !state.showWriteFinish })),
-  toggleShareVisible: () => set((state) => ({ isShareVisible: !state.isShareVisible })),
+  preventShow: () =>
+    set({ showCollectionIntro: false, showCheckAlarm: false, showShareLink: false }),
+  toggleShareLink: () => set((state) => ({ showShareLink: !state.showShareLink })),
+  toggleCheckAlarm: () => set((state) => ({ showCheckAlarm: !state.showCheckAlarm })),
 }))
 
 export default useWriteBottomStore

@@ -1,11 +1,22 @@
 import { GENERAL, POLICE } from '@/constants/write'
 import { create } from 'zustand'
+import useAuthStore from './authStore'
+
+interface TargetInfo {
+  name: string
+  noName: boolean
+  office: string
+  officeId: number
+  noOffice: boolean
+}
 
 interface WriteMessageState {
   targetType: string | undefined
   heroType: string | undefined
-  targetInfo: { name: string; noName: boolean; office: string; noOffice: boolean }
+  targetInfo: TargetInfo
   message: string
+  isPrivate: boolean
+  isAlarm: boolean
 }
 
 interface WriteMessageAction {
@@ -15,30 +26,41 @@ interface WriteMessageAction {
     name: string
     noName: boolean
     office: string
+    officeId: number
     noOffice: boolean
   }) => void
-  setTargetOffice: (office: string) => void
+  setTargetOffice: (office: string, officeId: number) => void
   setMessage: (message: string) => void
+  setIsAlarm: (isAlarm: boolean) => void
+  setIsPrivate: (isPrivate: boolean) => void
   clearTargetType: () => void
   clearHeroType: () => void
   clearTargetInfo: () => void
+  clearMessage: () => void
   generateTargetString: () => string
+  generateMessage: () => WriteMessageType
 }
 
 const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set, get) => ({
   targetType: undefined,
   heroType: undefined,
-  targetInfo: { name: '', noName: false, office: '', noOffice: false },
+  targetInfo: { name: '', noName: false, office: '', officeId: -1, noOffice: false },
   message: '',
+  isPrivate: false,
+  isAlarm: false,
   setTargetType: (targetType) => set({ targetType }),
   setHeroType: (heroType) => set({ heroType }),
   setTargetInfo: (targetInfo) => set({ targetInfo }),
-  setTargetOffice: (office) => set({ targetInfo: { ...get().targetInfo, office } }),
+  setTargetOffice: (office, officeId) =>
+    set({ targetInfo: { ...get().targetInfo, office, officeId } }),
   setMessage: (message) => set({ message }),
+  setIsAlarm: (isAlarm) => set({ isAlarm }),
+  setIsPrivate: (isPrivate) => set({ isPrivate }),
   clearTargetType: () => set({ targetType: undefined }),
   clearHeroType: () => set({ heroType: undefined }),
   clearTargetInfo: () =>
-    set({ targetInfo: { name: '', noName: false, office: '', noOffice: false } }),
+    set({ targetInfo: { name: '', noName: false, office: '', officeId: -1, noOffice: false } }),
+  clearMessage: () => set({ message: '' }),
   generateTargetString: () => {
     const { targetInfo, targetType, heroType } = get()
     if (targetType === GENERAL) {
@@ -58,6 +80,17 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
       } else {
         return `${targetInfo.office} ${targetInfo.name} ${alias}`
       }
+    }
+  },
+  generateMessage: () => {
+    const isLoggedIn = useAuthStore.getState().isLoggedIn
+    return {
+      content: get().message,
+      targetJob: get().heroType || null,
+      addressId: get().targetInfo.officeId === -1 ? null : get().targetInfo.officeId,
+      heroName: get().generateTargetString(),
+      readingAlarm: isLoggedIn ? get().isAlarm : null,
+      isPublic: !get().isPrivate,
     }
   },
 }))

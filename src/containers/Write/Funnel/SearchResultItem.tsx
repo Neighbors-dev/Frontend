@@ -2,7 +2,7 @@ import SolidButton from '@/components/SolidButton'
 
 interface SearchResultItemProps {
   information: OfficeAddressType
-  onSelect: (officeName: string) => void
+  onSelect: (officeName: string, officeId: number) => void
 }
 
 export default function SearchResultItem({ information, onSelect }: SearchResultItemProps) {
@@ -16,7 +16,7 @@ export default function SearchResultItem({ information, onSelect }: SearchResult
         variant="secondary"
         size="large"
         className="h-fit px-3 py-2"
-        onClick={() => onSelect(information.officeName)}
+        onClick={() => onSelect(information.officeName, information.addressId)}
       >
         선택
       </SolidButton>

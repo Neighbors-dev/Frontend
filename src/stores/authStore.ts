@@ -16,9 +16,9 @@ interface AuthStore {
 }
 
 const cookies = new Cookies()
-const REFRESH_TOKEN_KEY = 'TH-RT'
-const MEMBER_INFO_KEY = 'TH-MI'
-const GUEST_INFO_KEY = 'TH-GI'
+const REFRESH_TOKEN_KEY = 'TH-RT-qa-4'
+const MEMBER_INFO_KEY = 'TH-MI-qa-4'
+const GUEST_INFO_KEY = 'TH-GI-qa-4'
 const EXPIRE_OFFSET = 1000 * 60 * 1 // 1분
 
 const useAuthStore = create<AuthStore>((set, get) => ({

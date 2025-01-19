@@ -1,18 +1,12 @@
 import { twMerge } from 'tailwind-merge'
 
 interface MyMessageCardProps {
-  message: MessageType
+  message: MyMessageType
   isShort: boolean
-  isOpened?: boolean
   onClick?: () => void
 }
 
-export default function MyMessageCard({
-  message,
-  isShort,
-  isOpened = false,
-  onClick,
-}: MyMessageCardProps) {
+export default function MyMessageCard({ message, isShort, onClick }: MyMessageCardProps) {
   return (
     <article
       className={twMerge(
@@ -27,7 +21,7 @@ export default function MyMessageCard({
           <div className="absolute bottom-[1px] z-[-10] h-[11px] w-full bg-brand-yellow/60" />
           <p className="title-small text-neutral-80">To. {message.to}</p>
         </h3>
-        {isOpened && (
+        {message.isOpened && (
           <div className="label-medium-prominent h-fit rounded-md bg-success-10 px-2 py-1 text-success-40">
             열람 완료
           </div>
@@ -42,9 +36,10 @@ export default function MyMessageCard({
         {message.content}
       </p>
       <div className="title-small flex items-center gap-1.5 text-neutral-50">
-        <span>2024.12.31</span>
+        <span>{message.createdAt}</span>
         <hr className="h-3.5 w-[1px] border-none bg-neutral-30" />
-        <span>{isOpened ? '공개' : '비공개'}</span>
+        {/* TODO: isOpened가 아니라! */}
+        <span>{message.isPublic ? '공개' : '비공개'}</span>
       </div>
     </article>
   )

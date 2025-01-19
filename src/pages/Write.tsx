@@ -13,9 +13,10 @@ import { useEffect } from 'react'
 import SelectIsSpecific from '@/containers/Write/Funnel/SelectIsSpecific'
 import SelectHeroType from '@/containers/Write/Funnel/SelectHeroType'
 import CollectionIntro from '@/containers/Write/BottomSheet/CollectionIntro'
-import WriteFinish from '@/containers/Write/BottomSheet/WriteFinish'
 import { useNavigate } from 'react-router-dom'
 import useWriteBottomStore from '@/stores/writeBottomStore'
+import CheckAlarm from '@/containers/Write/BottomSheet/CheckAlarm'
+import ShareLink from '@/containers/Write/BottomSheet/ShareLink'
 
 export default function Write() {
   const { Funnel, Step, setPrevStep, setNextStep, currentStep } = useFunnel(WRITE_STEPS[0])
@@ -47,7 +48,8 @@ export default function Write() {
         onClick={handlePrevStep}
       />
       <CollectionIntro />
-      <WriteFinish />
+      <CheckAlarm />
+      <ShareLink />
       <main className="content-padding-small relative flex w-full grow flex-col">
         <Funnel>
           <Step name={WRITE_STEPS[0]}>

@@ -13,10 +13,8 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import MessageModal from '@/containers/Main/MessageModal'
+import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
-
-const MESSAGE_SIZE = 5
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
@@ -27,8 +25,7 @@ export default function Main() {
   useBodyBackgroundColor('#14192F')
 
   const { data: mainData } = useMainData()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useGetMessages(MESSAGE_SIZE)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetMessages()
 
   const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
 

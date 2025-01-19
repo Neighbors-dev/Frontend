@@ -12,6 +12,7 @@ interface WriteTargetInfoProps {
 export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTargetInfoProps) {
   const targetInfo = useWriteMessageStore((state) => state.targetInfo)
   const setTargetInfo = useWriteMessageStore((state) => state.setTargetInfo)
+  const clearMessage = useWriteMessageStore((state) => state.clearMessage)
 
   const noDataName = !targetInfo.noName && targetInfo.name.trim() === ''
   const noDataOffice = !targetInfo.noOffice && targetInfo.office.trim() === ''
@@ -23,6 +24,11 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target
     setTargetInfo({ ...targetInfo, [id]: checked })
+  }
+
+  const handleNextStep = () => {
+    clearMessage()
+    onClickNextStep()
   }
 
   return (
@@ -92,7 +98,7 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
         size="large"
         className="w-full"
         disabled={noDataName || noDataOffice}
-        onClick={onClickNextStep}
+        onClick={handleNextStep}
       >
         다음
       </SolidButton>

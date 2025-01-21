@@ -14,6 +14,9 @@ export default function WriteMessage() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
   const content = useWriteMessageStore((state) => state.message)
+  const showCollectionIntro = useWriteBottomStore((state) => state.showCollectionIntro)
+  const showCheckAlarm = useWriteBottomStore((state) => state.showCheckAlarm)
+  const showShareLink = useWriteBottomStore((state) => state.showShareLink)
   const setContent = useWriteMessageStore((state) => state.setMessage)
   const navigate = useNavigate()
   const setIsPrivate = useWriteMessageStore((state) => state.setIsPrivate)
@@ -78,6 +81,7 @@ export default function WriteMessage() {
               placeholder="내용을 입력해주세요."
               className="body-large grow resize-none bg-transparent text-neutral-80 placeholder:text-neutral-50"
               value={content}
+              disabled={showCollectionIntro || showCheckAlarm || showShareLink}
               onChange={handleMessageChange}
             />
             {/* TODO: 닉네임 받아서 넣기 */}

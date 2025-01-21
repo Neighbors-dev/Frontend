@@ -67,7 +67,7 @@ export default function Main() {
             <img
               src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
               alt="배경 이미지"
-              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[498px] -translate-x-1/2"
+              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[560px] -translate-x-1/2"
             />
           </div>
           <div id="bg-2" className="main-background" />

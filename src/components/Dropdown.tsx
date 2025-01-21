@@ -46,7 +46,7 @@ export default function Dropdown({ options, selected, className, handleSelected 
       {isOpen && (
         <ul className="label-medium absolute bottom-0 top-full mt-2 h-fit w-full rounded-lg bg-neutral-80 py-2 text-white shadow-dropdown">
           {options.map((option) => (
-            <li key={option} className="hover:bg-neutral-70">
+            <li key={option} className={twMerge(option === selected && 'bg-neutral-70')}>
               <button
                 type="button"
                 className="w-full px-4 py-3 text-left"

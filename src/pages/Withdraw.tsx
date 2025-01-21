@@ -91,6 +91,7 @@ export default function Withdraw() {
           <OutlinedButton
             size="large"
             className="flex-1 basis-1/2 border-neutral-70 bg-transparent"
+            onClick={() => navigate(-1)}
           >
             닫기
           </OutlinedButton>

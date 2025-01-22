@@ -1,4 +1,4 @@
-import { CheckIcon } from '@/assets'
+import { CheckIcon } from '@/assets/icons'
 import { ComponentPropsWithoutRef } from 'react'
 
 export default function Checkbox({ ...props }: ComponentPropsWithoutRef<'input'>) {

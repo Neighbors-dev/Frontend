@@ -1,4 +1,4 @@
-import { MessageIcon, ThumbUpIcon } from '@/assets'
+import { MessageIcon, ThumbUpIcon } from '@/assets/icons'
 import SolidButton from '@/components/SolidButton'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import { twMerge } from 'tailwind-merge'

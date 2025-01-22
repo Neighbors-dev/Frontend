@@ -1,4 +1,4 @@
-import { HamburgerIcon, LogoIcon } from '@/assets'
+import { HamburgerIcon, LogoIcon } from '@/assets/icons'
 
 interface HeaderProps {
   onClick: () => void

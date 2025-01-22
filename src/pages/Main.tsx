@@ -1,4 +1,4 @@
-import { PencilIcon } from '@/assets'
+import { PencilIcon } from '@/assets/icons'
 import Loading from '@/components/Loading'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'

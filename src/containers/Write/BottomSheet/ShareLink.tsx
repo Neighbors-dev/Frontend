@@ -1,4 +1,4 @@
-import { CancelIcon } from '@/assets'
+import { CancelIcon } from '@/assets/icons'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'

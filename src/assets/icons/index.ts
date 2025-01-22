@@ -13,6 +13,7 @@ import SearchIcon from './search.svg?react'
 import CancelIcon from './cancel.svg?react'
 import ArrowSmallUpIcon from './arrow-small-up.svg?react'
 import LogoIcon from './logo.svg?react'
+import BaseWindow from './window.svg?react'
 
 export {
   PencilIcon,
@@ -30,4 +31,5 @@ export {
   CancelIcon,
   ArrowSmallUpIcon,
   LogoIcon,
+  BaseWindow,
 }

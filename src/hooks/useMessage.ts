@@ -1,7 +1,7 @@
 import { getMessages, getMyMessageDetail, getMyMessages } from '@/apis/message'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
-const MESSAGE_SIZE = 5
+const MESSAGE_SIZE = 10
 
 export const useGetMessages = () => {
   return useInfiniteQuery({

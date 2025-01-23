@@ -59,7 +59,7 @@ export default function MyMessageDetail() {
 
   useEffect(() => {
     if (data) {
-      setIsPrivate(!(data.letterInfo.isPublic))
+      setIsPrivate(!data.letterInfo.isPublic)
     }
   }, [data])
 
@@ -71,7 +71,7 @@ export default function MyMessageDetail() {
 
   return (
     <>
-      <Header title="내가 작성한 메시지" className="bg-neutral-90" />
+      <Header title="내가 작성한 메시지" className="bg-neutral-90" prevPath="/message" />
       <main
         className={twMerge(
           'content-padding flex grow flex-col justify-between gap-10',

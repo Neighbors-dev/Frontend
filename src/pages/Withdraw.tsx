@@ -59,7 +59,7 @@ export default function Withdraw() {
 
   return (
     <>
-      <Header title="탈퇴하기" className="bg-neutral-90" />
+      <Header title="탈퇴하기" className="bg-neutral-90" prevPath="/setting" />
       <main className="content-padding flex grow flex-col justify-between gap-10">
         <section>
           <div className="text-white">

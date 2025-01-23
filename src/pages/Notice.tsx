@@ -34,7 +34,7 @@ export default function Notice() {
 
   return (
     <>
-      <Header className="bg-neutral-90" title="공지사항" />
+      <Header className="bg-neutral-90" title="공지사항" prevPath="/" />
       <main
         ref={mainRef}
         className={twMerge('flex grow flex-col gap-3 px-5 pb-5', isFetching && 'justify-center')}

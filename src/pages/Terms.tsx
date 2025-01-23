@@ -6,7 +6,7 @@ export default function Terms() {
   useBodyBackgroundColor('neutral-90')
   return (
     <>
-      <Header title="서비스 이용 약관" className="bg-neutral-90" />
+      <Header title="서비스 이용 약관" className="bg-neutral-90" prevPath="/setting" />
       <main className="content-padding-small flex grow flex-col">
         <h2 className="headline-small my-4 text-white">서비스 이용 약관</h2>
         <section className="flex flex-col gap-5 text-neutral-40">

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import Light from '@/assets/images/light.png'
 import SolidButton from '@/components/SolidButton'
+import { shareLink } from '@/utils/shareLink'
 
 export default function ShareLink() {
   const showShareLink = useWriteBottomStore((state) => state.showShareLink)
@@ -11,9 +12,9 @@ export default function ShareLink() {
   const navigate = useNavigate()
 
   const handleAgreeShare = () => {
-    // TODO: 공유 로직
-    toggleShareLink()
-    navigate('/')
+    shareLink()
+    //toggleShareLink()
+    //navigate('/')
   }
 
   const handleDisagreeShare = () => {

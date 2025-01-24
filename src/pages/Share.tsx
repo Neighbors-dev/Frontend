@@ -1,10 +1,10 @@
-import { getSharingCode } from '@/apis/share'
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
 import { BUILDING_WINDOW_FIRST } from '@/constants/window'
 import BuildingWindow from '@/containers/Share/BuildingWindow'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { chunkWindow } from '@/utils/chunkWindow'
+import { shareLink } from '@/utils/shareLink'
 
 declare global {
   interface Window {
@@ -15,22 +15,6 @@ declare global {
 export default function Share() {
   useBodyBackgroundColor('#14192F')
   const random = [0, 2, 4, 6]
-
-  const handleClick = async () => {
-    const result = await getSharingCode()
-    if (!result) return
-
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(import.meta.env.VITE_KAKAO_JAVASCRIPT_KEY)
-    }
-
-    window.Kakao.Share.sendCustom({
-      templateId: 116507,
-      templateArgs: {
-        link: `${window.location.origin}/sharing?code=${result.recommenderCode}`,
-      },
-    })
-  }
 
   return (
     <>
@@ -66,7 +50,7 @@ export default function Share() {
           variant="primary"
           size="large"
           className="fixed bottom-[5%] z-20 rounded-full px-[30px] py-4 drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)]"
-          onClick={handleClick}
+          onClick={shareLink}
         >
           친구에게 공유하기
         </SolidButton>

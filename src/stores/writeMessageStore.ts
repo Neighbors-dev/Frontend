@@ -1,6 +1,8 @@
 import { GENERAL, POLICE } from '@/constants/write'
 import { create } from 'zustand'
 import useAuthStore from './authStore'
+import { Cookies } from 'react-cookie'
+import { SHARE_CODE_KEY } from '@/constants/key'
 
 interface TargetInfo {
   name: string
@@ -83,7 +85,9 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
     }
   },
   generateMessage: () => {
+    const cookies = new Cookies()
     const isLoggedIn = useAuthStore.getState().isLoggedIn
+    const recommenderCode = cookies.get(SHARE_CODE_KEY)
     return {
       content: get().message,
       targetJob: get().heroType || null,
@@ -91,6 +95,7 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
       heroName: get().generateTargetString(),
       readingAlarm: isLoggedIn ? get().isAlarm : null,
       isPublic: !get().isPrivate,
+      recommenderCode: recommenderCode || null,
     }
   },
 }))

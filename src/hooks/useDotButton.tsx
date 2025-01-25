@@ -20,7 +20,6 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): UseDotBut
   )
 
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
-    console.log(emblaApi.scrollSnapList())
     setScrollSnaps(emblaApi.scrollSnapList())
   }, [])
 

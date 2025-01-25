@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 
 export default function NewsCollection() {
   const [ref, inView] = useInView()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetNews()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetNews()
 
   const news = data?.pages.flatMap((page) => page.newsInfos ?? []) ?? []
 

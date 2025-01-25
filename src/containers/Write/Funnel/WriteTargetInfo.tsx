@@ -75,9 +75,15 @@ export default function WriteTargetInfo({ onSearch, onClickNextStep }: WriteTarg
                 placeholder="근무지를 검색해주세요. ex) 강동경찰서"
                 value={targetInfo.office}
                 disabled={targetInfo.noOffice}
-                Icon={SearchIcon}
+                Icon={targetInfo.office ? undefined : SearchIcon}
                 onClick={onSearch}
-              />
+              >
+                {targetInfo.office && (
+                  <button type="button" className="label-large shrink-0 text-brand-yellow">
+                    변경
+                  </button>
+                )}
+              </TextField>
             </label>
             <label
               htmlFor="noOffice"

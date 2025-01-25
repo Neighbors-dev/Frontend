@@ -63,7 +63,7 @@ export default function Withdraw() {
       <main className="content-padding flex grow flex-col justify-between gap-10">
         <section>
           <div className="text-white">
-            <p className="label-large mb-1">탈퇴 후, 계정 복구는 불가능해요 🥺</p>
+            <p className="label-large mb-1">탈퇴 후, 계정 복구는 불가능해요</p>
             <p className="label-large-prominent">떠나는 이유를 말씀해주세요</p>
           </div>
           <Dropdown

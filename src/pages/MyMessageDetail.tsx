@@ -47,9 +47,7 @@ export default function MyMessageDetail() {
   }
 
   const handleComplete = async () => {
-    console.log(data.letterInfo.isPublic, isPrivate)
     if (data.letterInfo.isPublic === isPrivate) {
-      console.log('실행 중')
       await putMyMessageIsPublic(id, !isPrivate)
     }
     await queryClient.invalidateQueries({ queryKey: ['my-message-detail', id] })

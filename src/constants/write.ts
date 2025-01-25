@@ -30,11 +30,11 @@ export const POLICE = 'POLICE_OFFICER'
 export const FIREFIGHTER = 'FIRE_FIGHTER'
 export const SELECT_HERO_TYPE_BUTTONS = [
   {
-    text: '경찰관님 👮‍♂️',
+    text: '경찰관님',
     value: POLICE,
   },
   {
-    text: '소방관님 🧑‍🚒',
+    text: '소방관님',
     value: FIREFIGHTER,
   },
 ]

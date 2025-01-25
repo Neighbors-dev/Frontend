@@ -64,6 +64,7 @@ export default {
       },
       screens: {
         'h-sm': { raw: '(max-height: 600px)' },
+        'w-sm': { raw: '(max-width: 375px)' },
       },
     },
   },

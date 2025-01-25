@@ -1,8 +1,6 @@
-import SolidButton from '@/components/SolidButton'
 import { BUILDING_WINDOW } from '@/constants/window'
 import BuildingWindow from '@/containers/Share/BuildingWindow'
 import { chunkWindow } from '@/utils/chunkWindow'
-import { shareLink } from '@/utils/shareLink'
 
 interface ThirdSlideProps {
   nickname: string
@@ -15,7 +13,7 @@ export default function ThirdSlide({ nickname }: ThirdSlideProps) {
   return (
     <div className="relative flex w-full shrink-0 flex-col items-center">
       <div className="h-[144px]">
-        <h1 className="headline-small mb-5 text-center text-white">
+        <h1 className="headline-small w-sm:text-[20px] mb-5 text-center text-white">
           {nickname}님의 공유 한 번이
           <br />이 도시를 밝게 빛나게 할 수 있어요!
         </h1>
@@ -43,14 +41,6 @@ export default function ThirdSlide({ nickname }: ThirdSlideProps) {
           ))}
         </div>
       </section>
-      <SolidButton
-        variant="primary"
-        size="large"
-        className="fixed bottom-[5%] z-20 w-[175px] rounded-full px-[30px] py-4 drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)]"
-        onClick={() => shareLink(nickname)}
-      >
-        친구에게 공유하기
-      </SolidButton>
     </div>
   )
 }

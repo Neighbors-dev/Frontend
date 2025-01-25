@@ -1,5 +1,11 @@
 import { getSharingCode } from '@/apis/share'
 
+declare global {
+  interface Window {
+    Kakao: any
+  }
+}
+
 export const shareLink = async () => {
   const result = await getSharingCode()
   if (!result) return

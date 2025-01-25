@@ -1,23 +1,4 @@
 import { PencilIcon, QuestionIcon, SettingIcon, ShareIcon } from '@/assets/icons'
-import {
-  WindowType0,
-  WindowType1,
-  WindowType10,
-  WindowType11,
-  WindowType12,
-  WindowType13,
-  WindowType14,
-  WindowType15,
-  WindowType16,
-  WindowType2,
-  WindowType3,
-  WindowType4,
-  WindowType5,
-  WindowType6,
-  WindowType7,
-  WindowType8,
-  WindowType9,
-} from '@/assets/windows'
 
 export const MAX_NICKNAME_LENGTH = 5
 export const NON_MEMBER = 'GUEST'
@@ -67,24 +48,4 @@ export const MAIN_BACKGROUND_IMAGE_LINK = [
   'phase_5_zpp42v.webp',
   'phase_6_omnvg5.webp',
   'phase_8_norrem.webp',
-]
-
-export const WINDOW_TYPE = [
-  WindowType0,
-  WindowType1,
-  WindowType2,
-  WindowType3,
-  WindowType4,
-  WindowType5,
-  WindowType6,
-  WindowType7,
-  WindowType8,
-  WindowType9,
-  WindowType10,
-  WindowType11,
-  WindowType12,
-  WindowType13,
-  WindowType14,
-  WindowType15,
-  WindowType16,
 ]

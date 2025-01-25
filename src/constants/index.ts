@@ -1,4 +1,4 @@
-import { PencilIcon, QuestionIcon, SettingIcon, ShareIcon } from '@/assets'
+import { PencilIcon, QuestionIcon, SettingIcon, ShareIcon } from '@/assets/icons'
 
 export const MAX_NICKNAME_LENGTH = 5
 export const NON_MEMBER = 'GUEST'
@@ -13,7 +13,7 @@ export const SIDEBAR_NAV_ITEMS = [
   {
     menu: '공유하기',
     icon: ShareIcon,
-    path: '/',
+    path: '/share',
   },
   {
     menu: '내가 작성한 메시지',

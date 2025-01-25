@@ -1,4 +1,4 @@
-import { KakaoIcon, LogoIcon, PencilIcon } from '@/assets'
+import { KakaoIcon, LogoIcon, PencilIcon } from '@/assets/icons'
 import SolidButton from '@/components/SolidButton'
 import TextButton from '@/components/TextButton'
 import { useEffect } from 'react'
@@ -24,8 +24,8 @@ export default function Login() {
 
   return (
     <main className="content-padding flex w-full grow flex-col items-center justify-between">
-      <div className="bg-star-top fixed left-0 top-0 z-0 h-1/2 w-full bg-cover bg-center" />
-      <div className="bg-star-bottom fixed bottom-0 left-0 z-0 h-1/2 w-full bg-cover bg-center" />
+      <div className="fixed left-0 top-0 z-0 h-1/2 w-full bg-star-top bg-cover bg-center" />
+      <div className="fixed bottom-0 left-0 z-0 h-1/2 w-full bg-star-bottom bg-cover bg-center" />
       <div>
         <h1 className="absolute left-1/2 top-1/4 z-10 flex -translate-x-1/2 flex-col items-center gap-[33px] text-white">
           <LogoIcon className="h-8 w-auto" />

@@ -6,7 +6,7 @@ interface OutlinedButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: React.ReactNode
 }
 
-import { CheckIcon } from '@/assets'
+import { CheckIcon } from '@/assets/icons'
 import { ComponentPropsWithoutRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 

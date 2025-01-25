@@ -5,8 +5,7 @@ import { MESSAGE_MAX_LENGTH } from '@/constants/write'
 import useAuthStore from '@/stores/authStore'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
-import { useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function WriteMessage() {
@@ -14,6 +13,9 @@ export default function WriteMessage() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
   const content = useWriteMessageStore((state) => state.message)
+  const showCollectionIntro = useWriteBottomStore((state) => state.showCollectionIntro)
+  const showCheckAlarm = useWriteBottomStore((state) => state.showCheckAlarm)
+  const showShareLink = useWriteBottomStore((state) => state.showShareLink)
   const setContent = useWriteMessageStore((state) => state.setMessage)
   const navigate = useNavigate()
   const setIsPrivate = useWriteMessageStore((state) => state.setIsPrivate)
@@ -23,7 +25,6 @@ export default function WriteMessage() {
   const generateMessage = useWriteMessageStore((state) => state.generateMessage)
   const toggleCheckAlarm = useWriteBottomStore((state) => state.toggleCheckAlarm)
   const targetString = generateTargetString()
-  const queryClient = useQueryClient()
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let currentValue = e.target.value
@@ -42,15 +43,11 @@ export default function WriteMessage() {
       const message = generateMessage()
       const result = await postMessage(message)
 
-      console.log(result)
       if (result) {
-        await queryClient.invalidateQueries({ queryKey: ['messages'] })
-        navigate('/')
+        navigate('/', { state: { from: 'write' } })
       }
     }
   }
-
-  useEffect(() => {}, [])
 
   return (
     <form className="flex grow flex-col justify-between gap-10" onSubmit={handleSubmit}>
@@ -78,6 +75,7 @@ export default function WriteMessage() {
               placeholder="내용을 입력해주세요."
               className="body-large grow resize-none bg-transparent text-neutral-80 placeholder:text-neutral-50"
               value={content}
+              disabled={showCollectionIntro || showCheckAlarm || showShareLink}
               onChange={handleMessageChange}
             />
             {/* TODO: 닉네임 받아서 넣기 */}

@@ -19,6 +19,8 @@ import Terms from './pages/Terms'
 import MyMessage from './pages/MyMessage'
 import MyMessageDetail from './pages/MyMessageDetail'
 import ToastMessage from './components/ToastMessage'
+import Share from './pages/Share'
+import ShareCode from './pages/ShareCode'
 
 export default function App() {
   useViewport()
@@ -42,6 +44,7 @@ export default function App() {
           <Route path="notice/:id" element={<NoticeDetail />} />
         </Route>
         <Route element={<LoggedInRoute />}>
+          <Route path="share" element={<Share />} />
           <Route path="setting" element={<Setting />} />
           <Route path="setting/edit" element={<EditSetting />} />
           <Route path="message" element={<MyMessage />} />
@@ -49,6 +52,7 @@ export default function App() {
           <Route path="withdraw" element={<Withdraw />} />
           <Route path="terms" element={<Terms />} />
         </Route>
+        <Route path="/sharing" element={<ShareCode />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

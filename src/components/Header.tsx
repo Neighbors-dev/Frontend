@@ -1,18 +1,20 @@
 import { twMerge } from 'tailwind-merge'
-import { ArrowLeftIcon } from '@/assets'
+import { ArrowLeftIcon } from '@/assets/icons'
 import { useNavigate } from 'react-router-dom'
 
 interface HeaderProps {
   className?: string
   title?: string
   icons?: React.ReactNode
+  prevPath?: string
   onClick?: () => void
 }
 
-export default function Header({ className, title = '', icons, onClick }: HeaderProps) {
+export default function Header({ className, title = '', icons, prevPath, onClick }: HeaderProps) {
   const navigate = useNavigate()
   const handleClick = () => {
-    navigate(-1)
+    if (prevPath) navigate(prevPath, { replace: true })
+    else navigate(-1)
   }
 
   return (

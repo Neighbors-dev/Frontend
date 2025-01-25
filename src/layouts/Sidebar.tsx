@@ -53,6 +53,13 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
         )}
       >
         <h2 className="headline-small text-white">{nickname} 님</h2>
+        {isLoggedIn ? (
+          <p className="text-white">(임시) 카카오로 로그인 중</p>
+        ) : (
+          <Link to="/login" className="text-white">
+            (임시) 회원가입 하러가기
+          </Link>
+        )}
         <hr className="my-5 h-[1px] w-full border-none bg-neutral-80" />
         <nav>
           <ul className="flex flex-col">

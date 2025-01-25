@@ -47,9 +47,7 @@ export default function MyMessageDetail() {
   }
 
   const handleComplete = async () => {
-    console.log(data.letterInfo.isPublic, isPrivate)
     if (data.letterInfo.isPublic === isPrivate) {
-      console.log('실행 중')
       await putMyMessageIsPublic(id, !isPrivate)
     }
     await queryClient.invalidateQueries({ queryKey: ['my-message-detail', id] })
@@ -59,7 +57,7 @@ export default function MyMessageDetail() {
 
   useEffect(() => {
     if (data) {
-      setIsPrivate(!(data.letterInfo.isPublic))
+      setIsPrivate(!data.letterInfo.isPublic)
     }
   }, [data])
 
@@ -71,7 +69,7 @@ export default function MyMessageDetail() {
 
   return (
     <>
-      <Header title="내가 작성한 메시지" className="bg-neutral-90" />
+      <Header title="내가 작성한 메시지" className="bg-neutral-90" prevPath="/message" />
       <main
         className={twMerge(
           'content-padding flex grow flex-col justify-between gap-10',

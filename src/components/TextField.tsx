@@ -7,7 +7,13 @@ interface TextFieldProps extends ComponentPropsWithoutRef<'input'> {
   onClick?: () => void
 }
 
-export default function TextField({ Icon, className, onClick, ...props }: TextFieldProps) {
+export default function TextField({
+  Icon,
+  className,
+  onClick,
+  children,
+  ...props
+}: TextFieldProps) {
   return (
     <div
       className={twMerge(
@@ -38,6 +44,7 @@ export default function TextField({ Icon, className, onClick, ...props }: TextFi
           />
         </button>
       )}
+      {children}
     </div>
   )
 }

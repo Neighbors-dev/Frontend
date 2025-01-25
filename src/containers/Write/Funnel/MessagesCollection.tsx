@@ -1,4 +1,3 @@
-import Loading from '@/components/Loading'
 import MessageCard from '@/components/MessageCard'
 import MessageModal from '@/components/MessageModal'
 import { useGetMessages } from '@/hooks/useMessage'
@@ -8,7 +7,7 @@ import { useInView } from 'react-intersection-observer'
 export default function MessagesCollection() {
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetMessages()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages()
 
   const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
 
@@ -38,7 +37,6 @@ export default function MessagesCollection() {
               onClick={() => setActiveMessage(message)}
             />
           ))}
-          {isFetching && <Loading />}
           {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
         </section>
       </div>

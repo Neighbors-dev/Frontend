@@ -1,4 +1,4 @@
-import { ArrowUpIcon } from '@/assets'
+import { ArrowUpIcon } from '@/assets/icons'
 
 export default function TopButton() {
   const handleClick = () => {

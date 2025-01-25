@@ -12,34 +12,40 @@ export default function NoticeSection({ notices }: NoticeSectionProps) {
   const noticeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) => prevIndex + 1)
-    }, 3000)
+    // notices가 1개보다 많을 때만
+    if (notices.length > 1) {
+      const interval = setInterval(() => {
+        setSlideIndex((prevIndex) => prevIndex + 1)
+      }, 3000)
 
-    return () => {
-      clearInterval(interval)
+      return () => {
+        clearInterval(interval)
+      }
     }
-  }, [])
+  }, [notices.length])
 
   useEffect(() => {
-    const handleMoveToFirstSlide = () => {
-      setTimeout(() => {
-        if (noticeRef.current) {
-          setIsTransitioning(false)
-        }
-        setSlideIndex(0)
+    // notices가 1개보다 많을 때만
+    if (notices.length > 1) {
+      const handleMoveToFirstSlide = () => {
         setTimeout(() => {
           if (noticeRef.current) {
-            setIsTransitioning(true)
+            setIsTransitioning(false)
           }
-        }, 100)
-      }, 500)
-    }
+          setSlideIndex(0)
+          setTimeout(() => {
+            if (noticeRef.current) {
+              setIsTransitioning(true)
+            }
+          }, 100)
+        }, 500)
+      }
 
-    if (slideIndex === notices.length) {
-      handleMoveToFirstSlide()
+      if (slideIndex === notices.length) {
+        handleMoveToFirstSlide()
+      }
     }
-  }, [slideIndex])
+  }, [slideIndex, notices.length])
 
   return (
     <Link to="/notice">

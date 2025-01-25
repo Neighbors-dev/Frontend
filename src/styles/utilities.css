@@ -34,4 +34,8 @@
       transform: rotate(1turn);
     }
   }
+
+  .roof-background {
+    background: radial-gradient(120% 50% at 50% 50%, #b1b1b1 0%, #4b4b4b 100%);
+  }
 }

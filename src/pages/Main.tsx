@@ -1,4 +1,3 @@
-import { PencilIcon } from '@/assets'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import TopButton from '@/components/TopButton'
@@ -14,6 +13,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
+import { PencilIcon } from '@/assets/icons'
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
@@ -82,7 +82,7 @@ export default function Main() {
           <SolidButton
             variant="primary"
             size="large"
-            className="mx-auto rounded-full"
+            className="relative z-10 mx-auto rounded-full"
             onClick={() => navigate('/write')}
           >
             메시지 작성하기 <PencilIcon className="h-5 w-5" />
@@ -106,7 +106,7 @@ export default function Main() {
           ))}
           {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
         </section>
-        <div className="max-w-600 fixed bottom-0 left-1/2 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
+        <div className="max-w-600 fixed bottom-0 left-1/2 z-0 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
       </main>
     </>
   )

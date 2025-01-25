@@ -1,4 +1,4 @@
-import { SearchIcon } from '@/assets'
+import { SearchIcon } from '@/assets/icons'
 import Checkbox from '@/components/Checkbox'
 import SolidButton from '@/components/SolidButton'
 import TextField from '@/components/TextField'

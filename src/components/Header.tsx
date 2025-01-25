@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge'
-import { ArrowLeftIcon } from '@/assets'
+import { ArrowLeftIcon } from '@/assets/icons'
 import { useNavigate } from 'react-router-dom'
 
 interface HeaderProps {

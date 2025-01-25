@@ -1,4 +1,4 @@
-import { MessageIcon, ThumbUpIcon } from '@/assets'
+import { MessageIcon, ThumbUpIcon } from '@/assets/icons'
 import { WRITE_STEPS } from '@/constants/write'
 
 interface WriteMessageHeaderProps {

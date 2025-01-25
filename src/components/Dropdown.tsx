@@ -1,4 +1,4 @@
-import { ArrowSmallUpIcon } from '@/assets'
+import { ArrowSmallUpIcon } from '@/assets/icons'
 import { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 

@@ -96,7 +96,6 @@ const useAuthStore = create<AuthStore>((set, get) => ({
   },
   updateNickname: (nickname: string) => {
     if (get().isLoggedIn) {
-      console.log(cookies.get(MEMBER_INFO_KEY).expires)
       const expires = new Date(cookies.get(MEMBER_INFO_KEY).expires)
       expires.setMinutes(expires.getMinutes() - expires.getTimezoneOffset())
 

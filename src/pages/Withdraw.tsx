@@ -59,11 +59,11 @@ export default function Withdraw() {
 
   return (
     <>
-      <Header title="탈퇴하기" className="bg-neutral-90" />
+      <Header title="탈퇴하기" className="bg-neutral-90" prevPath="/setting" />
       <main className="content-padding flex grow flex-col justify-between gap-10">
         <section>
           <div className="text-white">
-            <p className="label-large mb-1">탈퇴 후, 계정 복구는 불가능해요 🥺</p>
+            <p className="label-large mb-1">탈퇴 후, 계정 복구는 불가능해요</p>
             <p className="label-large-prominent">떠나는 이유를 말씀해주세요</p>
           </div>
           <Dropdown
@@ -91,6 +91,7 @@ export default function Withdraw() {
           <OutlinedButton
             size="large"
             className="flex-1 basis-1/2 border-neutral-70 bg-transparent"
+            onClick={() => navigate(-1)}
           >
             닫기
           </OutlinedButton>

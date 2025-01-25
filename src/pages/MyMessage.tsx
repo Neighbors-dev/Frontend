@@ -11,7 +11,7 @@ export default function MyMessage() {
   useBodyBackgroundColor('neutral-90')
   return (
     <>
-      <Header title="내가 작성한 메시지" className="bg-neutral-90" />
+      <Header title="내가 작성한 메시지" className="bg-neutral-90" prevPath="/" />
       <main
         className={twMerge(
           'content-padding-small flex grow flex-col',

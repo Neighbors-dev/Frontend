@@ -1,4 +1,3 @@
-import Loading from '@/components/Loading'
 import NewsCard from '@/components/NewsCard'
 import { useGetNews } from '@/hooks/useNews'
 import { useEffect } from 'react'
@@ -27,8 +26,7 @@ export default function NewsCollection() {
         {news.map((item) => (
           <NewsCard key={item.newsId} news={item} />
         ))}
-        {isFetching && <Loading />}
-        {news.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
+        <div ref={ref} className="h-4" />
       </section>
     </div>
   )

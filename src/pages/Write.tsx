@@ -73,7 +73,7 @@ export default function Write() {
             />
           </Step>
           <Step name={WRITE_STEPS[3]}>
-            <SearchOffice onCompleteSelect={() => setNextStep(WRITE_STEPS[2])} />
+            <SearchOffice onCompleteSelect={() => setPrevStep()} />
           </Step>
           <Step name={WRITE_STEPS[4]}>
             <WriteMessage />

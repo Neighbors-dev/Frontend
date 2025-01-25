@@ -26,7 +26,7 @@ export default function Setting() {
 
   return (
     <>
-      <Header title="계정 설정" />
+      <Header title="계정 설정" prevPath="/" />
       <main className="content-padding flex grow flex-col gap-5">
         <section className="flex items-center justify-between">
           <h2 className="headline-small text-white">{nickname} 님</h2>

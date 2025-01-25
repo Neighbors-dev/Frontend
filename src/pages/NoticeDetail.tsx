@@ -15,7 +15,7 @@ export default function NoticeDetail() {
 
   return (
     <>
-      <Header className="bg-neutral-90" title="공지사항" />
+      <Header className="bg-neutral-90" title="공지사항" prevPath="/notice" />
       <main
         className={twMerge(
           'flex w-full flex-col gap-4 px-5 py-5',

@@ -1,5 +1,3 @@
-import { PencilIcon } from '@/assets/icons'
-import Loading from '@/components/Loading'
 import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import TopButton from '@/components/TopButton'
@@ -11,10 +9,11 @@ import { useGetMessages } from '@/hooks/useMessage'
 import Sidebar from '@/layouts/Sidebar'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
+import { PencilIcon } from '@/assets/icons'
 
 export default function Main() {
   const [showFade, setShowFade] = useState(false)
@@ -22,10 +21,11 @@ export default function Main() {
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
   const navigate = useNavigate()
+  const location = useLocation()
   useBodyBackgroundColor('#14192F')
 
   const { data: mainData } = useMainData()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useGetMessages()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useGetMessages()
 
   const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
 
@@ -45,6 +45,12 @@ export default function Main() {
       fetchNextPage()
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  useEffect(() => {
+    if (location.state && location.state.from === 'write') {
+      refetch()
+    }
+  }, [location])
 
   return (
     <>
@@ -67,7 +73,7 @@ export default function Main() {
             <img
               src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
               alt="배경 이미지"
-              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[498px] -translate-x-1/2"
+              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[560px] -translate-x-1/2"
             />
           </div>
           <div id="bg-2" className="main-background" />
@@ -98,7 +104,6 @@ export default function Main() {
               onClick={() => setActiveMessage(message)}
             />
           ))}
-          {isFetching && <Loading />}
           {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
         </section>
         <div className="max-w-600 fixed bottom-0 left-1/2 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />

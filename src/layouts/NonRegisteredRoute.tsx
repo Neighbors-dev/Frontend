@@ -8,7 +8,6 @@ export default function NonRegisteredRoute() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('teststest')
     if (isLoggedIn && user?.nickname) {
       navigate('/', { replace: true })
     }

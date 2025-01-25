@@ -14,7 +14,7 @@ export default function Onboarding() {
 
   return (
     <>
-      <Header className="bg-[#14192F]" />
+      <Header className="bg-[#14192F]" prevPath="/" />
       <main className="flex grow flex-col pt-[7%] text-center">
         <div className="absolute left-1/2 top-[10px] z-[-10] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
         <div className="absolute left-1/2 top-[325px] z-[-10] h-[390px] w-screen -translate-x-1/2 bg-star-bottom bg-cover bg-center" />

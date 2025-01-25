@@ -47,7 +47,7 @@ export default function ThirdSlide({ nickname }: ThirdSlideProps) {
         variant="primary"
         size="large"
         className="fixed bottom-[5%] z-20 w-[175px] rounded-full px-[30px] py-4 drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)]"
-        onClick={shareLink}
+        onClick={() => shareLink(nickname)}
       >
         친구에게 공유하기
       </SolidButton>

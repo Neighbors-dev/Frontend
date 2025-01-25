@@ -34,7 +34,7 @@ export default function Sharing({ numberOfWriter, nameOfWriters }: SharingProps)
 
   return (
     <>
-      <Header title="공유하기" className="bg-[#14192F]" />
+      <Header title="공유하기" className="bg-[#14192F]" prevPath="/" />
       <main className="flex grow flex-col items-center pt-[7%] text-center">
         <div className="absolute left-1/2 top-[10px] z-[-10] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
         <div className="absolute left-1/2 top-[325px] z-[-10] h-[390px] w-screen -translate-x-1/2 bg-star-bottom bg-cover bg-center" />
@@ -73,7 +73,7 @@ export default function Sharing({ numberOfWriter, nameOfWriters }: SharingProps)
           variant="primary"
           size="large"
           className="fixed bottom-[5%] z-20 rounded-full px-[30px] py-4 drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)]"
-          onClick={shareLink}
+          onClick={() => shareLink(nickname)}
         >
           친구에게 공유하기
         </SolidButton>

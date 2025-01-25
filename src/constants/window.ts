@@ -17,7 +17,7 @@ import {
   WindowType9,
 } from '@/assets/windows'
 
-export const BUILDING_WINDOW_FIRST = [
+export const BUILDING_WINDOW = [
   WindowType0,
   WindowType1,
   WindowType2,
@@ -32,9 +32,7 @@ export const BUILDING_WINDOW_FIRST = [
   WindowType8,
   WindowType9,
   WindowType3,
-]
 
-export const BUILDING_WINDOW_SECOND = [
   WindowType15,
   WindowType5,
   WindowType1,

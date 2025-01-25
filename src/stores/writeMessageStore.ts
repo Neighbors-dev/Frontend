@@ -88,6 +88,7 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
     const cookies = new Cookies()
     const isLoggedIn = useAuthStore.getState().isLoggedIn
     const recommenderCode = cookies.get(SHARE_CODE_KEY)
+    cookies.remove(SHARE_CODE_KEY)
     return {
       content: get().message,
       targetJob: get().heroType || null,

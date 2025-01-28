@@ -2,9 +2,9 @@ import { CancelIcon } from '@/assets/icons'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import { useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-import Light from '@/assets/images/light.png'
 import SolidButton from '@/components/SolidButton'
 import { shareLink } from '@/utils/shareLink'
+import { LIGHT_IMG } from '@/constants/image'
 
 export default function ShareLink() {
   const showShareLink = useWriteBottomStore((state) => state.showShareLink)
@@ -38,7 +38,7 @@ export default function ShareLink() {
         <button type="button" className="absolute right-8 top-8" onClick={handleDisagreeShare}>
           <CancelIcon />
         </button>
-        <img src={Light} alt="아이콘" className="h-auto w-[102px]" />
+        <img src={LIGHT_IMG} alt="아이콘" className="h-auto w-[102px]" />
         <section className="mt-1 h-[76px] text-center text-white">
           <p className="title-large mb-2">친구들에게 공유하러 가요</p>
           <p className="body-medium whitespace-pre-wrap text-center">

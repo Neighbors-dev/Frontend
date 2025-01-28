@@ -1,11 +1,11 @@
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import { twMerge } from 'tailwind-merge'
-import Envelope from '@/assets/images/envelope.png'
 import SolidButton from '@/components/SolidButton'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 import TextButton from '@/components/TextButton'
 import { useQueryClient } from '@tanstack/react-query'
 import { postMessage } from '@/apis/message'
+import { ENVELOPE_IMG } from '@/constants/image'
 
 export default function CheckAlarm() {
   const queryClient = useQueryClient()
@@ -49,7 +49,7 @@ export default function CheckAlarm() {
           showCheckAlarm ? 'translate-y-0' : 'translate-y-full'
         )}
       >
-        <img src={Envelope} alt="아이콘" className="h-auto w-[102px]" />
+        <img src={ENVELOPE_IMG} alt="아이콘" className="h-auto w-[102px]" />
         <section className="mt-1 h-[76px] text-center text-white">
           <p className="title-large mb-2">메시지가 열람되면 알려드려요!</p>
           <p className="body-medium whitespace-pre-wrap text-center">

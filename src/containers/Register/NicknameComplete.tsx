@@ -1,6 +1,6 @@
 import Header from '@/components/Header'
 import SolidButton from '@/components/SolidButton'
-import LampImagePng from '@/assets/images/lamp.png'
+import { LAMP_IMG } from '@/constants/image'
 
 interface NicknameCompleteProps {
   nickname: string
@@ -21,7 +21,7 @@ export default function NicknameComplete({
           <h2 className="headline-small mb-4 text-white">반가워요, {nickname} 님!</h2>
           <h3 className="body-large text-neutral-30">메시지를 작성해 거리를 환하게 밝혀주세요</h3>
         </section>
-        <img src={LampImagePng} alt="램프 이미지" className="h-[260px] w-auto" />
+        <img src={LAMP_IMG} alt="램프 이미지" className="h-[260px] w-auto" />
         <SolidButton
           variant="primary"
           size="large"

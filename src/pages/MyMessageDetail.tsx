@@ -52,6 +52,7 @@ export default function MyMessageDetail() {
     }
     await queryClient.invalidateQueries({ queryKey: ['my-message-detail', id] })
     await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+    await queryClient.invalidateQueries({ queryKey: ['messages'] })
     navigate('/message', { replace: true })
   }
 

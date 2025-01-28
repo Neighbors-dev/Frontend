@@ -41,18 +41,22 @@ export default function Setting() {
         </section>
         <hr className="border-neutral-80" />
         <ul className="title-large text-white">
-          <li className="py-3">
-            <button type="button" onClick={() => navigate('/terms')}>
+          <li className="py-3" onClick={() => navigate('/terms')}>
+            <button type="button" className="w-full text-left">
               약관 및 정책
             </button>
           </li>
           <li className="py-3">
-            <button type="button" onClick={handleLogout}>
+            <button type="button" className="w-full text-left" onClick={handleLogout}>
               로그아웃
             </button>
           </li>
           <li className="py-3">
-            <button type="button" onClick={() => navigate('/withdraw')}>
+            <button
+              type="button"
+              className="w-full text-left"
+              onClick={() => navigate('/withdraw')}
+            >
               탈퇴하기
             </button>
           </li>

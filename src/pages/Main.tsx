@@ -106,7 +106,7 @@ export default function Main() {
           ))}
           {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
         </section>
-        <div className="max-w-600 fixed bottom-0 left-1/2 z-0 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
+        <div className="max-w-600 pointer-events-none fixed bottom-0 left-1/2 z-0 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
       </main>
     </>
   )

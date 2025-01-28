@@ -23,7 +23,7 @@ export default function ToastMessage() {
   return (
     <p
       className={twMerge(
-        'fixed bottom-[10%] left-1/2 z-[60] -translate-x-1/2 rounded-md bg-neutral-80 px-5 py-3 text-white transition-opacity duration-[600ms]',
+        'fixed bottom-[10%] left-1/2 z-[60] -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-80 px-5 py-3 text-white transition-opacity duration-[600ms]',
         isOpen && isAnimating ? 'opacity-100' : 'opacity-0'
       )}
     >

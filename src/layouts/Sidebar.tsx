@@ -13,7 +13,7 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
   const [animate, setAnimate] = useState(false)
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
-  const navItems = isLoggedIn ? SIDEBAR_NAV_ITEMS : SIDEBAR_NAV_ITEMS.slice(1)
+  const navItems = isLoggedIn ? SIDEBAR_NAV_ITEMS : SIDEBAR_NAV_ITEMS.slice(3)
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (event.target instanceof HTMLElement && !event.target.closest('.sidebar')) {

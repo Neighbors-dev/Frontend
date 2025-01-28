@@ -9,9 +9,7 @@ export default function Share() {
 
   if (!data) return null
 
-  if (data.numberOfWriter > 0) {
-    return <Sharing numberOfWriter={data.numberOfWriter} nameOfWriters={data.nameOfWriters} />
-  }
+  if (data.isFirst) return <Onboarding />
 
-  return <Onboarding />
+  return <Sharing numberOfWriter={data.numberOfWriter} nameOfWriters={data.nameOfWriters} />
 }

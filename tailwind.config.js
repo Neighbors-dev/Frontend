@@ -56,14 +56,15 @@ export default {
       backgroundImage: {
         'message-gradient': 'linear-gradient(to bottom, #FDFDFD 46.75%, #FFFED9 100%)',
         'login-gradient': 'background: linear-gradient(180deg, #191E33 24.5%, #303C70 100%);',
-        'star-top': "url('/src/assets/images/background-star-top.png')",
-        'star-bottom': "url('/src/assets/images/background-star-bottom.png')",
+        'star-top': "url('https://storage.googleapis.com/to-hero/images/stars-top.webp')",
+        'star-bottom': "url('https://storage.googleapis.com/to-hero/images/stars-bottom.webp')",
       },
       boxShadow: {
         dropdown: '0px 4px 24px 0px rgba(33, 33, 33, 0.60)',
       },
       screens: {
         'h-sm': { raw: '(max-height: 600px)' },
+        'w-sm': { raw: '(max-width: 375px)' },
       },
     },
   },

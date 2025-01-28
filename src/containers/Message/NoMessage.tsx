@@ -1,12 +1,12 @@
 import SolidButton from '@/components/SolidButton'
 import { Link } from 'react-router-dom'
-import Envelope from '@/assets/images/envelope.png'
+import { ENVELOPE_IMG } from '@/constants/image'
 
 export default function NoMessage() {
   return (
     <div className="flex grow flex-col items-center justify-center">
       <section className="flex flex-col items-center gap-8">
-        <img src={Envelope} alt="편지 이미지" className="h-auto w-[102px]" />
+        <img src={ENVELOPE_IMG} alt="편지 이미지" className="h-auto w-[102px]" />
         <p className="body-large text-center text-neutral-40">
           아직 작성한 메시지가 없어요
           <br />첫 메시지를 작성해볼까요?

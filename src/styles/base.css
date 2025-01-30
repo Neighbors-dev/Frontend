@@ -10,7 +10,7 @@
   }
 
   body {
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, sans-serif;
     font-synthesis: none;
     background: var(--body-bg-color);
     overflow-y: scroll;

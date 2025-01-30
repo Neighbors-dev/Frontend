@@ -24,8 +24,14 @@ export default function Main() {
   const location = useLocation()
   useBodyBackgroundColor('#14192F')
 
-  const { data: mainData } = useMainData()
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useGetMessages()
+  const { data: mainData, refetch: mainDataRefetch } = useMainData()
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch: messagesRefetch,
+  } = useGetMessages()
 
   const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
 
@@ -48,7 +54,8 @@ export default function Main() {
 
   useEffect(() => {
     if (location.state && location.state.from === 'write') {
-      refetch()
+      mainDataRefetch()
+      messagesRefetch()
     }
   }, [location])
 

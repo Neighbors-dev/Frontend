@@ -83,5 +83,6 @@ export const getAccessToken = async () => {
     if (error instanceof Error) {
       console.error(error.message)
     }
+    throw new Error('토큰 재발급 실패')
   }
 }

@@ -5,6 +5,7 @@ import { MESSAGE_MAX_LENGTH } from '@/constants/write'
 import useAuthStore from '@/stores/authStore'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -25,6 +26,7 @@ export default function WriteMessage() {
   const generateMessage = useWriteMessageStore((state) => state.generateMessage)
   const toggleCheckAlarm = useWriteBottomStore((state) => state.toggleCheckAlarm)
   const targetString = generateTargetString()
+  const queryClient = useQueryClient()
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let currentValue = e.target.value
@@ -44,6 +46,7 @@ export default function WriteMessage() {
       const result = await postMessage(message)
 
       if (result) {
+        await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
         navigate('/', { state: { from: 'write' } })
       }
     }

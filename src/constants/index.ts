@@ -36,16 +36,15 @@ export const WITHDRAW_OPTIONS = [
 ]
 
 // TODO: 스토리지 변경
-export const MAIN_BACKGROUND_IMAGE_BASE_LINK =
-  'https://res.cloudinary.com/dwe8dhuwm/image/upload/v1737216155/'
+export const MAIN_BACKGROUND_IMAGE_BASE_LINK = 'https://storage.googleapis.com/to-hero/images/'
 
 export const MAIN_BACKGROUND_IMAGE_LINK = [
-  'phase_0_nwi85n.webp',
-  'phase_2_i3hoxb.webp',
-  'phase_1_wpjhzw.webp',
-  'phase_3_zv5tt6.webp',
-  'phase_4_scqcpp.webp',
-  'phase_5_zpp42v.webp',
-  'phase_6_omnvg5.webp',
-  'phase_8_norrem.webp',
+  'phase_0.webp',
+  'phase_1.webp',
+  'phase_2.webp',
+  'phase_3.webp',
+  'phase_4.webp',
+  'phase_5.webp',
+  'phase_6.webp',
+  'phase_8.webp',
 ]

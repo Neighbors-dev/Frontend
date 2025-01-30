@@ -1,6 +1,7 @@
 import PencilIcon from './pencil.svg?react'
 import KakaoIcon from './kakao.svg?react'
 import ArrowLeftIcon from './arrow-left.svg?react'
+import ArrowRightIcon from './arrow-right.svg?react'
 import ArrowUpIcon from './arrow-up.svg?react'
 import HamburgerIcon from './hamburger.svg?react'
 import SettingIcon from './setting.svg?react'
@@ -19,6 +20,7 @@ export {
   PencilIcon,
   KakaoIcon,
   ArrowLeftIcon,
+  ArrowRightIcon,
   ArrowUpIcon,
   HamburgerIcon,
   SettingIcon,

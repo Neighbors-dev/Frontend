@@ -2,7 +2,6 @@ import { KakaoIcon, LogoIcon, PencilIcon } from '@/assets/icons'
 import SolidButton from '@/components/SolidButton'
 import TextButton from '@/components/TextButton'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { ENVELOPE_IMG } from '@/constants/image'
 import NonLoginModal from '@/containers/Login/NonLoginModal'
 
@@ -11,7 +10,6 @@ const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=cod
 
 export default function Login() {
   const [isOpen, setIsOpen] = useState(false)
-  const navigate = useNavigate()
 
   const handleModalClose = () => {
     setIsOpen(false)
@@ -38,7 +36,14 @@ export default function Login() {
           <div className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2">
             <h1 className="flex flex-col items-center gap-[33px]">
               <LogoIcon className="h-8 w-auto" />
-              <img src={ENVELOPE_IMG} alt="편지 아이콘" className="h-auto w-[102px]" />
+              <div className="h-[102px] w-[102px]">
+                <img
+                  src={ENVELOPE_IMG}
+                  alt="편지 아이콘"
+                  className="h-full w-full object-contain"
+                  loading="eager"
+                />
+              </div>
             </h1>
             <p className="title-large-light mt-10 text-center text-white">
               경찰관, 소방관 분들께
@@ -59,7 +64,7 @@ export default function Login() {
               window.location.href = kakaoLoginUrl
             }}
           >
-            <KakaoIcon />
+            <KakaoIcon className="h-5 w-5" />
             카카오로 시작하기
           </SolidButton>
           <TextButton

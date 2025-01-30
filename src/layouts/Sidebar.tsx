@@ -1,3 +1,4 @@
+import { ArrowRightIcon, KakaoIcon } from '@/assets/icons'
 import { SIDEBAR_NAV_ITEMS } from '@/constants'
 import useAuthStore from '@/stores/authStore'
 import { useEffect, useState } from 'react'
@@ -52,12 +53,21 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
           animate ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <h2 className="headline-small text-white">{nickname} 님</h2>
+        <h2 className="headline-small mb-1 text-white">{nickname} 님</h2>
         {isLoggedIn ? (
-          <p className="text-white">(임시) 카카오로 로그인 중</p>
+          <p className="label-large flex items-center gap-1.5 text-neutral-40">
+            <div className="rounded-full bg-[#FEE500] p-[3px]">
+              <KakaoIcon className="h-2 w-2" />
+            </div>
+            카카오로 로그인 중
+          </p>
         ) : (
-          <Link to="/login" className="text-white">
-            (임시) 회원가입 하러가기
+          <Link
+            to="/login"
+            className="label-large-prominent flex items-center gap-1 text-brand-yellow"
+          >
+            회원가입 하러가기
+            <ArrowRightIcon className="h-[18px] w-[18px] text-brand-yellow" />
           </Link>
         )}
         <hr className="my-5 h-[1px] w-full border-none bg-neutral-80" />

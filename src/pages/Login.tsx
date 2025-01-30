@@ -27,10 +27,19 @@ export default function Login() {
       <div className="fixed left-0 top-0 z-0 h-1/2 w-full bg-star-top bg-cover bg-center" />
       <div className="fixed bottom-0 left-0 z-0 h-1/2 w-full bg-star-bottom bg-cover bg-center" />
       <div>
-        <h1 className="absolute left-1/2 top-1/4 z-10 flex -translate-x-1/2 flex-col items-center gap-[33px] text-white">
-          <LogoIcon className="h-8 w-auto" />
-          <img src={ENVELOPE_IMG} alt="편지 아이콘" className="h-auto w-[102px]" />
-        </h1>
+        <div className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2">
+          <h1 className="flex flex-col items-center gap-[33px]">
+            <LogoIcon className="h-8 w-auto" />
+            <img src={ENVELOPE_IMG} alt="편지 아이콘" className="h-auto w-[102px]" />
+          </h1>
+          <p className="title-large-light mt-10 text-center text-white">
+            경찰관, 소방관 분들께
+            <br />
+            감사의 마음을 전하고
+            <br />
+            도시를 밝혀주세요
+          </p>
+        </div>
       </div>
       <section className="z-10 flex w-full flex-col gap-5">
         <SolidButton

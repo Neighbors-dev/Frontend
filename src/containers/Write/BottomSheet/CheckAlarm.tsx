@@ -32,6 +32,8 @@ export default function CheckAlarm() {
 
     if (result) {
       await queryClient.invalidateQueries({ queryKey: ['messages'] })
+      await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+      await queryClient.invalidateQueries({ queryKey: ['main-data'] })
       toggleShareLink()
     }
   }

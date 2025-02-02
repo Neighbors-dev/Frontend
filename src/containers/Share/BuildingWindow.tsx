@@ -7,7 +7,7 @@ interface BuildingWindowProps {
 
 export default function BuildingWindow({ imgSrc, name }: BuildingWindowProps) {
   return (
-    <article className="flex h-[121px] w-fit flex-col justify-between">
+    <article className="relative flex h-[121px] w-fit flex-col items-center justify-between">
       {name !== null ? (
         <>
           <div className="relative h-auto w-[52px]">
@@ -15,7 +15,7 @@ export default function BuildingWindow({ imgSrc, name }: BuildingWindowProps) {
             <BaseWindow className="text-brand-yellow drop-shadow-[0_0_40px_rgba(255,242,0,0.5)]" />
           </div>
           {name && (
-            <p className="label-small relative z-10 overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-neutral-90 px-2 py-1 text-white">
+            <p className="label-small absolute bottom-0 z-10 overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-neutral-90 px-2 py-1 text-white">
               {name}
             </p>
           )}

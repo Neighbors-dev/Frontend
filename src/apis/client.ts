@@ -35,7 +35,7 @@ client.interceptors.response.use(
         return client(originalRequest)
       } catch {
         // 토큰 재발급 실패 시 로그아웃
-        if (window.confirm('토큰 재발급에 실패했습니다. 다시 로그인하시겠습니까?')) {
+        if (window.confirm('오류가 발생했습니다. 다시 로그인하시겠어요?')) {
           useAuthStore.getState().logout()
           window.location.href = '/login'
         }

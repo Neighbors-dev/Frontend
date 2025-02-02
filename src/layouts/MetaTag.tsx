@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 export default function MetaTag() {
   return (
     <Helmet>
+      <link rel="canonical" href="https://tohero.co.kr" />
       <meta
         name="description"
         content="경찰관, 소방관 분들께 감사의 마음을 전하고 도시를 밝혀주세요"
@@ -20,8 +21,9 @@ export default function MetaTag() {
         content="https://storage.googleapis.com/to-hero/images/site-image.png"
       />
       <meta property="og:url" content="https://tohero.co.kr" />
-      <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content="To.Hero" />
+      <meta name="twitter:site" content="https://tohero.co.kr" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:description"
         content="경찰관, 소방관 분들께 감사의 마음을 전하고 도시를 밝혀주세요"

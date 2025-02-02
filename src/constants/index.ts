@@ -35,7 +35,6 @@ export const WITHDRAW_OPTIONS = [
   '그 외 기타',
 ]
 
-// TODO: 스토리지 변경
 export const MAIN_BACKGROUND_IMAGE_BASE_LINK = 'https://storage.googleapis.com/to-hero/images/'
 
 export const MAIN_BACKGROUND_IMAGE_LINK = [

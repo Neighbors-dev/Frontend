@@ -15,7 +15,7 @@ export const extractImgLink = (messageCount: number) => {
     imgLink = MAIN_BACKGROUND_IMAGE_LINK[4]
   } else if (messageCount < 750) {
     imgLink = MAIN_BACKGROUND_IMAGE_LINK[5]
-  } else if (messageCount < 999) {
+  } else if (messageCount <= 999) {
     imgLink = MAIN_BACKGROUND_IMAGE_LINK[6]
   } else {
     imgLink = MAIN_BACKGROUND_IMAGE_LINK[7]

@@ -1,4 +1,4 @@
-export const MESSAGE_MAX_LENGTH = 100
+export const MESSAGE_MAX_LENGTH = 300
 export const WRITE_STEPS = [
   'select-target',
   'select-hero-type',

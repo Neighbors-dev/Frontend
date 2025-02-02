@@ -47,6 +47,7 @@ export default function WriteMessage() {
 
       if (result) {
         await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+        await queryClient.invalidateQueries({ queryKey: ['main-data'] })
         navigate('/', { state: { from: 'write' } })
       }
     }

@@ -53,3 +53,6 @@ export const BOTTOM_SHEET_CONTENT = {
     cancelText: null,
   },
 }
+
+export const SEARCH_EXAMPLE =
+  '검색하고 싶은 근무지가 구의119안전센터일 경우\n1. 근무지 이름로 검색\nex) 구의\n\n2. 주소지로 검색(광진구 광나루로 480 (구의동))\nex) 광진구, 구의동, 광나루로'

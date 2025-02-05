@@ -56,3 +56,6 @@ export const BOTTOM_SHEET_CONTENT = {
 
 export const SEARCH_EXAMPLE =
   '검색하고 싶은 근무지가 구의119안전센터일 경우\n1. 근무지 이름로 검색\nex) 구의\n\n2. 주소지로 검색(광진구 광나루로 480 (구의동))\nex) 광진구, 구의동, 광나루로'
+
+export const SECRET_EXPLANATION =
+  '공개 시, 더 많은 사람들이 당신의 따뜻한 마음을 보고 공감할 수 있으며,\n특별한 메시지는 다양한 채널을 통해 소개될 수도 있습니다.\n비공개로 설정하면, 나만의 소중한 기록으로 남길 수 있어요.'

@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import Loading from '@/components/Loading'
 import OutlinedButton from '@/components/OutlinedButton'
 import SolidButton from '@/components/SolidButton'
+import { SECRET_EXPLANATION } from '@/constants/write'
 import MyMessageCard from '@/containers/Message/MyMessageCard'
 import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useGetMyMessageDetail } from '@/hooks/useMessage'
@@ -83,21 +84,23 @@ export default function MyMessageDetail() {
           <>
             <section className="flex grow flex-col">
               {data && <MyMessageCard message={data.letterInfo} isShort={false} />}
-              <p className="label-large-prominent mb-1 mt-6 text-white">공개 여부 설정</p>
-              <p className="body-medium mb-5 text-neutral-40">
-                비공개로 설정 시, 다른 유저들이 메시지를 확인할 수 없어요.
-              </p>
-              <label
-                htmlFor="isPrivate"
-                className="label-medium flex cursor-pointer items-center gap-2 text-white"
-              >
-                <Checkbox
-                  id="isPrivate"
-                  checked={isPrivate}
-                  onChange={() => setIsPrivate((prev) => !prev)}
-                />
-                <span>비공개</span>
-              </label>
+              <p className="label-large-prominent mb-2 mt-6 text-white">공개 여부 설정</p>
+              <div>
+                <label
+                  htmlFor="isPrivate"
+                  className="label-medium flex cursor-pointer items-center gap-2 text-white"
+                >
+                  <Checkbox
+                    id="isPrivate"
+                    checked={isPrivate}
+                    onChange={() => setIsPrivate((prev) => !prev)}
+                  />
+                  <span>비공개</span>
+                </label>
+                <p className="body-small mt-2 whitespace-pre-wrap text-neutral-40">
+                  {SECRET_EXPLANATION}
+                </p>
+              </div>
             </section>
             <section className="flex gap-[15px]">
               <OutlinedButton

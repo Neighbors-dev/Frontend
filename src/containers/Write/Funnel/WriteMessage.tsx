@@ -1,7 +1,7 @@
 import { postMessage } from '@/apis/message'
 import Checkbox from '@/components/Checkbox'
 import SolidButton from '@/components/SolidButton'
-import { MESSAGE_MAX_LENGTH } from '@/constants/write'
+import { MESSAGE_MAX_LENGTH, SECRET_EXPLANATION } from '@/constants/write'
 import useAuthStore from '@/stores/authStore'
 import useWriteBottomStore from '@/stores/writeBottomStore'
 import useWriteMessageStore from '@/stores/writeMessageStore'
@@ -47,6 +47,7 @@ export default function WriteMessage() {
 
       if (result) {
         await queryClient.invalidateQueries({ queryKey: ['my-messages'] })
+        await queryClient.invalidateQueries({ queryKey: ['main-data'] })
         navigate('/', { state: { from: 'write' } })
       }
     }
@@ -81,7 +82,6 @@ export default function WriteMessage() {
               disabled={showCollectionIntro || showCheckAlarm || showShareLink}
               onChange={handleMessageChange}
             />
-            {/* TODO: 닉네임 받아서 넣기 */}
             <div className="flex justify-between text-neutral-50">
               <p className="title-small">From. {nickname}</p>
               <p className="label-medium">
@@ -100,6 +100,9 @@ export default function WriteMessage() {
             />
             <span>비공개로 작성하기</span>
           </label>
+          <p className="body-small mt-2 whitespace-pre-wrap text-neutral-40">
+            {SECRET_EXPLANATION}
+          </p>
         </div>
       </section>
       <SolidButton variant="primary" size="large" type="submit" disabled={content.trim() === ''}>

@@ -6,14 +6,14 @@ interface ThirdSlideProps {
   nickname: string
 }
 
-export default function ThirdSlide({ nickname }: ThirdSlideProps) {
+export default function FourthSlide({ nickname }: ThirdSlideProps) {
   const writers = [nickname, '내 친구', '내 친구']
   const array = [0, 7, 9, 2, 5, 8]
 
   return (
     <div className="relative flex w-full shrink-0 flex-col items-center">
       <div className="h-[144px]">
-        <h1 className="headline-small w-sm:text-[20px] mb-5 text-center text-white">
+        <h1 className="headline-small mb-5 text-center text-white w-sm:text-[20px]">
           {nickname}님의 공유 한 번이
           <br />이 도시를 밝게 빛나게 할 수 있어요!
         </h1>

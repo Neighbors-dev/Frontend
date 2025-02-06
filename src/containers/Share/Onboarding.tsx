@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { twMerge } from 'tailwind-merge'
 import FirstSlide from './FirstSlide'
 import SecondSlide from './SecondSlide'
-import ThirdSlide from './ThirdSlide'
+import FourthSlide from './FourthSlide'
 import useAuthStore from '@/stores/authStore'
 import { useDotButton } from '@/hooks/useDotButton'
 import SolidButton from '@/components/SolidButton'
@@ -42,7 +42,7 @@ export default function Onboarding() {
             <div className="flex grow touch-pan-y touch-pinch-zoom">
               <FirstSlide nickname={nickname} />
               <SecondSlide nickname={nickname} />
-              <ThirdSlide nickname={nickname} />
+              <FourthSlide nickname={nickname} />
             </div>
           </div>
           <SolidButton

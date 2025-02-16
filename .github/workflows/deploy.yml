@@ -51,3 +51,19 @@ jobs:
           target: '/home/ubuntu/'
           strip_components: 1
 
+      - name: Extract and Deploy on EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/
+            tar -xzf build.tar.gz
+            sudo rm -rf /etc/nginx/html/*
+            sudo mv dist/* /etc/nginx/html/
+            cd /etc/nginx/html
+            pm2 restart to-hero
+            sudo docker exec nginx nginx -s reload
+            rm -f /home/ubuntu/build.tar.gz
+

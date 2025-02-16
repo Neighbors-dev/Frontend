@@ -1,5 +1,5 @@
 import { ArrowRightIcon, KakaoIcon } from '@/assets/icons'
-import { SIDEBAR_NAV_ITEMS } from '@/constants'
+import { SIDEBAR_NAV_ITEMS, SIDEBAR_NAV_QUESTION } from '@/constants'
 import useAuthStore from '@/stores/authStore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -14,7 +14,6 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
   const [animate, setAnimate] = useState(false)
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn)
   const nickname = useAuthStore((state) => state.user)?.nickname
-  const navItems = isLoggedIn ? SIDEBAR_NAV_ITEMS : SIDEBAR_NAV_ITEMS.slice(3)
 
   const handleOutsideClick = (event: MouseEvent) => {
     if (event.target instanceof HTMLElement && !event.target.closest('.sidebar')) {
@@ -73,21 +72,33 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
         <hr className="my-5 h-[1px] w-full border-none bg-neutral-80" />
         <nav>
           <ul className="flex flex-col">
-            {navItems.map((item) => (
-              <li key={item.menu}>
-                <Link
-                  to={item.path}
-                  className="title-medium flex items-center gap-4 py-3 text-white"
-                  onClick={() => {
-                    setAnimate(false)
-                    setTimeout(() => setShow(false), 300)
-                  }}
-                >
-                  <item.icon className="h-6 w-6" />
-                  {item.menu}
-                </Link>
-              </li>
-            ))}
+            {isLoggedIn &&
+              SIDEBAR_NAV_ITEMS.map((item) => (
+                <li key={item.menu}>
+                  <Link
+                    to={item.path}
+                    className="title-medium flex items-center gap-4 py-3 text-white"
+                    onClick={() => {
+                      setAnimate(false)
+                      setTimeout(() => setShow(false), 300)
+                    }}
+                  >
+                    <item.icon className="h-6 w-6" />
+                    {item.menu}
+                  </Link>
+                </li>
+              ))}
+            <li>
+              <a
+                href={SIDEBAR_NAV_QUESTION.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="title-medium flex items-center gap-4 py-3 text-white"
+              >
+                <SIDEBAR_NAV_QUESTION.icon className="h-6 w-6" />
+                {SIDEBAR_NAV_QUESTION.menu}
+              </a>
+            </li>
           </ul>
         </nav>
       </aside>

@@ -69,7 +69,7 @@ const useWriteMessageStore = create<WriteMessageState & WriteMessageAction>((set
       return '모든 경찰관, 소방관 분들'
     }
 
-    const alias = heroType === POLICE ? '경관님' : '소방관님'
+    const alias = heroType === POLICE ? '경찰관님' : '소방관님'
     if (targetInfo.noName) {
       if (targetInfo.noOffice) {
         return `감사한 ${alias}`

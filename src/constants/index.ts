@@ -20,12 +20,13 @@ export const SIDEBAR_NAV_ITEMS = [
     icon: PencilIcon,
     path: '/message',
   },
-  {
-    menu: '자주 묻는 질문',
-    icon: QuestionIcon,
-    path: '/',
-  },
 ]
+
+export const SIDEBAR_NAV_QUESTION = {
+  menu: '자주 묻는 질문',
+  icon: QuestionIcon,
+  path: 'https://octagonal-guppy-90d.notion.site/TEAM-17c1cbd16b9d80c2a38fd5803d022fbb?pvs=4',
+}
 
 export const WITHDRAW_OPTIONS = [
   '개인정보를 삭제하기 위해',

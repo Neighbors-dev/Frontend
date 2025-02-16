@@ -42,13 +42,14 @@ jobs:
           path: build.tar.gz
 
       - name: Deploy to EC2
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           source: 'build.tar.gz'
           target: '/home/ubuntu/'
+          strip_components: 1
 
       - name: Extract and Deploy on EC2
         uses: appleboy/ssh-action@master

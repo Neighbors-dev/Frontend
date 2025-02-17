@@ -42,7 +42,9 @@ export default function ShareLink() {
         <section className="mt-1 h-[76px] text-center text-white">
           <p className="title-large mb-2">친구들에게 공유하러 가요</p>
           <p className="body-medium whitespace-pre-wrap text-center">
-            다른 친구들에게 공유해 거리를 환하게 밝혀주세요
+            다른 친구들에게 초대링크를 보내고
+            <br />
+            함께 거리를 환하게 밝혀주세요
           </p>
         </section>
         <section className="flex w-full flex-col gap-3">

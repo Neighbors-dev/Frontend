@@ -54,12 +54,12 @@ export default function Sidebar({ show, setShow }: SidebarProps) {
       >
         <h2 className="headline-small mb-1 text-white">{nickname} 님</h2>
         {isLoggedIn ? (
-          <p className="label-large flex items-center gap-1.5 text-neutral-40">
+          <div className="label-large flex items-center gap-1.5 text-neutral-40">
             <div className="rounded-full bg-[#FEE500] p-[3px]">
               <KakaoIcon className="h-2 w-2" />
             </div>
             카카오로 로그인 중
-          </p>
+          </div>
         ) : (
           <Link
             to="/login"

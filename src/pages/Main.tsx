@@ -20,6 +20,10 @@ export default function Main() {
   const [showSidebar, setShowSidebar] = useState(false)
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
+  const [buttonRef, isButtonVisible] = useInView({
+    rootMargin: '-40px 0px 100%',
+    threshold: 0,
+  })
   const navigate = useNavigate()
   const location = useLocation()
   useBodyBackgroundColor('#14192F')
@@ -70,12 +74,19 @@ export default function Main() {
       <div className="absolute left-1/2 top-[-39px] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
       <main className="relative mt-12 w-full">
         <NoticeSection notices={mainData?.topNotices || []} />
-        <h2 className="headline-small mx-5 mb-6 mt-6 text-white">
-          지금까지 {Math.max(mainData?.writtenLetterNumber || 0, messages.length)}개의
-          <br />
-          메시지가 모였어요 💌
-        </h2>
-        <div className="relative mx-5 my-16">
+        <section className="mx-5 mt-6">
+          <h2 className="headline-small mb-2 text-white">
+            지금까지 {Math.max(mainData?.writtenLetterNumber || 0, messages.length)}개의
+            <br />
+            메시지가 모였어요 💌
+          </h2>
+          <p className="body-medium text-neutral-40">
+            전체 메시지가 쌓일수록
+            <br />
+            도시에 불이 켜져요
+          </p>
+        </section>
+        <div className="relative mx-5 mb-16 mt-10">
           <div className="overflow-hidden">
             <img
               src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
@@ -87,9 +98,10 @@ export default function Main() {
         </div>
         <div className="relative">
           <SolidButton
+            ref={buttonRef}
             variant="primary"
             size="large"
-            className="relative z-10 mx-auto rounded-full"
+            className="relative z-10 mx-auto rounded-full py-4"
             onClick={() => navigate('/write')}
           >
             메시지 작성하기 <PencilIcon className="h-5 w-5" />
@@ -102,6 +114,17 @@ export default function Main() {
             showFade ? 'opacity-100' : 'opacity-0'
           )}
         />
+        <SolidButton
+          variant="primary"
+          size="large"
+          className={twMerge(
+            'fixed bottom-[100px] left-1/2 z-50 -translate-x-1/2 rounded-full py-4 transition-opacity duration-200',
+            isButtonVisible ? 'pointer-events-none opacity-0' : 'opacity-100'
+          )}
+          onClick={() => navigate('/write')}
+        >
+          메시지 작성하기 <PencilIcon className="h-5 w-5" />
+        </SolidButton>
         <section className="mx-5 my-7 flex flex-col items-center gap-5">
           {messages.map((message, index) => (
             <MessageCard

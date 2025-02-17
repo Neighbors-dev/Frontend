@@ -24,7 +24,7 @@ export default function MessagesCollection() {
       )}
       <div className="grow">
         <h2 className="body-large my-5 text-neutral-30">
-          다른 사람이 작성한 감사 메시지를
+          다른 사람들이 작성한 감사 메시지를
           <br />
           참고해 작성해보세요!
         </h2>

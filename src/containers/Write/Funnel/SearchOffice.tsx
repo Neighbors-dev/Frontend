@@ -4,6 +4,7 @@ import SearchResultItem from './SearchResultItem'
 import { useState } from 'react'
 import useWriteMessageStore from '@/stores/writeMessageStore'
 import { getSearchResult } from '@/apis/message'
+import { SEARCH_EXAMPLE } from '@/constants/write'
 
 interface SearchOfficeProps {
   onCompleteSelect: () => void
@@ -70,7 +71,7 @@ export default function SearchOffice({ onCompleteSelect }: SearchOfficeProps) {
             ) : (
               <>
                 <h3 className="label-large text-white">이렇게 검색해보세요!</h3>
-                <p className="body-medium text-neutral-50">ex) 강동구</p>
+                <p className="body-medium whitespace-pre-wrap text-neutral-50">{SEARCH_EXAMPLE}</p>
               </>
             )}
           </section>

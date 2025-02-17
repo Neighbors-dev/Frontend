@@ -18,8 +18,8 @@ export default function Setting() {
       confirmText: '로그아웃',
       cancelText: '취소',
       onConfirm: async () => {
-        const result = await postLogout()
-        if (result) navigate('/login')
+        await postLogout()
+        navigate('/login')
       },
     })
   }

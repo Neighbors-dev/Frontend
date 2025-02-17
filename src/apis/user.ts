@@ -36,6 +36,7 @@ export const postLogout = async () => {
     logout()
     return true
   } catch (error) {
+    logout()
     if (error instanceof Error) {
       console.error(error.message)
     }

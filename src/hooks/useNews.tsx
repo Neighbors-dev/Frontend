@@ -1,7 +1,7 @@
 import { getNews } from '@/apis/news'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-const NEWS_SIZE = 5
+const NEWS_SIZE = 10
 
 export const useGetNews = () => {
   return useInfiniteQuery({

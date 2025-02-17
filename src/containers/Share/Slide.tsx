@@ -11,7 +11,7 @@ interface SlideProps {
 export default function Slide({ title, subtitle, windowObj }: SlideProps) {
   return (
     <div className="relative flex w-full shrink-0 flex-col items-center">
-      <div className="mb-[50px] flex h-[110px] flex-col justify-between whitespace-pre-wrap">
+      <div className="mb-7 flex h-[120px] flex-col gap-3 whitespace-pre-wrap">
         <h1 className="headline-small text-center text-white w-sm:text-[20px]">{title}</h1>
         <p className="title-small text-neutral-30">{subtitle}</p>
       </div>

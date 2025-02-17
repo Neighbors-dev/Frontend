@@ -22,17 +22,27 @@ export default function Onboarding() {
       windowObj: { 0: nickname },
     },
     {
-      title: `공유하기 버튼을 눌러\n링크를 보내주세요`,
+      title: `공유하기 버튼을 눌러\n친구에게 초대 링크를 보내고`,
       windowObj: { 0: nickname, 7: '내 친구', 9: '내 친구' },
     },
     {
-      title: `링크를 통해 감사메시지를 남기면\n불빛이 켜져요`,
+      title: `친구가 감사메시지를 남기면\n불빛이 켜져요`,
       subtitle: '함께하는 사람마다 불빛이 하나씩 늘어날거에요',
       windowObj: { 0: nickname, 7: '내 친구', 9: '내 친구', 2: '' },
     },
     {
-      title: `${nickname}님의 공유 한 번이\n이 도시를 밝게 빛나게 할 수 있어요!`,
+      title: `${nickname}님의 공유 한 번이\n이 도시를 빛나게 할거에요`,
       subtitle: `익숙하지 않은 이름이 보여도 놀라지 마세요\n${nickname}님의 선한 영향력을 받은 분이에요`,
+      windowObj: {
+        0: nickname,
+        7: '내 친구',
+        9: '내 친구',
+        2: '',
+        8: '',
+      },
+    },
+    {
+      title: `자, 이제 친구들에게\n공유해볼까요?`,
       windowObj: {
         0: nickname,
         7: '내 친구',
@@ -61,6 +71,14 @@ export default function Onboarding() {
   return (
     <>
       <Header className="bg-[#14192F]" prevPath="/" />
+      <div className="px-5">
+        <div className="h-[2px] w-full rounded-full bg-white/20">
+          <div
+            className="tras h-full rounded-full bg-brand-yellow transition-all duration-300 ease-out"
+            style={{ width: `calc(100% * (${selectedIndex} + 1) / ${SLIDE_DATA.length})` }}
+          />
+        </div>
+      </div>
       <main className="flex grow flex-col pt-[7%] text-center">
         <div className="absolute left-1/2 top-[10px] z-[-10] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
         <div className="absolute left-1/2 top-[325px] z-[-10] h-[390px] w-screen -translate-x-1/2 bg-star-bottom bg-cover bg-center" />
@@ -68,7 +86,7 @@ export default function Onboarding() {
           <div className="flex grow flex-col overflow-hidden" ref={emblaRef}>
             <div className="flex grow touch-pan-y touch-pinch-zoom">
               {SLIDE_DATA.map(({ title, subtitle, windowObj }) => (
-                <Slide title={title} subtitle={subtitle} windowObj={windowObj} />
+                <Slide key={title} title={title} subtitle={subtitle} windowObj={windowObj} />
               ))}
             </div>
           </div>

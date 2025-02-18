@@ -24,10 +24,12 @@ jobs:
           echo "VITE_KAKAO_REDIRECT_URI=$VITE_KAKAO_REDIRECT_URI" >> .env
           echo "VITE_KAKAO_CLIENT_ID=$VITE_KAKAO_CLIENT_ID" >> .env
           echo "VITE_API_URL=$VITE_API_URL" >> .env
+          echo "VITE_KAKAO_JAVASCRIPT_KEY=$VITE_KAKAO_JAVASCRIPT_KEY" >> .env
         env:
           VITE_KAKAO_REDIRECT_URI: ${{ secrets.VITE_KAKAO_REDIRECT_URI }}
           VITE_KAKAO_CLIENT_ID: ${{ secrets.VITE_KAKAO_CLIENT_ID }}
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_KAKAO_JAVASCRIPT_KEY: ${{ secrets.VITE_KAKAO_JAVASCRIPT_KEY }}
 
       - name: Build application
         run: yarn build
@@ -65,4 +67,3 @@ jobs:
             pm2 restart to-hero
             sudo docker exec nginx nginx -s reload
             rm -f /home/ubuntu/build.tar.gz
-

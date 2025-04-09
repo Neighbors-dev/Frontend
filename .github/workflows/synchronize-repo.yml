@@ -26,7 +26,7 @@ jobs:
 
       - name: Push changes to forked-repo
         run: |
-          git push -f forked-repo release
+          git push -f forked-repo release:release
 
       - name: Clean up
         run: |

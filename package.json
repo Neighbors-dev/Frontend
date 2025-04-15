@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@sentry/react": "^9.12.0",
+    "@sentry/vite-plugin": "^3.3.1",
     "@tanstack/react-query": "^5.63.0",
     "axios": "^1.7.9",
     "embla-carousel": "^8.5.2",

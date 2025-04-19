@@ -1,4 +1,3 @@
-import MessageCard from '@/components/MessageCard'
 import SolidButton from '@/components/SolidButton'
 import TopButton from './components/TopButton'
 import Header from './components/Header'
@@ -7,15 +6,16 @@ import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useMainData } from '@/hooks/useMainData'
 import { useGetMessages } from '@/hooks/useMessage'
 import Sidebar from '@/layouts/Sidebar'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
 import { PencilIcon } from '@/assets/icons'
+import MessageList from './components/MessageList'
 
-export default function Main() {
+export default function MainPage() {
   const [showFade, setShowFade] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
@@ -37,7 +37,10 @@ export default function Main() {
     refetch: messagesRefetch,
   } = useGetMessages()
 
-  const messages = data?.pages.flatMap((page) => page.openedLetters ?? []) ?? []
+  const messages = useMemo(
+    () => data?.pages.flatMap((page) => page.openedLetters ?? []) ?? [],
+    [data?.pages]
+  )
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,17 +128,12 @@ export default function Main() {
         >
           메시지 작성하기 <PencilIcon className="w-5 h-5" />
         </SolidButton>
-        <section className="flex flex-col items-center gap-5 mx-5 my-7">
-          {messages.map((message, index) => (
-            <MessageCard
-              key={index}
-              message={message}
-              isShort
-              onClick={() => setActiveMessage(message)}
-            />
-          ))}
-          {messages.length > 0 && hasNextPage && <div ref={ref} className="h-4" />}
-        </section>
+        <MessageList
+          messages={messages}
+          hasNextPage={hasNextPage}
+          observerRef={ref}
+          setActiveMessage={setActiveMessage}
+        />
         <div className="max-w-600 pointer-events-none fixed bottom-0 left-1/2 z-0 h-[83px] -translate-x-1/2 bg-gradient-to-b from-[#171D32]/0 to-[#171D32] opacity-20" />
       </main>
     </>

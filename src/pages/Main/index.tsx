@@ -5,7 +5,7 @@ import useBodyBackgroundColor from '@/hooks/useBodyBackgroundColor'
 import { useMainData } from '@/hooks/useMainData'
 import { useGetMessages } from '@/hooks/useMessage'
 import Sidebar from '@/layouts/Sidebar'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useLocation } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
@@ -14,6 +14,7 @@ import MessageList from './components/MessageList'
 import WriteMessageButton from './components/WriteMessageButton'
 import { useScrollFade } from '@/hooks/useScrollFade'
 import CityBackground from './components/CityBackground'
+import MessageCounter from './components/MessageCounter'
 
 export default function MainPage() {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -46,6 +47,14 @@ export default function MainPage() {
     [mainData?.writtenLetterNumber, messages.length]
   )
 
+  const handleSidebarToggle = useCallback(() => {
+    setShowSidebar(true)
+  }, [])
+
+  const handleCloseModal = useCallback(() => {
+    setActiveMessage(undefined)
+  }, [])
+
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage()
@@ -61,27 +70,14 @@ export default function MainPage() {
 
   return (
     <>
-      {activeMessage && (
-        <MessageModal message={activeMessage} onClose={() => setActiveMessage(undefined)} />
-      )}
+      {activeMessage && <MessageModal message={activeMessage} onClose={handleCloseModal} />}
       <TopButton />
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
-      <Header onClick={() => setShowSidebar(true)} />
+      <Header onClick={handleSidebarToggle} />
       <div className="absolute left-1/2 top-[-39px] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
       <main className="relative w-full mt-12">
         <NoticeSection notices={mainData?.topNotices || []} />
-        <section className="mx-5 mt-6">
-          <h2 className="mb-2 text-white headline-small">
-            지금까지 {Math.max(mainData?.writtenLetterNumber || 0, messages.length)}개의
-            <br />
-            메시지가 모였어요 💌
-          </h2>
-          <p className="body-medium text-neutral-40">
-            전체 메시지가 쌓일수록
-            <br />
-            도시에 불이 켜져요
-          </p>
-        </section>
+        <MessageCounter messageCount={messageCount} />
         <CityBackground messageCount={messageCount} />
         <WriteMessageButton isVisible={!isButtonVisible} buttonRef={buttonRef} />
         <WriteMessageButton isVisible={isButtonVisible} isFixed />

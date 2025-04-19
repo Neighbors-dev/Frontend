@@ -21,12 +21,14 @@ import MyMessageDetail from './pages/MyMessageDetail'
 import ToastMessage from './components/ToastMessage'
 import Share from './pages/Share'
 import ShareCode from './pages/ShareCode'
+import Error from './pages/Error'
+import { ErrorBoundary } from '@sentry/react'
 
 export default function App() {
   useViewport()
 
   return (
-    <>
+    <ErrorBoundary fallback={<Error />}>
       <Modal />
       <ToastMessage />
       <Routes>
@@ -55,6 +57,6 @@ export default function App() {
         <Route path="/sharing" element={<ShareCode />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </>
+    </ErrorBoundary>
   )
-} 
+}

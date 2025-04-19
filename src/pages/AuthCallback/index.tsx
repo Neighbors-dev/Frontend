@@ -31,4 +31,6 @@ export default function AuthCallback() {
   if (isLoading) {
     return <PageLoading />
   }
+
+  return null
 }

@@ -36,12 +36,12 @@ export default function NonLoginModal({ isOpen, onClose }: NonLoginModalProps) {
       aria-modal="true"
     >
       <section className="w-full max-w-[335px] rounded-xl bg-neutral-80 p-6">
-        <p className="title-medium mb-1 text-center text-white">비회원으로 작성하시겠어요?</p>
-        <p className="body-medium mb-5 text-center text-white">
+        <p className="mb-1 text-center text-white title-medium">비회원으로 작성하시겠어요?</p>
+        <p className="mb-5 text-center text-white body-medium">
           비회원으로 작성 시, 내가 작성한 메시지 확인 및<br />
           수정 등 서비스 이용에 제한이 있을 수 있어요.
         </p>
-        <div className="flex w-full flex-col gap-3">
+        <div className="flex flex-col w-full gap-3">
           <SolidButton
             variant="primary"
             size="large"
@@ -55,7 +55,7 @@ export default function NonLoginModal({ isOpen, onClose }: NonLoginModalProps) {
           </SolidButton>
           <OutlinedButton
             size="large"
-            className="flex-1 basis-1/2 border border-neutral-70"
+            className="flex-1 border basis-1/2 border-neutral-70"
             onClick={() => {
               onClose()
             }}

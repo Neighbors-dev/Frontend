@@ -1,4 +1,3 @@
-import SolidButton from '@/components/SolidButton'
 import TopButton from './components/TopButton'
 import Header from './components/Header'
 import NoticeSection from './components/NoticeSection'
@@ -8,12 +7,12 @@ import { useGetMessages } from '@/hooks/useMessage'
 import Sidebar from '@/layouts/Sidebar'
 import { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
-import { PencilIcon } from '@/assets/icons'
 import MessageList from './components/MessageList'
+import WriteMessageButton from './components/WriteMessageButton'
 
 export default function MainPage() {
   const [showFade, setShowFade] = useState(false)
@@ -21,10 +20,9 @@ export default function MainPage() {
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
   const [buttonRef, isButtonVisible] = useInView({
-    rootMargin: '-40px 0px 100%',
+    rootMargin: '-50px 0px 100%',
     threshold: 0,
   })
-  const navigate = useNavigate()
   const location = useLocation()
   useBodyBackgroundColor('#14192F')
 
@@ -99,35 +97,14 @@ export default function MainPage() {
           </div>
           <div id="bg-2" className="main-background" />
         </div>
-        <div className="relative">
-          <SolidButton
-            ref={buttonRef}
-            variant="primary"
-            size="large"
-            className="relative z-10 py-4 mx-auto rounded-full"
-            onClick={() => navigate('/write')}
-          >
-            메시지 작성하기 <PencilIcon className="w-5 h-5" />
-          </SolidButton>
-          <div className="absolute bottom-[-9px] left-1/2 z-[-1] h-[23px] w-[93px] -translate-x-1/2 rounded-[50px] bg-brand-yellow blur-[27px]" />
-        </div>
+        <WriteMessageButton isVisible={!isButtonVisible} buttonRef={buttonRef} />
+        <WriteMessageButton isVisible={isButtonVisible} isFixed />
         <div
           className={twMerge(
             'fixed left-1/2 top-12 h-[83px] w-full -translate-x-1/2 bg-gradient-to-b from-[#171D32] to-[#171D32]/0 to-45% transition-opacity',
             showFade ? 'opacity-100' : 'opacity-0'
           )}
         />
-        <SolidButton
-          variant="primary"
-          size="large"
-          className={twMerge(
-            'fixed bottom-[100px] left-1/2 z-50 -translate-x-1/2 rounded-full py-4 transition-opacity duration-200',
-            isButtonVisible ? 'pointer-events-none opacity-0' : 'opacity-100'
-          )}
-          onClick={() => navigate('/write')}
-        >
-          메시지 작성하기 <PencilIcon className="w-5 h-5" />
-        </SolidButton>
         <MessageList
           messages={messages}
           hasNextPage={hasNextPage}

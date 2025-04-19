@@ -2,27 +2,17 @@ import useAuthStore from '@/stores/authStore'
 import { client, guestClient } from './client'
 
 export const getKakaoLogin = async (code: string) => {
-  const memberLogin = useAuthStore.getState().memberLogin
-  const nonMemberLogin = useAuthStore.getState().nonMemberLogin
+  const { memberLogin, nonMemberLogin } = useAuthStore.getState()
 
-  let api
-
-  if (process.env.NODE_ENV === 'development') {
-    api = '/oauth/kakao/callback2'
-  } else {
-    api = '/oauth/kakao/callback'
-  }
+  const api =
+    process.env.NODE_ENV === 'development' ? '/oauth/kakao/callback2' : '/oauth/kakao/callback'
 
   try {
     const {
       data: {
         data: { isMember, authTokens, email, userInfo },
       },
-    } = await guestClient.get(api, {
-      params: {
-        code,
-      },
-    })
+    } = await guestClient.get(api, { params: { code } })
 
     if (isMember) {
       const accessToken = {
@@ -42,10 +32,9 @@ export const getKakaoLogin = async (code: string) => {
 
     return { isRegistered: isMember }
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
-    return false
+    const errorMessage =
+      error instanceof Error ? error.message : '카카오 로그인 중 오류가 발생했습니다.'
+    throw new Error(errorMessage)
   }
 }
 

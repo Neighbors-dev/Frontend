@@ -72,10 +72,10 @@ export default function Main() {
       <Sidebar show={showSidebar} setShow={setShowSidebar} />
       <Header onClick={() => setShowSidebar(true)} />
       <div className="absolute left-1/2 top-[-39px] h-[350px] w-screen -translate-x-1/2 bg-star-top bg-cover bg-center" />
-      <main className="relative mt-12 w-full">
+      <main className="relative w-full mt-12">
         <NoticeSection notices={mainData?.topNotices || []} />
         <section className="mx-5 mt-6">
-          <h2 className="headline-small mb-2 text-white">
+          <h2 className="mb-2 text-white headline-small">
             지금까지 {Math.max(mainData?.writtenLetterNumber || 0, messages.length)}개의
             <br />
             메시지가 모였어요 💌
@@ -86,7 +86,7 @@ export default function Main() {
             도시에 불이 켜져요
           </p>
         </section>
-        <div className="relative mx-5 mb-16 mt-10">
+        <div className="relative mx-5 mt-10 mb-16">
           <div className="overflow-hidden">
             <img
               src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
@@ -101,10 +101,10 @@ export default function Main() {
             ref={buttonRef}
             variant="primary"
             size="large"
-            className="relative z-10 mx-auto rounded-full py-4"
+            className="relative z-10 py-4 mx-auto rounded-full"
             onClick={() => navigate('/write')}
           >
-            메시지 작성하기 <PencilIcon className="h-5 w-5" />
+            메시지 작성하기 <PencilIcon className="w-5 h-5" />
           </SolidButton>
           <div className="absolute bottom-[-9px] left-1/2 z-[-1] h-[23px] w-[93px] -translate-x-1/2 rounded-[50px] bg-brand-yellow blur-[27px]" />
         </div>
@@ -123,9 +123,9 @@ export default function Main() {
           )}
           onClick={() => navigate('/write')}
         >
-          메시지 작성하기 <PencilIcon className="h-5 w-5" />
+          메시지 작성하기 <PencilIcon className="w-5 h-5" />
         </SolidButton>
-        <section className="mx-5 my-7 flex flex-col items-center gap-5">
+        <section className="flex flex-col items-center gap-5 mx-5 my-7">
           {messages.map((message, index) => (
             <MessageCard
               key={index}

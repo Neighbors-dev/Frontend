@@ -50,7 +50,7 @@ export default function NoticeSection({ notices }: NoticeSectionProps) {
   return (
     <Link to="/notice">
       <section className="relative z-10 mx-5 mt-1 flex items-center gap-2.5 rounded-xl bg-white/10 px-4 py-3">
-        <h2 className="title-small shrink-0 text-white">공지</h2>
+        <h2 className="text-white title-small shrink-0">공지</h2>
         <div className="h-[22px] w-full overflow-hidden">
           <div
             ref={noticeRef}

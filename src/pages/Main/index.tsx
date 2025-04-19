@@ -13,9 +13,9 @@ import MessageModal from '@/components/MessageModal'
 import { extractImgLink } from '@/utils/extractImgLink'
 import MessageList from './components/MessageList'
 import WriteMessageButton from './components/WriteMessageButton'
+import { useScrollFade } from '@/hooks/useScrollFade'
 
 export default function MainPage() {
-  const [showFade, setShowFade] = useState(false)
   const [showSidebar, setShowSidebar] = useState(false)
   const [activeMessage, setActiveMessage] = useState<MessageType | undefined>()
   const [ref, inView] = useInView()
@@ -23,7 +23,8 @@ export default function MainPage() {
     rootMargin: '-50px 0px 100%',
     threshold: 0,
   })
-  const location = useLocation()
+  const { state } = useLocation()
+  const showFade = useScrollFade()
   useBodyBackgroundColor('#14192F')
 
   const { data: mainData, refetch: mainDataRefetch } = useMainData()
@@ -41,28 +42,17 @@ export default function MainPage() {
   )
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const targetPosition = 430
-      setShowFade(scrollPosition > targetPosition)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage()
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   useEffect(() => {
-    if (location.state && location.state.from === 'write') {
+    if (state?.from === 'write') {
       mainDataRefetch()
       messagesRefetch()
     }
-  }, [location])
+  }, [state?.from])
 
   return (
     <>

@@ -3,7 +3,7 @@ import SolidButton from '@/components/SolidButton'
 import TextButton from '@/components/TextButton'
 import { useEffect, useState } from 'react'
 import { ENVELOPE_IMG } from '@/constants/image'
-import NonLoginModal from '@/containers/Login/NonLoginModal'
+import NonLoginModal from './components/NonLoginModal'
 
 const REDIRECT_URI = `${window.location.origin}${import.meta.env.VITE_KAKAO_REDIRECT_URI}`
 const kakaoLoginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_URI}`
@@ -29,23 +29,23 @@ export default function Login() {
   return (
     <>
       <NonLoginModal isOpen={isOpen} onClose={handleModalClose} />
-      <main className="content-padding flex w-full grow flex-col items-center justify-between">
-        <div className="fixed left-0 top-0 z-0 h-1/2 w-full bg-star-top bg-cover bg-center" />
-        <div className="fixed bottom-0 left-0 z-0 h-1/2 w-full bg-star-bottom bg-cover bg-center" />
+      <main className="flex flex-col items-center justify-between w-full content-padding grow">
+        <div className="fixed top-0 left-0 z-0 w-full bg-center bg-cover h-1/2 bg-star-top" />
+        <div className="fixed bottom-0 left-0 z-0 w-full bg-center bg-cover h-1/2 bg-star-bottom" />
         <div>
           <div className="absolute left-1/2 top-[20%] z-10 -translate-x-1/2">
             <h1 className="flex flex-col items-center gap-[33px]">
-              <LogoIcon className="h-8 w-auto" />
+              <LogoIcon className="w-auto h-8" />
               <div className="h-[102px] w-[102px]">
                 <img
                   src={ENVELOPE_IMG}
                   alt="편지 아이콘"
-                  className="h-full w-full object-contain"
+                  className="object-contain w-full h-full"
                   loading="eager"
                 />
               </div>
             </h1>
-            <p className="title-large-light mt-10 text-center text-white">
+            <p className="mt-10 text-center text-white title-large-light">
               경찰관, 소방관 분들께
               <br />
               감사의 마음을 전하고
@@ -54,7 +54,7 @@ export default function Login() {
             </p>
           </div>
         </div>
-        <section className="z-10 flex w-full flex-col gap-5">
+        <section className="z-10 flex flex-col w-full gap-5">
           <SolidButton
             variant="primary"
             size="large"
@@ -64,7 +64,7 @@ export default function Login() {
               window.location.href = kakaoLoginUrl
             }}
           >
-            <KakaoIcon className="h-5 w-5" />
+            <KakaoIcon className="w-5 h-5" />
             카카오로 시작하기
           </SolidButton>
           <TextButton

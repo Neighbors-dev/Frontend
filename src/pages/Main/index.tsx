@@ -10,10 +10,10 @@ import { useInView } from 'react-intersection-observer'
 import { useLocation } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
 import MessageModal from '@/components/MessageModal'
-import { extractImgLink } from '@/utils/extractImgLink'
 import MessageList from './components/MessageList'
 import WriteMessageButton from './components/WriteMessageButton'
 import { useScrollFade } from '@/hooks/useScrollFade'
+import CityBackground from './components/CityBackground'
 
 export default function MainPage() {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -39,6 +39,11 @@ export default function MainPage() {
   const messages = useMemo(
     () => data?.pages.flatMap((page) => page.openedLetters ?? []) ?? [],
     [data?.pages]
+  )
+
+  const messageCount = useMemo(
+    () => Math.max(mainData?.writtenLetterNumber || 0, messages.length),
+    [mainData?.writtenLetterNumber, messages.length]
   )
 
   useEffect(() => {
@@ -77,16 +82,7 @@ export default function MainPage() {
             도시에 불이 켜져요
           </p>
         </section>
-        <div className="relative mx-5 mt-10 mb-16">
-          <div className="overflow-hidden">
-            <img
-              src={extractImgLink(Math.max(mainData?.writtenLetterNumber || 0, messages.length))}
-              alt="배경 이미지"
-              className="relative left-1/2 h-auto w-full min-w-[360px] max-w-[560px] -translate-x-1/2"
-            />
-          </div>
-          <div id="bg-2" className="main-background" />
-        </div>
+        <CityBackground messageCount={messageCount} />
         <WriteMessageButton isVisible={!isButtonVisible} buttonRef={buttonRef} />
         <WriteMessageButton isVisible={isButtonVisible} isFixed />
         <div

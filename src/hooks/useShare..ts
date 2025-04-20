@@ -1,11 +1,12 @@
 import { getSharing } from '@/apis/share'
+import { CACHE_TIME, STALE_TIME } from '@/constants/cache'
 import { useQuery } from '@tanstack/react-query'
 
 export const useGetSharing = () => {
   return useQuery({
     queryKey: ['sharing'],
     queryFn: () => getSharing(),
-    staleTime: 1000 * 60 * 5, // 5분
-    gcTime: 1000 * 60 * 60, // 1시간
+    staleTime: STALE_TIME,
+    gcTime: CACHE_TIME,
   })
 }

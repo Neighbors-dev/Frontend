@@ -1,4 +1,5 @@
 import { getNoticeById, getNotices } from '@/apis/notice'
+import { CACHE_TIME, STALE_TIME } from '@/constants/cache'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useGetNotices = (size: number) => {
@@ -12,8 +13,8 @@ export const useGetNotices = (size: number) => {
       return allPages.length // 다음 페이지 번호
     },
     initialPageParam: 0,
-    staleTime: 1000 * 60 * 5, // 5분
-    gcTime: 1000 * 60 * 60, // 1시간
+    staleTime: STALE_TIME,
+    gcTime: CACHE_TIME,
   })
 }
 
@@ -21,7 +22,7 @@ export const useGetNoticeById = (id: string) => {
   return useQuery({
     queryKey: ['notice', id],
     queryFn: () => getNoticeById(id),
-    staleTime: 1000 * 60 * 60, // 1시간
-    gcTime: 1000 * 60 * 60 * 2, // 2시간
+    staleTime: CACHE_TIME,
+    gcTime: CACHE_TIME * 2,
   })
 }

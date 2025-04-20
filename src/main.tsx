@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import App from '@/App'
 import '@/styles/index.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as Sentry from '@sentry/react'
 import { browserTracingIntegration, replayIntegration } from '@sentry/react'
 
@@ -16,7 +16,36 @@ Sentry.init({
   tracePropagationTargets: ['localhost', import.meta.env.VITE_API_URL],
 })
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      if (error instanceof Error) {
+        Sentry.captureException(error)
+      } else {
+        Sentry.captureMessage('Unknown Query Error', {
+          extra: { error },
+        })
+      }
+    },
+  }),
+  mutationCache: new MutationCache({
+    onError: (error) => {
+      if (error instanceof Error) {
+        Sentry.captureException(error)
+      } else {
+        Sentry.captureMessage('Unknown Mutation Error', {
+          extra: { error },
+        })
+      }
+    },
+  }),
+})
 
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>

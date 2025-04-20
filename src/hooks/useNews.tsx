@@ -1,4 +1,5 @@
 import { getNews } from '@/apis/news'
+import { CACHE_TIME, STALE_TIME } from '@/constants/cache'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 const NEWS_SIZE = 10
@@ -14,7 +15,7 @@ export const useGetNews = () => {
       return allPages.length
     },
     initialPageParam: 0,
-    staleTime: 1000 * 60 * 5, // 5분
-    gcTime: 1000 * 60 * 60, // 1시간
+    staleTime: STALE_TIME,
+    gcTime: CACHE_TIME,
   })
 }

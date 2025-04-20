@@ -1,39 +1,33 @@
 import { client } from './client'
 
 export const getMessages = async (page: number, size: number) => {
-  try {
-    const {
-      data: { data },
-    } = await client.get('/mainPage/letter', {
-      params: {
-        page,
-        size,
-      },
-    })
-    return data
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
+  const {
+    data: { data },
+  } = await client.get('/mainPage/letter', {
+    params: {
+      page,
+      size,
+    },
+  })
+  if (!data) {
+    throw new Error('No messages received from server')
   }
+  return data
 }
 
 export const getMainData = async () => {
-  try {
-    const {
-      data: { data },
-    } = await client.get('/mainPage', {
-      params: {
-        page: 0,
-        size: 1,
-      },
-    })
-    return data
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message)
-    }
+  const {
+    data: { data },
+  } = await client.get('/mainPage', {
+    params: {
+      page: 0,
+      size: 1,
+    },
+  })
+  if (!data) {
+    throw new Error('No main data received from server')
   }
+  return data
 }
 
 export const getSearchResult = async (keyword: string, target: string) => {

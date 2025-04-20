@@ -22,9 +22,9 @@ export default function LoginPage() {
   return (
     <>
       <NonLoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      <main className="main-container content-padding">
-        <div className="fixed top-0 left-0 z-0 w-full bg-center bg-cover h-1/2 bg-star-top" />
-        <div className="fixed bottom-0 left-0 z-0 w-full bg-center bg-cover h-1/2 bg-star-bottom" />
+      <main className="main-container content-padding justify-between">
+        <div className="fixed left-0 top-0 z-0 h-1/2 w-full bg-star-top bg-cover bg-center" />
+        <div className="fixed bottom-0 left-0 z-0 h-1/2 w-full bg-star-bottom bg-cover bg-center" />
         <LoginHeader />
         <LoginActions
           onKakaoLoginClick={() => {

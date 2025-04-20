@@ -17,7 +17,7 @@ export default function AuthCallback() {
 
   if (error) {
     return (
-      <main className="main-container content-padding">
+      <main className="main-container content-padding justify-between">
         <p className="mb-4 text-red-500">{error}</p>
         <Link to="/">
           <SolidButton variant="primary" size="medium" className="rounded-full">

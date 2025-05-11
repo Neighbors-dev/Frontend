@@ -36,15 +36,15 @@ export const WITHDRAW_OPTIONS = [
   '그 외 기타',
 ]
 
-export const MAIN_BACKGROUND_IMAGE_BASE_LINK = 'https://storage.googleapis.com/to-hero/images/'
+export const MAIN_BACKGROUND_IMAGE_BASE_LINK = 'https://storage.googleapis.com/to-hero-2/images/'
 
 export const MAIN_BACKGROUND_IMAGE_LINK = [
-  'phase_0.webp',
-  'phase_1.webp',
-  'phase_2.webp',
-  'phase_3.webp',
-  'phase_4.webp',
-  'phase_5.webp',
-  'phase_6.webp',
-  'phase_8.webp',
+  'phase_0_1x.webp',
+  'phase_1_1x.webp',
+  'phase_2_1x.webp',
+  'phase_3_1x.webp',
+  'phase_4_1x.webp',
+  'phase_5_1x.webp',
+  'phase_6_1x.webp',
+  'phase_8_1x.webp',
 ]

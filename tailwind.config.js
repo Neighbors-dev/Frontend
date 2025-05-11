@@ -57,8 +57,7 @@ export default {
         'message-gradient': 'linear-gradient(to bottom, #FDFDFD 46.75%, #FFFED9 100%)',
         'login-gradient': 'background: linear-gradient(180deg, #191E33 24.5%, #303C70 100%);',
         'star-top': "url('https://storage.googleapis.com/to-hero-2/images/stars-top-1.webp')",
-        'star-bottom':
-          "url('https://storage.googleapis.com/to-hero0-2/images/stars-bottom-1.webp')",
+        'star-bottom': "url('https://storage.googleapis.com/to-hero-2/images/stars-bottom-1.webp')",
       },
       boxShadow: {
         dropdown: '0px 4px 24px 0px rgba(33, 33, 33, 0.60)',
